@@ -1,5 +1,6 @@
-import { Github } from "@medusajs/icons";
+import LocalizedClientLink from "@modules/common/components/localized-client-link";
 import { Button, Heading } from "@modules/common/components/ui";
+
 const Hero = () => {
   return (
     <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
@@ -9,20 +10,14 @@ const Hero = () => {
             level="h1"
             className="text-3xl leading-10 text-ui-fg-base font-normal"
           >
-            Ecommerce Starter Template
-          </Heading>
-          <Heading
-            level="h2"
-            className="text-3xl leading-10 text-ui-fg-subtle font-normal"
-          >
-            Powered by Medusa and Next.js
+            Witaj na sklepie Gamer Fix
           </Heading>
         </span>
-        <a href="https://github.com/medusajs/dtc-starter" target="_blank">
+        <LocalizedClientLink href="/store">
           <Button variant="secondary">
-            View on GitHub <Github />
+            Przeglądaj produkty
           </Button>
-        </a>
+        </LocalizedClientLink>
       </div>
     </div>
   );

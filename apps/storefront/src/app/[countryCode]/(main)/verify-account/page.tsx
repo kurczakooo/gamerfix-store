@@ -14,7 +14,7 @@ export default function VerifyAccountPage() {
       <Suspense
         fallback={
           <p className="text-base-regular text-ui-fg-base">
-            Verifying your email...
+            Weryfikowanie adresu email...
           </p>
         }
       >
