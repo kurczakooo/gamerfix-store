@@ -17,11 +17,11 @@ const sortOptions = [
   },
   {
     value: "price_asc",
-    label: "Ceny: Najniższe -> Najwyższe",
+    label: "Ceny: Od najniższych",
   },
   {
     value: "price_desc",
-    label: "Ceny: Najwyższe -> Najniższe",
+    label: "Ceny: Od najwyższych",
   },
 ]
 
@@ -36,7 +36,7 @@ const SortProducts = ({
 
   return (
     <FilterRadioGroup
-      title="Sort by"
+      title="Sortowanie"
       items={sortOptions}
       value={sortBy}
       handleChange={handleChange}

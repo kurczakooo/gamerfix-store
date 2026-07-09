@@ -13,10 +13,10 @@ import { Locale } from "@lib/data/locales"
 
 
 const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Account: "/account",
-  Cart: "/cart",
+  "Strona główna": "/",
+  "Sklep": "/store",
+  "Konto": "/account",
+  "Koszyk": "/cart",
 }
 
 type SideMenuProps = {
