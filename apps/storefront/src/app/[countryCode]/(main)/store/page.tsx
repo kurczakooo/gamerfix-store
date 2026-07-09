@@ -5,8 +5,8 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import StoreTemplate from "@modules/store/templates"
 
 export const metadata: Metadata = {
-  title: "Store",
-  description: "Explore all of our products.",
+  title: "Sklep | GAMER FIX",
+  description: "Przeglądaj wszystkie nasze produkty.",
 }
 
 type StorePageSearchParams = Record<string, string | string[] | undefined> & {
