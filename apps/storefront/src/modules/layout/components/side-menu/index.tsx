@@ -10,11 +10,14 @@ import { Fragment } from "react"
 import CountrySelect from "../country-select"
 import LanguageSelect from "../language-select"
 import { Locale } from "@lib/data/locales"
+import Menu from "@modules/common/icons/menu"
 
 
 const SideMenuItems = {
   "Strona główna": "/",
   "Sklep": "/store",
+  "Serwis": "/service",
+  "Kontakt": "/contact",
   "Konto": "/account",
   "Koszyk": "/cart",
 }
@@ -40,7 +43,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                   data-testid="nav-menu-button"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
-                  Menu
+                  <Menu />
                 </Popover.Button>
               </div>
 
@@ -126,10 +129,6 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                           )}
                         />
                       </div>
-                      {/* <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Medusa Store. All rights
-                        reserved.
-                      </Text> */}
                     </div>
                   </div>
                 </PopoverPanel>

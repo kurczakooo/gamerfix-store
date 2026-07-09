@@ -25,7 +25,7 @@ export default async function Footer() {
               GAMER FIX
             </LocalizedClientLink>
           </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
+          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-4">
             {/* CATEGORIES LIST - UNECESSARY ATM */}
             {/* {productCategories && productCategories?.length > 0 && (
               <div className="flex flex-col gap-y-2">
@@ -223,7 +223,7 @@ export default async function Footer() {
         </div>
         <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
           <Text className="text-xs">
-            © {new Date().getFullYear()} GamerFix
+            © {new Date().getFullYear()} Gamer Fix
           </Text>
         </div>
       </div>
