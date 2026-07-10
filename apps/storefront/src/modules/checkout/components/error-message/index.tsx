@@ -1,3 +1,8 @@
+const errorMessageMap = {
+    "Error: Invalid email or password" : "Błąd: Nieprawidłowy e-mail lub hasło"
+}
+
+
 const ErrorMessage = ({ error, 'data-testid': dataTestid }: { error?: string | null, 'data-testid'?: string }) => {
   if (!error) {
     return null
@@ -5,7 +10,7 @@ const ErrorMessage = ({ error, 'data-testid': dataTestid }: { error?: string | n
 
   return (
     <div className="pt-2 text-rose-500 text-small-regular" data-testid={dataTestid}>
-      <span>{error}</span>
+      <span>{errorMessageMap[error]}</span>
     </div>
   )
 }
