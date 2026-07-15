@@ -37,4 +37,8 @@ module.exports = defineConfig({
       },
     },
   ],
+  admin: {
+    // Set max upload size to 30MB
+    maxUploadFileSize: 30 * 1024 * 1024,
+  },
 });
