@@ -73,12 +73,21 @@ export default function CategoryTemplate({
         )}
         {category.category_children && (
           <div className="mb-8 text-base-large">
-            <ul className="grid grid-cols-1 gap-2">
+            <ul className="flex flex-wrap gap-2">
               {category.category_children?.map((c) => (
                 <li key={c.id}>
-                  <InteractiveLink href={`/categories/${c.handle}`}>
-                    {c.name}
-                  </InteractiveLink>
+                  <LocalizedClientLink
+                    className="hover:text-black"
+                    href={`/categories/${c.handle}`}
+                    data-testid="sort-by-link"
+                  >
+                    <button
+                      className="border-ui-border-base bg-ui-bg-subtle border text-s h-10 rounded-rounded px-4 hover:shadow-elevation-card-rest transition-shadow ease-in-out duration-150"
+                      data-testid="category-button"
+                    >
+                      {c.name}
+                    </button>
+                  </LocalizedClientLink>
                 </li>
               ))}
             </ul>

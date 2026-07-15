@@ -9,6 +9,7 @@ import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 import Cart from "@modules/common/icons/cart"
 import CartButtonTotalItems from "@modules/layout/components/cart-button/button-total-items"
+import ShopButton from "@modules/layout/components/shop-button"
 
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
@@ -23,7 +24,11 @@ export default async function Nav() {
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex small:hidden flex basis-0 h-full items-center">
             <div className="h-full text-xl font-semibold">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
+              <SideMenu
+                regions={regions}
+                locales={locales}
+                currentLocale={currentLocale}
+              />
             </div>
           </div>
 
@@ -39,13 +44,17 @@ export default async function Nav() {
 
           <div className="flex items-center gap-x-12 h-full justify-center text-xl font-semibold">
             <div className="hidden small:flex items-center gap-x-6 h-full">
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/store"
-                data-testid="nav-store-link"
+              <Suspense
+                fallback={
+                  <LocalizedClientLink
+                    className="hover:text-ui-fg-base flex gap-2"
+                    href="/store"
+                    data-testid="nav-store-link"
+                  ></LocalizedClientLink>
+                }
               >
-                Sklep
-              </LocalizedClientLink>
+                <ShopButton />
+              </Suspense>
             </div>
             <div className="hidden small:flex items-center gap-x-6 h-full">
               <LocalizedClientLink
@@ -66,43 +75,42 @@ export default async function Nav() {
               </LocalizedClientLink>
             </div>
           </div>
-            <div className="flex items-center gap-x-6 h-full text-xl font-semibold">
-              <div className="hidden small:flex items-center gap-x-6 h-full">
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base"
-                  href="/account"
-                  data-testid="nav-account-link"
-                >
-                  Konto
-                </LocalizedClientLink>
-              </div>
-              <div className="hidden small:flex items-center gap-x-6 h-full">
-                <Suspense
-                  fallback={
-                    <LocalizedClientLink
-                      className="hover:text-ui-fg-base flex gap-2"
-                      href="/cart"
-                      data-testid="nav-cart-link"
-                    >
-                    </LocalizedClientLink>
-                  }
-                >
-                  <CartButton />
-                </Suspense>
-              </div>
-              <div className="flex small:hidden items-center gap-x-6 h-full">
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
-                  href="/cart"
-                  data-testid="nav-cart-link"
-                >
-                  <div className="flex flex-1 items-center">
-                    <Cart/>
-                    <CartButtonTotalItems />
-                  </div>
-                </LocalizedClientLink>
-              </div>
+          <div className="flex items-center gap-x-6 h-full text-xl font-semibold">
+            <div className="hidden small:flex items-center gap-x-6 h-full">
+              <LocalizedClientLink
+                className="hover:text-ui-fg-base"
+                href="/account"
+                data-testid="nav-account-link"
+              >
+                Konto
+              </LocalizedClientLink>
             </div>
+            <div className="hidden small:flex items-center gap-x-6 h-full">
+              <Suspense
+                fallback={
+                  <LocalizedClientLink
+                    className="hover:text-ui-fg-base flex gap-2"
+                    href="/cart"
+                    data-testid="nav-cart-link"
+                  ></LocalizedClientLink>
+                }
+              >
+                <CartButton />
+              </Suspense>
+            </div>
+            <div className="flex small:hidden items-center gap-x-6 h-full">
+              <LocalizedClientLink
+                className="hover:text-ui-fg-base flex gap-2"
+                href="/cart"
+                data-testid="nav-cart-link"
+              >
+                <div className="flex flex-1 items-center">
+                  <Cart />
+                  <CartButtonTotalItems />
+                </div>
+              </LocalizedClientLink>
+            </div>
+          </div>
         </nav>
       </header>
     </div>
