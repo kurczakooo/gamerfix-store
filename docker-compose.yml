@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
     env_file:
-      - ./apps/backend/.env
+      - .env
 
     ports:
       - "9000:9000"
