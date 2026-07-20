@@ -50,7 +50,8 @@ jobs:
           key: ${{ secrets.BACKEND_HOST_VPS_SSH_KEY }}
 
           script: |
-            cd ~/gamerfix-store
+            set -e
+            cd /home/deployuser/gamerfix-store
 
             cat > .env <<EOF
             NODE_ENV=${{ secrets.NODE_ENV }}
@@ -73,6 +74,6 @@ jobs:
             EOF
 
             docker compose pull
-            docker compose up -deploy
+            docker compose up -d
 
             docker image prune -f
