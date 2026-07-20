@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - config/backend-files-url
+      - devops/docker-config
 
 permissions:
   contents: read
