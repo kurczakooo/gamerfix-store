@@ -39,7 +39,7 @@ export default async function Footer() {
                 </li>
                 <li>
                   <LocalizedClientLink
-                    href="/customer-service"
+                    href="/faq"
                     className="hover:text-ui-fg-base"
                   >
                     FAQ
@@ -47,15 +47,15 @@ export default async function Footer() {
                 </li>
                 <li>
                   <LocalizedClientLink
-                    href="/content/terms-of-use"
+                    href="/terms-of-use"
                     className="hover:text-ui-fg-base"
                   >
-                    Regulamin
+                    Regulamin sklepu i serwisu
                   </LocalizedClientLink>
                 </li>
                 <li>
                   <LocalizedClientLink
-                    href="/content/privacy-policy"
+                    href="/privacy-policy"
                     className="hover:text-ui-fg-base"
                   >
                     Polityka prywatności
@@ -63,18 +63,10 @@ export default async function Footer() {
                 </li>
                 <li>
                   <LocalizedClientLink
-                    href="/content/shipping-and-payment"
+                    href="/ship-and-pay"
                     className="hover:text-ui-fg-base"
                   >
-                    Dostawa i płatności
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <LocalizedClientLink
-                    href="/content/returns-and-complaints"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Zwroty i reklamacje
+                    Dostawa i płatność
                   </LocalizedClientLink>
                 </li>
               </ul>
