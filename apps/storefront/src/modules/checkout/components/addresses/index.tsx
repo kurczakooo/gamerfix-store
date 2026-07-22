@@ -84,7 +84,7 @@ const Addresses = ({
               </div>
             )}
             <SubmitButton className="mt-6" data-testid="submit-address-button">
-              Przejdź do wyboru dostawy
+              Przejdź do wyboru metody dostawy
             </SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
@@ -139,12 +139,12 @@ const Addresses = ({
                     data-testid="billing-address-summary"
                   >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Adres rachunku
+                      Adres płatności
                     </Text>
 
                     {sameAsBilling ? (
                       <Text className="txt-medium text-ui-fg-subtle">
-                        Adresy dostawy i rachunku są takie same.
+                        Adresy dostawy i płatności są takie same.
                       </Text>
                     ) : (
                       <>

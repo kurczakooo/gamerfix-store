@@ -160,6 +160,17 @@ export default function ProductActions({
           )}
         </div>
 
+        <div>
+          {selectedVariant?.manage_inventory && (
+            <div className="text-base-regular text-gray-600">
+              Dostępnych sztuk:{" "}
+              {selectedVariant?.inventory_quantity >= 0
+                ? selectedVariant.inventory_quantity
+                : "Wybierz opcje"}
+            </div>
+          )}
+        </div>
+
         <ProductPrice product={product} variant={selectedVariant} />
 
         <Button
@@ -177,10 +188,10 @@ export default function ProductActions({
           data-testid="add-product-button"
         >
           {!selectedVariant && !options
-            ? "Select variant"
+            ? "Wybierz opcje"
             : !inStock || !isValidVariant
-            ? "Out of stock"
-            : "Add to cart"}
+            ? "Wyprzedane"
+            : "Dodaj do koszyka"}
         </Button>
         <MobileActions
           product={product}
