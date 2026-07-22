@@ -12,14 +12,13 @@ import LanguageSelect from "../language-select"
 import { Locale } from "@lib/data/locales"
 import Menu from "@modules/common/icons/menu"
 
-
 const SideMenuItems = {
   "Strona główna": "/",
-  "Sklep": "/store",
-  "Serwis": "/service",
-  "Kontakt": "/contact",
-  "Konto": "/account",
-  "Koszyk": "/cart",
+  Sklep: "/store",
+  Serwis: "/service",
+  Kontakt: "/contact",
+  Konto: "/account",
+  Koszyk: "/cart",
 }
 
 type SideMenuProps = {
