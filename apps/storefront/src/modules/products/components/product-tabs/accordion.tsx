@@ -15,6 +15,8 @@ type AccordionItemProps = AccordionPrimitive.AccordionItemProps & {
   active?: boolean
   triggerable?: boolean
   children: React.ReactNode
+  titleClassName?: string
+  contentClassName?: string
 }
 
 type AccordionProps =
@@ -41,6 +43,8 @@ const Item: React.FC<AccordionItemProps> = ({
   customTrigger = undefined,
   forceMountContent = undefined,
   triggerable: _triggerable,
+  titleClassName = undefined,
+  contentClassName = undefined,
   ...props
 }) => {
   return (
@@ -56,7 +60,11 @@ const Item: React.FC<AccordionItemProps> = ({
         <div className="flex flex-col">
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-4">
-              <Text className="text-ui-fg-subtle text-sm">{title}</Text>
+              <Text
+                className={clx("text-ui-fg-subtle text-sm", titleClassName)}
+              >
+                {title}
+              </Text>
             </div>
             <AccordionPrimitive.Trigger>
               {customTrigger || <MorphingTrigger />}
@@ -77,7 +85,7 @@ const Item: React.FC<AccordionItemProps> = ({
       >
         <div className="inter-base-regular group-radix-state-closed:animate-accordion-close">
           {description && <Text>{description}</Text>}
-          <div className="w-full">{children}</div>
+          <div className={clx("w-full", contentClassName)}>{children}</div>
         </div>
       </AccordionPrimitive.Content>
     </AccordionPrimitive.Item>
