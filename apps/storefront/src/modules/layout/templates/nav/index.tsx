@@ -38,7 +38,7 @@ export default async function Nav() {
               className="hover:text-ui-fg-base text-xl"
               data-testid="nav-store-link"
             >
-              GAMER FIX
+              Gamer Fix
             </LocalizedClientLink>
           </div>
 
