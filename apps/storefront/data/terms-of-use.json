@@ -1,0 +1,138 @@
+{
+  "storeRegulations": {
+    "title": "Regulamin sklepu internetowego",
+    "sections": [
+      {
+        "title": "1. Postanowienia ogólne",
+        "content": [
+          "Niniejszy regulamin określa zasady korzystania ze sklepu internetowego, składania zamówień, realizacji sprzedaży produktów oraz prawa i obowiązki Sprzedawcy oraz Klienta.",
+          "Sklep prowadzi sprzedaż nowych oraz używanych konsol, komputerów, kontrolerów, akcesoriów oraz części elektronicznych.",
+          "Korzystanie ze sklepu oznacza akceptację niniejszego regulaminu."
+        ]
+      },
+      {
+        "title": "2. Definicje",
+        "content": [
+          "Klient - osoba fizyczna, osoba prawna lub jednostka organizacyjna dokonująca zakupu w sklepie.",
+          "Sprzedawca - właściciel sklepu internetowego.",
+          "Produkt - sprzęt elektroniczny, akcesoria lub inne towary dostępne w ofercie sklepu.",
+          "Sklep - serwis internetowy umożliwiający zakup produktów."
+        ]
+      },
+      {
+        "title": "3. Składanie zamówień",
+        "content": [
+          "Zamówienia można składać przez stronę internetową sklepu.",
+          "Po złożeniu zamówienia Klient otrzymuje potwierdzenie jego przyjęcia na podany adres e-mail.",
+          "Umowa sprzedaży zostaje zawarta w momencie potwierdzenia realizacji zamówienia przez Sprzedawcę.",
+          "Sprzedawca zastrzega sobie możliwość anulowania zamówienia w przypadku braku dostępności produktu lub błędnej ceny wynikającej z oczywistej pomyłki."
+        ]
+      },
+      {
+        "title": "4. Ceny i płatności",
+        "content": [
+          "Wszystkie ceny produktów podawane są w złotych polskich i zawierają podatek VAT, jeśli znajduje zastosowanie.",
+          "Dostępne metody płatności są prezentowane podczas składania zamówienia.",
+          "Klient zobowiązany jest do dokonania płatności w terminie wskazanym podczas składania zamówienia."
+        ]
+      },
+      {
+        "title": "5. Dostawa produktów",
+        "content": [
+          "Produkty wysyłane są za pośrednictwem dostępnych metod dostawy wybranych podczas składania zamówienia.",
+          "Czas realizacji zamówienia zależy od dostępności produktu oraz wybranej formy dostawy.",
+          "Klient powinien sprawdzić przesyłkę pod kątem uszkodzeń przed jej odbiorem."
+        ]
+      },
+      {
+        "title": "6. Produkty używane",
+        "content": [
+          "Produkty używane przed sprzedażą przechodzą kontrolę techniczną oraz testy sprawności.",
+          "Stan wizualny oraz techniczny produktu jest opisany w jego indywidualnej ofercie.",
+          "Zdjęcia produktu mogą przedstawiać rzeczywisty wygląd sprzedawanego egzemplarza."
+        ]
+      },
+      {
+        "title": "7. Zwroty i odstąpienie od umowy",
+        "content": [
+          "Konsument ma prawo odstąpić od umowy zawartej na odległość w terminie 14 dni od otrzymania produktu.",
+          "Produkt powinien zostać zwrócony w stanie umożliwiającym jego ponowną sprzedaż, z uwzględnieniem normalnego sprawdzenia produktu.",
+          "Prawo odstąpienia może nie obowiązywać w przypadkach określonych przepisami prawa."
+        ]
+      },
+      {
+        "title": "8. Reklamacje",
+        "content": [
+          "Klient może zgłosić reklamację dotyczącą wad produktu lub niezgodności towaru z umową.",
+          "Reklamacja powinna zawierać opis problemu oraz dane umożliwiające kontakt z Klientem.",
+          "Sprzedawca rozpatruje reklamację zgodnie z obowiązującymi przepisami prawa."
+        ]
+      }
+    ]
+  },
+  "serviceRegulations": {
+    "title": "Regulamin serwisu konsol i komputerów",
+    "sections": [
+      {
+        "title": "1. Postanowienia ogólne",
+        "content": [
+          "Regulamin określa zasady świadczenia usług naprawy sprzętu elektronicznego przez serwis.",
+          "Serwis wykonuje naprawy konsol, komputerów, kontrolerów oraz innych urządzeń elektronicznych."
+        ]
+      },
+      {
+        "title": "2. Przyjmowanie sprzętu do naprawy",
+        "content": [
+          "Sprzęt przyjmowany jest do naprawy poprzez wysyłkę zgodnie z aktualnymi zasadami obsługi serwisu.",
+          "Klient powinien odpowiednio zabezpieczyć urządzenie na czas transportu.",
+          "Do przesyłki należy dołączyć opis usterki oraz dane kontaktowe."
+        ]
+      },
+      {
+        "title": "3. Diagnostyka i wycena",
+        "content": [
+          "Każde urządzenie przed naprawą może zostać poddane diagnostyce technicznej.",
+          "Po wykryciu usterki Klient otrzymuje informację o przewidywanym koszcie naprawy.",
+          "Naprawa wykonywana jest po akceptacji kosztów przez Klienta."
+        ]
+      },
+      {
+        "title": "4. Realizacja naprawy",
+        "content": [
+          "Standardowy czas realizacji naprawy wynosi od kilku dni roboczych i zależy od rodzaju usterki oraz dostępności części.",
+          "W przypadku konieczności zamówienia komponentów czas naprawy może ulec wydłużeniu.",
+          "Serwis informuje Klienta o istotnych zmianach dotyczących realizacji usługi."
+        ]
+      },
+      {
+        "title": "5. Części zamienne",
+        "content": [
+          "Serwis może stosować części nowe, regenerowane lub zamienniki zgodnie z ustaleniami z Klientem.",
+          "Rodzaj zastosowanych części może mieć wpływ na koszt oraz okres gwarancji."
+        ]
+      },
+      {
+        "title": "6. Gwarancja na naprawę",
+        "content": [
+          "Na wykonane usługi serwisowe udzielana jest gwarancja zgodnie z warunkami określonymi przy realizacji naprawy.",
+          "Gwarancja obejmuje zakres wykonanej usługi oraz wymienione elementy.",
+          "Uszkodzenia wynikające z niewłaściwego użytkowania urządzenia mogą nie być objęte gwarancją."
+        ]
+      },
+      {
+        "title": "7. Odbiór sprzętu",
+        "content": [
+          "Po zakończeniu naprawy Klient otrzymuje informację o możliwości odbioru lub wysyłki urządzenia.",
+          "Nieodebrany sprzęt może podlegać dodatkowym opłatom za przechowywanie po wcześniejszym poinformowaniu Klienta."
+        ]
+      },
+      {
+        "title": "8. Odpowiedzialność klienta",
+        "content": [
+          "Klient zobowiązany jest przekazać prawdziwe informacje dotyczące historii urządzenia oraz występującej usterki.",
+          "Serwis nie odpowiada za dane znajdujące się na urządzeniu, dlatego Klient powinien wykonać kopię zapasową przed wysyłką."
+        ]
+      }
+    ]
+  }
+}

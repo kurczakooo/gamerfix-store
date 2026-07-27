@@ -1,0 +1,89 @@
+[
+  {
+    "category": "Serwis",
+    "items": [
+      {
+        "q": "Jak długo trwa naprawa konsoli lub komputera?",
+        "a": "Większość napraw realizujemy w ciągu 2–5 dni roboczych od momentu otrzymania sprzętu. W przypadku bardziej skomplikowanych usterek lub konieczności zamówienia części czas realizacji może się wydłużyć."
+      },
+      {
+        "q": "Czy przed naprawą otrzymam wycenę?",
+        "a": "Tak. Po zdiagnozowaniu usterki przedstawiamy koszt naprawy. Prace rozpoczynamy dopiero po akceptacji wyceny przez klienta."
+      },
+      {
+        "q": "Jak przygotować konsolę lub komputer do wysyłki?",
+        "a": "Sprzęt należy bezpiecznie zapakować, najlepiej z wykorzystaniem folii bąbelkowej i sztywnego kartonu. Zalecamy dołączenie krótkiego opisu usterki oraz danych kontaktowych."
+      },
+      {
+        "q": "Czy udzielacie gwarancji na wykonane naprawy?",
+        "a": "Tak. Na wykonane usługi oraz wymienione części udzielamy gwarancji. Jej długość zależy od rodzaju naprawy i jest podawana przy odbiorze sprzętu."
+      },
+      {
+        "q": "Czy naprawiacie konsole wszystkich producentów?",
+        "a": "Tak. Serwisujemy konsole PlayStation, Xbox, Nintendo oraz wybrane urządzenia przenośne. W przypadku nietypowego sprzętu zachęcamy do kontaktu przed wysyłką."
+      },
+      {
+        "q": "Czy naprawiacie pady i kontrolery?",
+        "a": "Tak. Naprawiamy m.in. problemy z dryfującymi analogami, uszkodzonymi przyciskami, portami ładowania oraz bateriami w kontrolerach."
+      }
+    ]
+  },
+  {
+    "category": "Sklep",
+    "items": [
+      {
+        "q": "Czy sprzedawane konsole i kontrolery są sprawdzone przed wysyłką?",
+        "a": "Tak. Każdy używany sprzęt przechodzi dokładne testy techniczne, jest czyszczony oraz sprawdzany pod kątem pełnej sprawności przed wysyłką."
+      },
+      {
+        "q": "Czy oferujecie nowe i używane akcesoria do konsol?",
+        "a": "Tak. W naszej ofercie znajdują się zarówno nowe, jak i używane kontrolery, słuchawki, ładowarki, stacje dokujące, dyski oraz inne akcesoria do popularnych konsol."
+      },
+      {
+        "q": "Co zrobić, jeśli zakupiony produkt okaże się uszkodzony?",
+        "a": "W takiej sytuacji prosimy o kontakt z naszym działem obsługi. Zweryfikujemy zgłoszenie i zaproponujemy naprawę, wymianę produktu lub inne rozwiązanie zgodne z warunkami gwarancji."
+      },
+      {
+        "q": "Czy mogę zamówić części zamienne do konsol i komputerów?",
+        "a": "Tak. Oferujemy szeroki wybór części zamiennych, takich jak wentylatory, dyski, obudowy, napędy, analogi do kontrolerów oraz wiele innych komponentów."
+      },
+      {
+        "q": "Czy sprzedajecie sprzęt używany z gwarancją?",
+        "a": "Tak. Oferowany przez nas sprzęt używany jest dokładnie testowany i objęty gwarancją zgodnie z opisem produktu."
+      },
+      {
+        "q": "Czy mogę zwrócić zakupiony produkt?",
+        "a": "Tak. Konsument ma prawo do zwrotu zakupionego produktu w terminie 14 dni od jego otrzymania, zgodnie z obowiązującymi przepisami."
+      }
+    ]
+  },
+  {
+    "category": "Inne",
+    "items": [
+      {
+        "q": "Czy mogę śledzić status naprawy lub zamówienia?",
+        "a": "Tak. Po przyjęciu sprzętu lub złożeniu zamówienia możesz skontaktować się z nami, aby uzyskać informacje o aktualnym statusie realizacji."
+      },
+      {
+        "q": "Jakie metody płatności są dostępne?",
+        "a": "Akceptujemy płatności online, BLIK, przelew tradycyjny oraz płatność za pobraniem dla wybranych zamówień."
+      },
+      {
+        "q": "Jakie są koszty dostawy?",
+        "a": "Koszt dostawy zależy od wybranej metody wysyłki oraz wartości zamówienia. Aktualne ceny są widoczne podczas składania zamówienia."
+      },
+      {
+        "q": "Czy mogę otrzymać fakturę VAT?",
+        "a": "Tak. Wystawiamy faktury VAT na życzenie klienta. Wystarczy podać dane firmy podczas składania zamówienia."
+      },
+      {
+        "q": "Jak mogę skontaktować się z obsługą klienta?",
+        "a": "Możesz skontaktować się z nami telefonicznie, mailowo lub za pomocą formularza kontaktowego dostępnego na stronie."
+      },
+      {
+        "q": "Czy można przyjechać osobiście ze sprzętem do naprawy oraz po odbiór?",
+        "a": "Na ten moment sposób, w który działamy, opiera się wyłącznie o naprawę wysyłkową."
+      }
+    ]
+  }
+]

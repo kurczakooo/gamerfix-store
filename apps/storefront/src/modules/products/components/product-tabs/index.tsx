@@ -96,7 +96,8 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-semibold">Wymiana produkty</span>
             <p className="max-w-sm">
-              Jeśli otrzymany produkt się nie podoba, lub jest uszkodzony - wymienimy go.
+              Jeśli otrzymany produkt się nie podoba, lub jest uszkodzony -
+              wymienimy go.
             </p>
           </div>
         </div>

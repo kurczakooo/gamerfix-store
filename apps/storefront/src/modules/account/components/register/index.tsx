@@ -20,9 +20,7 @@ const Register = ({ setCurrentView }: Props) => {
       className="max-w-sm flex flex-col items-center"
       data-testid="register-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">
-        Zarejestruj się
-      </h1>
+      <h1 className="text-large-semi uppercase mb-6">Zarejestruj się</h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-4">
         Stworzenie konta udostępni możliwości takie jak:
       </p>
@@ -36,8 +34,8 @@ const Register = ({ setCurrentView }: Props) => {
           className="w-full mb-4 text-center text-base-regular text-ui-fg-base bg-ui-bg-subtle border border-ui-border-base rounded-rounded p-4"
           data-testid="register-verification-message"
         >
-          Wysłaliśmy link weryfikacyjny na adres <strong>{message.email}</strong>.
-          Zweryfikuj swój email i zaloguj się.
+          Wysłaliśmy link weryfikacyjny na adres{" "}
+          <strong>{message.email}</strong>. Zweryfikuj swój email i zaloguj się.
         </div>
       )}
       <form className="w-full flex flex-col" action={formAction}>
@@ -86,17 +84,11 @@ const Register = ({ setCurrentView }: Props) => {
         />
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
           Tworząc konto, zgadzasz się z{" "}
-          <LocalizedClientLink
-            href="/content/privacy-policy"
-            className="underline"
-          >
+          <LocalizedClientLink href="/privacy-policy" className="underline">
             Polityką Prywatności
           </LocalizedClientLink>{" "}
           i{" "}
-          <LocalizedClientLink
-            href="/content/terms-of-use"
-            className="underline"
-          >
+          <LocalizedClientLink href="/terms-of-use" className="underline">
             Regulaminem
           </LocalizedClientLink>
           .
