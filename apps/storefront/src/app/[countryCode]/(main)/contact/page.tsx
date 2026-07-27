@@ -50,10 +50,7 @@ export default async function Contact() {
                     {contactInfo.phone}
                   </div>
                 </a>
-                <a
-                  href="mailto:gamefix.serwis@gmail.com"
-                  className="hover:text-ui-fg-base"
-                >
+                <a className="hover:text-ui-fg-base">
                   <div className="flex items-center gap-1">
                     <Email />
                     {contactInfo.email}
