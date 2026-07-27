@@ -7,7 +7,6 @@ import Phone from "@modules/common/icons/phone"
 import Email from "@modules/common/icons/email"
 import Clock from "@modules/common/icons/clock"
 import contactInfo from "../../../../../data/contact.json"
-import Image from "next/image"
 import ContactForm from "@modules/subpages/templates/contact-form"
 
 export const metadata: Metadata = {
