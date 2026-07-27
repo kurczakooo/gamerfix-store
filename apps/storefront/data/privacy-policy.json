@@ -1,0 +1,79 @@
+{
+  "title": "Polityka prywatności",
+  "sections": [
+    {
+      "title": "1. Informacje ogólne",
+      "content": [
+        "Niniejsza polityka prywatności określa zasady przetwarzania oraz ochrony danych osobowych użytkowników korzystających ze sklepu internetowego oraz usług serwisowych.",
+        "Administratorem danych osobowych jest właściciel sklepu oraz serwisu."
+      ]
+    },
+    {
+      "title": "2. Jakie dane zbieramy",
+      "content": [
+        "W zależności od korzystanej usługi możemy przetwarzać dane takie jak: imię i nazwisko, adres e-mail, numer telefonu, adres dostawy, dane rozliczeniowe oraz informacje niezbędne do realizacji usługi serwisowej.",
+        "W przypadku napraw sprzętu możemy również przetwarzać informacje przekazane przez klienta dotyczące urządzenia oraz jego historii."
+      ]
+    },
+    {
+      "title": "3. Cel przetwarzania danych",
+      "content": [
+        "Dane osobowe są przetwarzane w celu realizacji zamówień, obsługi płatności, dostawy produktów, realizacji usług serwisowych, obsługi reklamacji oraz kontaktu z klientem.",
+        "Dane mogą być również wykorzystywane w celu zapewnienia bezpieczeństwa działania serwisu internetowego oraz dochodzenia lub obrony przed roszczeniami."
+      ]
+    },
+    {
+      "title": "4. Podstawa prawna przetwarzania danych",
+      "content": [
+        "Dane osobowe przetwarzane są zgodnie z obowiązującymi przepisami prawa, w szczególności zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO).",
+        "Podstawą przetwarzania danych może być realizacja umowy, obowiązek prawny administratora, zgoda użytkownika lub prawnie uzasadniony interes administratora."
+      ]
+    },
+    {
+      "title": "5. Dane podczas korzystania ze strony",
+      "content": [
+        "Podczas korzystania ze strony mogą być automatycznie zbierane informacje techniczne, takie jak adres IP, typ urządzenia, rodzaj przeglądarki oraz informacje dotyczące aktywności na stronie.",
+        "Dane te służą do poprawnego działania serwisu, analizy ruchu oraz zapewnienia bezpieczeństwa."
+      ]
+    },
+    {
+      "title": "6. Pliki cookies",
+      "content": [
+        "Strona wykorzystuje pliki cookies w celu zapewnienia prawidłowego działania sklepu, zapamiętywania ustawień użytkownika oraz poprawy jakości świadczonych usług.",
+        "Użytkownik może zarządzać ustawieniami plików cookies za pomocą ustawień swojej przeglądarki."
+      ]
+    },
+    {
+      "title": "7. Udostępnianie danych osobowych",
+      "content": [
+        "Dane osobowe mogą być przekazywane podmiotom współpracującym przy realizacji usług, takim jak firmy kurierskie, operatorzy płatności, dostawcy usług IT oraz podmioty świadczące usługi księgowe.",
+        "Dane nie są sprzedawane ani udostępniane podmiotom trzecim w celach marketingowych bez odpowiedniej podstawy prawnej."
+      ]
+    },
+    {
+      "title": "8. Okres przechowywania danych",
+      "content": [
+        "Dane osobowe przechowywane są przez okres niezbędny do realizacji celu, dla którego zostały zebrane, a następnie przez okres wymagany przepisami prawa lub niezbędny do zabezpieczenia roszczeń."
+      ]
+    },
+    {
+      "title": "9. Prawa użytkownika",
+      "content": [
+        "Użytkownik ma prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, wniesienia sprzeciwu oraz przenoszenia danych w przypadkach określonych przepisami prawa.",
+        "W celu realizacji swoich praw użytkownik może skontaktować się z administratorem danych."
+      ]
+    },
+    {
+      "title": "10. Dane kontaktowe",
+      "content": [
+        "W sprawach związanych z ochroną danych osobowych można skontaktować się z administratorem poprzez dane kontaktowe podane na stronie internetowej."
+      ]
+    },
+    {
+      "title": "11. Zmiany polityki prywatności",
+      "content": [
+        "Administrator zastrzega sobie możliwość aktualizacji niniejszej polityki prywatności w przypadku zmian przepisów prawa lub sposobu funkcjonowania sklepu i serwisu."
+      ]
+    }
+  ]
+}

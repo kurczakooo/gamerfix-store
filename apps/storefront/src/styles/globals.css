@@ -109,4 +109,34 @@
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
   }
+
+  .animate-marquee {
+    animation: marquee-mobile 18s linear infinite;
+  }
+
+  @keyframes marquee-mobile {
+    0% {
+      transform: translateX(20%);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .animate-marquee {
+      animation: marquee-desktop 45s linear infinite;
+    }
+
+    @keyframes marquee-desktop {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  }
 }

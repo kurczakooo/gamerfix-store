@@ -1,11 +1,15 @@
 import { listCategories } from "@lib/data/categories"
 import { listCollections } from "@lib/data/collections"
-import { Text, clx } from "@modules/common/components/ui"
+import { Text } from "@modules/common/components/ui"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import TikTok from "@modules/common/icons/tiktok"
 import Facebook from "@modules/common/icons/facebook"
 import Youtube from "@modules/common/icons/youtube"
+import Phone from "@modules/common/icons/phone"
+import Email from "@modules/common/icons/email"
+
+import contactInfo from "../../../../../data/contact.json"
 
 export default async function Footer() {
   const { collections } = await listCollections({
@@ -20,10 +24,24 @@ export default async function Footer() {
           <div>
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base"
             >
-              GAMER FIX
+              Gamer Fix
             </LocalizedClientLink>
+            <ul className="grid grid-cols-1 gap-y-2 pt-2 text-ui-fg-subtle txt-small">
+              <li className="hover:text-ui-fg-base">
+                <div className="flex items-center gap-1">
+                  <Phone />
+                  {contactInfo.phone}
+                </div>
+              </li>
+              <li className="hover:text-ui-fg-base">
+                <div className="flex items-center gap-1">
+                  <Email />
+                  {contactInfo.email}
+                </div>
+              </li>
+            </ul>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-4">
             <div className="flex flex-col gap-y-2">
@@ -73,7 +91,7 @@ export default async function Footer() {
             </div>
             <div className="flex flex-col gap-y-2">
               <span className="txt-small-plus txt-ui-fg-base">
-                Więcej o GamerFix
+                Więcej o Gamer Fix
               </span>
               <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
                 <li>
