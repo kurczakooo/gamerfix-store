@@ -25,16 +25,3 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
     offset: skip,
   });
 };
-
-type PostCreateInquiryType = z.infer<typeof PostCreateInquiry>;
-
-export const POST = async (
-  req: MedusaRequest<PostCreateInquiryType>,
-  res: MedusaResponse,
-) => {
-  const { result } = await createInquiryWorkflow(req.scope).run({
-    input: req.validatedBody,
-  });
-
-  res.json({ inquiry: result });
-};

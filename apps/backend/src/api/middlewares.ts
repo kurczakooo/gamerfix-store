@@ -15,6 +15,11 @@ export const GetInquiriesSchema = createFindParams();
 export default defineMiddlewares({
   routes: [
     {
+      matcher: "/store/inquiries",
+      method: "POST",
+      middlewares: [validateAndTransformBody(PostCreateInquiry)],
+    },
+    {
       matcher: "/admin/inquiries",
       method: "GET",
       middlewares: [
@@ -32,11 +37,6 @@ export default defineMiddlewares({
           isList: true,
         }),
       ],
-    },
-    {
-      matcher: "/admin/inquiries",
-      method: "POST",
-      middlewares: [validateAndTransformBody(PostCreateInquiry)],
     },
     {
       matcher: "/admin/inquiries/:id",
