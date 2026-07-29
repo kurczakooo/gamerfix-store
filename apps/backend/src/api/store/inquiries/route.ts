@@ -2,7 +2,7 @@ import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { z } from "@medusajs/framework/zod";
 
 import { createInquiryWorkflow } from "../../../workflows/inquiries/create-inquiry";
-import { PostCreateInquiry } from "../../admin/inquiries/validators";
+import { PostCreateInquiry } from "./validators";
 
 type PostCreateInquiryType = z.infer<typeof PostCreateInquiry>;
 
