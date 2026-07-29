@@ -36,6 +36,9 @@ module.exports = defineConfig({
         ],
       },
     },
+    {
+      resolve: "./src/modules/inquiry",
+    },
   ],
   admin: {
     // Set max upload size to 30MB
