@@ -14,6 +14,9 @@
     "outDir": "./.medusa/server",
     "rootDir": "./",
     "jsx": "react-jsx",
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    },
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "checkJs": false,
@@ -22,15 +25,12 @@
   "ts-node": {
     "swc": true
   },
-  "include": [
-    "**/*",
-    ".medusa/types/*"
-  ],
+  "include": ["**/*", ".medusa/types/*"],
   "exclude": [
     "node_modules",
     ".medusa/server",
     ".medusa/admin",
     ".cache",
-    "eslint.config.*",
+    "eslint.config.*"
   ]
 }
