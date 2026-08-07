@@ -39,6 +39,20 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/inquiry",
     },
+    {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/dpay",
+            id: "dpay",
+            options: {
+              apiKey: process.env.DPAY_HASH,
+            },
+          },
+        ],
+      },
+    },
   ],
   admin: {
     // Set max upload size to 30MB
