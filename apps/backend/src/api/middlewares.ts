@@ -9,11 +9,17 @@ import {
   PostCreateInquiry,
   PatchHandledInquiry,
 } from "../api/admin/inquiries/validators";
+import { PostAddFeeToCartBody } from "./store/cart-fee/validators";
 
 export const GetInquiriesSchema = createFindParams();
 
 export default defineMiddlewares({
   routes: [
+    {
+      matcher: "/store/cart-fee",
+      method: "POST",
+      middlewares: [validateAndTransformBody(PostAddFeeToCartBody)],
+    },
     {
       matcher: "/store/inquiries",
       method: "POST",
