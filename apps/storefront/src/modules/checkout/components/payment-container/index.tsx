@@ -4,11 +4,11 @@ import React, { useContext, useMemo, type JSX } from "react"
 
 import Radio from "@modules/common/components/radio"
 
-import { isManual } from "@lib/constants"
+import { isPayOnDeliveryDpay } from "@lib/constants"
 import SkeletonCardDetails from "@modules/skeletons/components/skeleton-card-details"
 import { CardElement } from "@stripe/react-stripe-js"
 import { StripeCardElementOptions } from "@stripe/stripe-js"
-import PaymentTest from "../payment-test"
+import PaymentOnDeliveryBadge from "../pobranie-badge"
 import { StripeContext } from "../payment-wrapper/stripe-wrapper"
 
 type PaymentContainerProps = {
@@ -34,7 +34,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
       value={paymentProviderId}
       disabled={disabled}
       className={clx(
-        "flex flex-col gap-y-2 text-small-regular cursor-pointer py-4 border rounded-rounded px-8 mb-2 hover:shadow-borders-interactive-with-active",
+        "flex flex-col gap-y-2 text-small-regular cursor-pointer py-1 border rounded-rounded px-8 mb-2 hover:shadow-borders-interactive-with-active",
         {
           "border-ui-border-interactive":
             selectedPaymentOptionId === paymentProviderId,
@@ -47,17 +47,14 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
           <Text className="text-base-regular">
             {paymentInfoMap[paymentProviderId]?.title || paymentProviderId}
           </Text>
-          {isManual(paymentProviderId) && isDevelopment && (
-            <PaymentTest className="hidden small:block" />
+          {isPayOnDeliveryDpay(paymentProviderId) && (
+            <PaymentOnDeliveryBadge className="hidden small:block" />
           )}
         </div>
         <span className="justify-self-end text-ui-fg-base">
           {paymentInfoMap[paymentProviderId]?.icon}
         </span>
       </div>
-      {isManual(paymentProviderId) && isDevelopment && (
-        <PaymentTest className="small:hidden text-[10px]" />
-      )}
       {children}
     </RadioGroupOption>
   )

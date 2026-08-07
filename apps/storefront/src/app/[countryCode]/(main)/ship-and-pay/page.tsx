@@ -30,9 +30,9 @@ const storeShippingMethods = [
 
 const storePaymentMethods = [
   {
-    name: "BLIK na telefon",
-    description: "Płatność za pomocą BLIK na wskazany numer telefonu.",
-    logo: "/images/payment/blik_telefon.png",
+    name: "BLIK",
+    description: "Płatność za pomocą BLIK z wykorzystaniem tymczasowego kodu.",
+    logo: "/images/payment/blik_telefon.svg",
   },
   {
     name: "Manualny przelew",
