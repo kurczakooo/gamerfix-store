@@ -3,11 +3,11 @@ import { listAllProducts } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import type { MetadataRoute } from "next"
 
-const baseUrl = "https://gamerfix.pl"
+export const baseUrl = "https://gamerfix.pl"
+const countryCode = "pl"
+const today = new Date()
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const countryCode = "pl"
-
   const region = await getRegion(countryCode)
   const productCategories = await listCategories().catch(() => null)
 
@@ -23,13 +23,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticPages,
     ...(productCategories ?? []).map((category) => ({
       url: `${baseUrl}/pl/categories/${category.handle}`,
-      lastModified: new Date(),
+      lastModified: today,
       changeFrequency: "weekly",
       priority: 0.9,
     })),
     ...products.map((product) => ({
       url: `${baseUrl}/pl/products/${product.handle}`,
-      lastModified: new Date(),
+      lastModified: today,
       changeFrequency: "weekly",
       priority: 0.9,
     })),
@@ -39,55 +39,55 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 const staticPages: MetadataRoute.Sitemap = [
   {
     url: `${baseUrl}/pl`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "weekly",
     priority: 1,
   },
   {
     url: `${baseUrl}/pl/store`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "daily",
     priority: 0.9,
   },
   {
     url: `${baseUrl}/pl/repair-service`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "daily",
     priority: 0.9,
   },
   {
     url: `${baseUrl}/pl/about`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "monthly",
     priority: 0.9,
   },
   {
     url: `${baseUrl}/pl/faq`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "weekly",
     priority: 0.7,
   },
   {
     url: `${baseUrl}/pl/contact`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "monthly",
     priority: 0.7,
   },
   {
     url: `${baseUrl}/pl/ship-and-pay`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "monthly",
     priority: 0.7,
   },
   {
     url: `${baseUrl}/pl/privacy-policy`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "monthly",
     priority: 0.7,
   },
   {
     url: `${baseUrl}/pl/terms-of-use`,
-    lastModified: new Date(),
+    lastModified: today,
     changeFrequency: "monthly",
     priority: 0.7,
   },
