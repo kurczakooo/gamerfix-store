@@ -6,8 +6,9 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import StoreTemplate from "@modules/store/templates"
 
 export const metadata: Metadata = {
-  title: "Sklep | GAMER FIX",
-  description: "Przeglądaj wszystkie nasze produkty.",
+  title: "Sklep | Konsole, Pady, Gry, Akcesoria, Sprzęt | Gamer Fix",
+  description:
+    "Sklep Gamer Fix - konsole PlayStation, Xbox i Nintendo, pady i kontrolery DualSense, DualShock, Xbox oraz Joy-Con. Kup także gry, akcesoria i sprzęt elektroniczny.",
 }
 
 type StorePageSearchParams = Record<string, string | string[] | undefined> & {
@@ -24,8 +25,8 @@ type Params = {
 }
 
 export default async function StorePage(props: Params) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
+  const params = await props.params
+  const searchParams = await props.searchParams
   const { sortBy, page } = searchParams
   const optionValueIds = parseOptionValueIds(searchParams)
   const categories = await listCategories()

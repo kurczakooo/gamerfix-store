@@ -6,8 +6,9 @@ import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
-  title: "Gamer Fix | SKLEP",
-  description:"SKLEP, SERWIS, NAPRAWA, KOMPUTERÓW, LAPTOPÓW, KONSOLI, TELEFONÓW",
+  title: "Gamer Fix | Wysyłkowa naprawa Konsol, Padów, Telefonów i Komputerów",
+  description:
+    "Naprawiamy konsole PlayStation, Xbox i Nintendo, pady, telefony oraz komputery. Oferujemy także gry, akcesoria i sprzęt elektroniczny. Zamów naprawę online i wyślij sprzęt do serwisu.",
 }
 
 export default async function Home(props: {
