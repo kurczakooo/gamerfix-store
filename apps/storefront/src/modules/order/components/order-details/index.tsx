@@ -6,11 +6,32 @@ type OrderDetailsProps = {
   showStatus?: boolean
 }
 
+const statusTranslations: Record<string, string> = {
+  // Payment
+  not_paid: "Nieopłacone",
+  awaiting: "Oczekuje na płatność",
+  authorized: "Autoryzowane",
+  partially_authorized: "Częściowo autoryzowane",
+  captured: "Opłacone",
+  partially_captured: "Częściowo opłacone",
+  partially_refunded: "Częściowo zwrócone",
+  refunded: "Zwrócone",
+  canceled: "Anulowane",
+  requires_action: "Wymaga działania",
+
+  // Fulfillment
+  not_fulfilled: "Nie zrealizowano",
+  partially_fulfilled: "Częściowo zrealizowano",
+  fulfilled: "Zrealizowano",
+  partially_shipped: "Częściowo wysłano",
+  shipped: "Wysłano",
+  partially_delivered: "Częściowo dostarczono",
+  delivered: "Dostarczono",
+}
+
 const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
   const formatStatus = (str: string) => {
-    const formatted = str.split("_").join(" ")
-
-    return formatted.slice(0, 1).toUpperCase() + formatted.slice(1)
+    return statusTranslations[str] ?? str
   }
 
   return (
@@ -28,7 +49,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
       <Text className="mt-2">
         Data zamówienia:{" "}
         <span data-testid="order-date">
-          {new Date(order.created_at).toDateString()}
+          {new Date(order.created_at).toLocaleDateString()}
         </span>
       </Text>
       <Text className="mt-2 text-ui-fg-interactive">
