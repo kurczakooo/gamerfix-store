@@ -4,8 +4,9 @@ import { Suspense } from "react"
 import VerifyAccount from "@modules/account/components/verify-account"
 
 export const metadata: Metadata = {
-  title: "Verify your email",
-  description: "Verify your email address to complete your registration.",
+  title: "Weryfikacja adresu email | Gamer Fix",
+  description:
+    "Weryfikacja adresu email w celu założenia konta klienta na sklepie i w serwisie Gamer Fix",
 }
 
 export default function VerifyAccountPage() {

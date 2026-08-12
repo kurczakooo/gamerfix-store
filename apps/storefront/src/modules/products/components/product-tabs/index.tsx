@@ -13,10 +13,10 @@ type ProductTabsProps = {
 
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
-    {
-      label: "Szczegółowe parametry",
-      component: <ProductInfoTab product={product} />,
-    },
+    // {
+    //   label: "Szczegółowe parametry",
+    //   component: <ProductInfoTab product={product} />,
+    // },
     {
       label: "Dostawa i zwroty",
       component: <ShippingInfoTab />,
@@ -87,17 +87,18 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-semibold">Szybka dostawa</span>
             <p className="max-w-sm">
-              Twoja paczka zostanie dostarczona w 3-5 dni.
+              Składając zamówienie do 16:00, paczka zostanie nadana tego samego
+              dnia.
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Refresh />
           <div>
-            <span className="font-semibold">Wymiana produkty</span>
+            <span className="font-semibold">Wymiana produktu</span>
             <p className="max-w-sm">
               Jeśli otrzymany produkt się nie podoba, lub jest uszkodzony -
-              wymienimy go.
+              wymienimy go. Na zwrot przysługuje 14 dni od zakupu.
             </p>
           </div>
         </div>
@@ -107,6 +108,7 @@ const ShippingInfoTab = () => {
             <span className="font-semibold">Proste zwroty</span>
             <p className="max-w-sm">
               Po prostu odeślij produkt, a my po weryfikacji zwrócimy pieniądze.
+              Szczegóły w zakładce "Zwroty i reklamacje" w stopce strony.
             </p>
           </div>
         </div>

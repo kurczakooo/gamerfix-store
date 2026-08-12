@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useEffect, useActionState } from "react";
+import React, { useEffect, useActionState } from "react"
 
 import Input from "@modules/common/components/input"
 
 import AccountInfo from "../account-info"
 import { HttpTypes } from "@medusajs/types"
-// import { updateCustomer } from "@lib/data/customer"
+import { updateCustomer } from "@lib/data/customer"
 
 type MyInformationProps = {
   customer: HttpTypes.StoreCustomer
@@ -15,13 +15,15 @@ type MyInformationProps = {
 const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   const [successState, setSuccessState] = React.useState(false)
 
-  // TODO: It seems we don't support updating emails now?
-  const updateCustomerEmail = (
+  const updateCustomerEmail = async (
     _currentState: Record<string, unknown>,
-    _formData: FormData
+    formData: FormData
   ) => {
+    const customer = {
+      email: formData.get("email") as string,
+    }
     try {
-      // email: formData.get("email") as string
+      await updateCustomer(customer)
       return { success: true, error: null }
     } catch (error) {
       return { success: false, error: String(error) }
@@ -42,13 +44,12 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   }, [state])
 
   return (
-    <form action={formAction} className="w-full">
+    <form action={formAction} className="w-full overflow-visible">
       <AccountInfo
         label="E-mail"
-        currentInfo={`${customer.email}`}
+        currentInfo={customer.email ? `${customer.email}` : "Brak danych"}
         isSuccess={successState}
-        isError={!!state.error}
-        errorMessage={state.error || undefined}
+        isError={!!state?.error}
         clearState={clearState}
         data-testid="account-email-editor"
       >

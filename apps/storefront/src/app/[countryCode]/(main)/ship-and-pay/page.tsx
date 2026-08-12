@@ -4,7 +4,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 
 export const metadata: Metadata = {
-  title: "Dostawa i płatność",
+  title: "Dostawa i płatność | Gamer Fix",
   description:
     "Informacje o metodach dostawy i płatności na stronie sklepu i w serwisie Gamer Fix",
 }

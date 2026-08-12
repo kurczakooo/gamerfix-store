@@ -5,7 +5,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
-  title: "Koszyk",
+  title: "Koszyk | Gamer Fix",
   description: "Wyświetl swój koszyk",
 }
 

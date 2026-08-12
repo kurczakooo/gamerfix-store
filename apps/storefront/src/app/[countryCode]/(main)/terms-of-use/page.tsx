@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import terms from "../../../../../data/terms-of-use.json"
 
 export const metadata: Metadata = {
-  title: "Regulamin",
+  title: "Regulamin | GamerFix",
   description: "Regulamin sklepu i serwisu Gamer Fix",
 }
 

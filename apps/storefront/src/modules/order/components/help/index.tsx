@@ -7,14 +7,10 @@ const Help = () => {
     <div className="mt-6">
       <Heading className="text-base-semi">Potrzebujesz pomocy?</Heading>
       <div className="text-base-regular my-2">
-        <ul className="gap-y-2 flex flex-col">
-          <li>
-            <UnderlineLink href="/contact">Kontakt</UnderlineLink>
-          </li>
-          <li>
-            <UnderlineLink href="/contact">Zwroty</UnderlineLink>
-          </li>
-        </ul>
+        <div className="flex flex-col gap-1">
+          <UnderlineLink href="/contact">Kontakt</UnderlineLink>
+          <UnderlineLink href="/returns">Zwroty i reklamacje</UnderlineLink>
+        </div>
       </div>
     </div>
   )

@@ -149,3 +149,40 @@ export const listProductsWithSort = async ({
     queryParams,
   }
 }
+
+/**
+ * This will iterate over product pages to collect all products, used for sitemap creation
+ */
+export const listAllProducts = async ({
+  pageParam = 1,
+  queryParams,
+  countryCode,
+  regionId,
+}: {
+  pageParam?: number
+  queryParams?: {
+    fields?: string
+    limit?: number
+    [key: string]: unknown
+  }
+  countryCode?: string
+  regionId?: string
+}) => {
+  const allProducts: Array<{ handle: string }> = []
+  let nextPage: number | null = pageParam
+
+  while (nextPage) {
+    const result = await listProducts({
+      pageParam,
+      queryParams,
+      countryCode,
+      regionId,
+    })
+
+    allProducts.push(...result.response.products)
+    nextPage = result.nextPage
+    pageParam = nextPage ?? 0
+  }
+
+  return allProducts
+}

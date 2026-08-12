@@ -42,10 +42,10 @@ const OrderSummary = ({ order }: OrderSummaryProps) => {
             <span>Dostawa</span>
             <span>{getAmount(order.shipping_total)}</span>
           </div>
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <span>Podatki</span>
             <span>{getAmount(order.tax_total)}</span>
-          </div>
+          </div> */}
         </div>
         <div className="h-px w-full border-b border-gray-200 border-dashed my-4" />
         <div className="flex items-center justify-between text-base-regular text-ui-fg-base mb-2">
