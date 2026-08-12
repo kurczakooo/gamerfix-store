@@ -33,8 +33,8 @@ export default async function Contact() {
                 <p>{contactInfo.companyName}</p>
                 <p>{contactInfo.addressLine1}</p>
                 <p>{contactInfo.addressLine2}</p>
-                <p>NIP: {contactInfo.nip}</p>
-                <p>REGON: {contactInfo.regon}</p>
+                {/* <p>NIP: {contactInfo.nip}</p>
+                <p>REGON: {contactInfo.regon}</p> */}
               </div>
             </section>
 

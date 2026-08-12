@@ -1,5 +1,5 @@
-import LocalizedClientLink from "@modules/common/components/localized-client-link";
-import { Button, Heading } from "@modules/common/components/ui";
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Button, Heading } from "@modules/common/components/ui"
 
 const Hero = () => {
   return (
@@ -8,19 +8,17 @@ const Hero = () => {
         <span>
           <Heading
             level="h1"
-            className="text-3xl leading-10 text-ui-fg-base font-normal"
+            className="text-2xl sm:text-3xl lg:text-4xl leading-tight text-ui-fg-base"
           >
             Witaj na sklepie Gamer Fix
           </Heading>
         </span>
         <LocalizedClientLink href="/store">
-          <Button variant="secondary">
-            Przeglądaj produkty
-          </Button>
+          <Button variant="secondary">Przeglądaj produkty</Button>
         </LocalizedClientLink>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

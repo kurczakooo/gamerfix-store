@@ -67,13 +67,13 @@ const ShopDropdown = ({
 
                       return (
                         <li
-                          className="flex flex-col gap-2 text-ui-fg-subtle"
+                          className="flex flex-col gap-2 text-base-semi text-ui-fg-subtle"
                           key={c.id}
                         >
                           <LocalizedClientLink
                             className={clx(
                               "hover:text-ui-fg-base",
-                              children && "txt-small text-[18px] font-semibold"
+                              children && "text-base-semi"
                             )}
                             href={`/categories/${c.handle}`}
                             data-testid="category-link"
@@ -86,7 +86,7 @@ const ShopDropdown = ({
                                 children.map((child) => (
                                   <li key={child.id}>
                                     <LocalizedClientLink
-                                      className="hover:text-ui-fg-base txt-small text-[16px]"
+                                      className="hover:text-ui-fg-base text-base-regular"
                                       href={`/categories/${child.handle}`}
                                       data-testid="category-link"
                                     >
