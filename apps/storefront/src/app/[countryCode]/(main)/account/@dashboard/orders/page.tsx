@@ -23,7 +23,8 @@ export default async function Orders() {
       <div className="mb-8 flex flex-col gap-y-4">
         <h1 className="text-2xl-semi">Zamówienia</h1>
         <p className="text-base-regular">
-          Przeglądaj historię swoich zamówień oraz sprawdzaj ich status. W razie potrzeby możesz również utworzyć zwrot lub wymianę dla swoich zamówień.
+          Tutaj znajdziesz swoje zamówienia, ich status oraz informacje
+          dotyczące zwrotów i wymian.
         </p>
       </div>
       <div>

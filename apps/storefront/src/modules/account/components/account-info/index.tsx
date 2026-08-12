@@ -1,4 +1,4 @@
-import { Disclosure } from "@headlessui/react"
+import { Disclosure, DisclosurePanel } from "@headlessui/react"
 import { Badge, Button, clx } from "@modules/common/components/ui"
 import { useEffect } from "react"
 
@@ -13,7 +13,7 @@ type AccountInfoProps = {
   errorMessage?: string
   clearState: () => void
   children?: React.ReactNode
-  'data-testid'?: string
+  "data-testid"?: string
 }
 
 const AccountInfo = ({
@@ -24,7 +24,7 @@ const AccountInfo = ({
   clearState,
   errorMessage = "Wystąpił błąd, spróbuj ponownie.",
   children,
-  'data-testid': dataTestid
+  "data-testid": dataTestid,
 }: AccountInfoProps) => {
   const { state, close, toggle } = useToggleState()
 
@@ -42,13 +42,18 @@ const AccountInfo = ({
   }, [isSuccess, close])
 
   return (
-    <div className="text-small-regular" data-testid={dataTestid}>
+    <div
+      className="text-small-regular overflow-visible isolate"
+      data-testid={dataTestid}
+    >
       <div className="flex items-end justify-between">
         <div className="flex flex-col">
           <span className="uppercase text-ui-fg-base">{label}</span>
-          <div className="flex items-center flex-1 basis-0 justify-end gap-x-4">
+          <div className="flex items-center flex-1 basis-0 justify-start gap-x-4">
             {typeof currentInfo === "string" ? (
-              <span className="font-semibold" data-testid="current-info">{currentInfo}</span>
+              <span className="font-semibold" data-testid="current-info">
+                {currentInfo}
+              </span>
             ) : (
               currentInfo
             )}
@@ -63,19 +68,19 @@ const AccountInfo = ({
             data-testid="edit-button"
             data-active={state}
           >
-            {state ? "Cancel" : "Edit"}
+            {state ? "Anuluj" : "Edytuj"}
           </Button>
         </div>
       </div>
 
       {/* Success state */}
       <Disclosure>
-        <Disclosure.Panel
+        <DisclosurePanel
           static
           className={clx(
             "transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden",
             {
-              "max-h-[1000px] opacity-100": isSuccess,
+              "max-h-[1000px] opacity-100 relative z-50": isSuccess,
               "max-h-0 opacity-0": !isSuccess,
             }
           )}
@@ -84,17 +89,17 @@ const AccountInfo = ({
           <Badge className="p-2 my-4" color="green">
             <span>{label} zaaktualizowano pomyślnie</span>
           </Badge>
-        </Disclosure.Panel>
+        </DisclosurePanel>
       </Disclosure>
 
       {/* Error state  */}
       <Disclosure>
-        <Disclosure.Panel
+        <DisclosurePanel
           static
           className={clx(
             "transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden",
             {
-              "max-h-[1000px] opacity-100": isError,
+              "max-h-[1000px] opacity-100 relative z-50": isError,
               "max-h-0 opacity-0": !isError,
             }
           )}
@@ -103,16 +108,16 @@ const AccountInfo = ({
           <Badge className="p-2 my-4" color="red">
             <span>{errorMessage}</span>
           </Badge>
-        </Disclosure.Panel>
+        </DisclosurePanel>
       </Disclosure>
 
       <Disclosure>
-        <Disclosure.Panel
+        <DisclosurePanel
           static
           className={clx(
             "transition-[max-height,opacity] duration-300 ease-in-out overflow-visible",
             {
-              "max-h-[1000px] opacity-100": state,
+              "max-h-[1000px] opacity-100 relative z-50": state,
               "max-h-0 opacity-0": !state,
             }
           )}
@@ -130,7 +135,7 @@ const AccountInfo = ({
               </Button>
             </div>
           </div>
-        </Disclosure.Panel>
+        </DisclosurePanel>
       </Disclosure>
     </div>
   )

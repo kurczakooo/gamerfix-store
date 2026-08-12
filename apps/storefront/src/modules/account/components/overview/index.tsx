@@ -90,11 +90,11 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                               <span className="font-semibold">
                                 Numer zamówienia
                               </span>
-                              <span className="font-semibold">
-                                Wartość
-                              </span>
+                              <span className="font-semibold">Wartość</span>
                               <span data-testid="order-created-date">
-                                {new Date(order.created_at).toDateString()}
+                                {new Date(
+                                  order.created_at
+                                ).toLocaleDateString()}
                               </span>
                               <span
                                 data-testid="order-id"
@@ -124,7 +124,9 @@ const Overview = ({ customer, orders }: OverviewProps) => {
                     )
                   })
                 ) : (
-                  <span data-testid="no-orders-message">Brak ostatnich zamówwień</span>
+                  <span data-testid="no-orders-message">
+                    Brak ostatnich zamówwień
+                  </span>
                 )}
               </ul>
             </div>
