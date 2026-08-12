@@ -23,7 +23,11 @@ type TextProps = HTMLAttributes<HTMLParagraphElement> & {
 export const Text = forwardRef<HTMLParagraphElement, TextProps>(
   ({ className, as: Component = "p", children, ...props }, ref) => {
     return (
-      <Component ref={ref} className={clsx("text-base", className)} {...props}>
+      <Component
+        ref={ref}
+        className={clsx("text-base-regular", className)}
+        {...props}
+      >
         {children}
       </Component>
     )
@@ -42,10 +46,9 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
       <Component
         ref={ref}
         className={clsx(
-          "font-semibold",
-          Component === "h1" && "text-3xl",
-          Component === "h2" && "text-2xl",
-          Component === "h3" && "text-xl",
+          Component === "h1" && "text-3xl-semi",
+          Component === "h2" && "text-2xl-semi",
+          Component === "h3" && "text-xl-semi",
           className
         )}
         {...props}
@@ -196,11 +199,7 @@ type LabelProps = LabelHTMLAttributes<HTMLLabelElement>
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   ({ className, children, ...props }, ref) => {
     return (
-      <label
-        ref={ref}
-        className={clsx("text-sm font-medium", className)}
-        {...props}
-      >
+      <label ref={ref} className={className} {...props}>
         {children}
       </label>
     )

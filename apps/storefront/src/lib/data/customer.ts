@@ -154,7 +154,7 @@ async function completeLogin(
   if (typeof result === "object" && "location" in result) {
     return {
       state: "error",
-      error: "This login method isn't supported by the storefront.",
+      error: "Ta metoda logowania nie jest wspierana przez sklep Gamer Fix.",
     }
   }
 
@@ -244,6 +244,58 @@ export async function confirmEmailVerification(
     return { success: true }
   } catch (error) {
     return { success: false, error: String(error) }
+  }
+}
+
+export const requestPasswordReset = async (
+  _currentState: Record<string, unknown>,
+  formData: FormData
+): Promise<{ success: boolean; error: string | null }> => {
+  // Attempt to verify the current password before requesting a reset email.
+  const oldPassword = (formData.get("old_password") as string) || ""
+
+  // Retrieve the current customer's email server-side
+  const customer = await retrieveCustomer()
+
+  if (!customer?.email) {
+    return { success: false, error: "No customer email available" }
+  }
+
+  try {
+    // Verify current password is correct by attempting a login
+    await sdk.auth.login("customer", "emailpass", {
+      email: customer.email,
+      password: oldPassword,
+    })
+  } catch (err) {
+    return { success: false, error: "Stare hasło jest nieprawidłowe" }
+  }
+
+  try {
+    // Some SDK versions may not expose `auth.recovery.request`. Guard and
+    // return a clear error if it's unavailable instead of throwing a
+    // runtime TypeError.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const recoveryApi = sdk?.auth?.recovery
+
+    if (!recoveryApi || typeof recoveryApi.request !== "function") {
+      return {
+        success: false,
+        error:
+          //   "Password recovery is not available on this backend/SDK. Contact support or update the server.",
+          "Zmiana hasła jest w tym momencie niemożliwa, skontaktuj się z administratorem.",
+      }
+    }
+
+    await recoveryApi.request({
+      entity_id: customer.email,
+      entity_type: "email",
+    })
+
+    return { success: true, error: null }
+  } catch (err) {
+    return { success: false, error: String(err) }
   }
 }
 

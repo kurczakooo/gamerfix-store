@@ -28,7 +28,7 @@ export default async function Footer() {
             >
               Gamer Fix
             </LocalizedClientLink>
-            <ul className="grid grid-cols-1 gap-y-2 pt-2 text-ui-fg-subtle txt-small">
+            <ul className="grid grid-cols-1 gap-y-2 pt-2 text-ui-fg-subtle text-small-base">
               <li className="hover:text-ui-fg-base">
                 <div className="flex items-center gap-1">
                   <Phone />
@@ -45,8 +45,8 @@ export default async function Footer() {
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-4">
             <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Pomoc</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
+              <span className="text-ui-fg-base font-bold">Pomoc</span>
+              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle text-small-base">
                 <li>
                   <LocalizedClientLink
                     href="/contact"
@@ -87,13 +87,21 @@ export default async function Footer() {
                     Dostawa i płatność
                   </LocalizedClientLink>
                 </li>
+                <li>
+                  <LocalizedClientLink
+                    href="/returns"
+                    className="hover:text-ui-fg-base"
+                  >
+                    Zwroty i reklamacje
+                  </LocalizedClientLink>
+                </li>
               </ul>
             </div>
             <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">
+              <span className="text-ui-fg-base font-bold">
                 Więcej o Gamer Fix
               </span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
+              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle text-small-base">
                 <li>
                   <LocalizedClientLink
                     href="/about"
@@ -144,7 +152,9 @@ export default async function Footer() {
               </ul>
             </div>
             <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">REVIEWS</span>
+              <span className="text-small-base-plus txt-ui-fg-base">
+                REVIEWS
+              </span>
             </div>
           </div>
         </div>

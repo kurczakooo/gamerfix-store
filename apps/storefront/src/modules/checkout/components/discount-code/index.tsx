@@ -1,6 +1,12 @@
 "use client"
 
-import { Badge, Heading, Input, Label, Text } from "@modules/common/components/ui"
+import {
+  Badge,
+  Heading,
+  Input,
+  Label,
+  Text,
+} from "@modules/common/components/ui"
 import React from "react"
 
 import { applyPromotions } from "@lib/data/cart"
@@ -44,12 +50,15 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
 
     try {
       await applyPromotions(codes)
+      if (input) {
+        input.value = ""
+      }
+      setErrorMessage("")
     } catch (e) {
-      setErrorMessage(e instanceof Error ? e.message : String(e))
-    }
-
-    if (input) {
-      input.value = ""
+      //   setErrorMessage(e instanceof Error ? e.message : String(e))
+      setErrorMessage(
+        `Wpisany kod rabatowy "${input.value}" jest nieprawidłowy`
+      )
     }
   }
 
@@ -102,9 +111,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
         {promotions.length > 0 && (
           <div className="w-full flex items-center">
             <div className="flex flex-col w-full">
-              <Heading className="txt-medium mb-2">
-                Zastosowany rabat:
-              </Heading>
+              <Heading className="txt-medium mb-2">Zastosowany rabat:</Heading>
 
               {promotions.map((promotion) => {
                 return (
@@ -113,7 +120,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                     className="flex items-center justify-between w-full max-w-full mb-2"
                     data-testid="discount-row"
                   >
-                    <Text className="flex gap-x-1 items-baseline txt-small-plus w-4/5 pr-1">
+                    <Text className="flex gap-x-1 items-baseline text-small-base-plus w-4/5 pr-1">
                       <span className="truncate" data-testid="discount-code">
                         <Badge
                           color={promotion.is_automatic ? "green" : "grey"}

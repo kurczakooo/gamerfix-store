@@ -1,6 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+:root {
+  --font-main: "Rubik", Arial, sans-serif;
+}
+
+html,
+body,
+input,
+textarea,
+select,
+button,
+p,
+span,
+a,
+div,
+li,
+label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+}
 
 @layer utilities {
   /* Chrome, Safari and Opera */
@@ -60,54 +85,67 @@
 
   .text-xsmall-regular {
     @apply text-[10px] leading-4 font-normal;
+    font-family: var(--font-main);
   }
 
   .text-small-regular {
     @apply text-xs leading-5 font-normal;
+    font-family: var(--font-main);
   }
 
   .text-small-semi {
     @apply text-xs leading-5 font-semibold;
+    font-family: var(--font-main);
   }
 
   .text-base-regular {
     @apply text-sm leading-6 font-normal;
+    font-family: var(--font-main);
   }
 
   .text-base-semi {
     @apply text-sm leading-6 font-semibold;
+    font-family: var(--font-main);
   }
 
   .text-large-regular {
     @apply text-base leading-6 font-normal;
+    font-family: var(--font-main);
   }
 
   .text-large-semi {
     @apply text-base leading-6 font-semibold;
+    font-family: var(--font-main);
   }
 
   .text-xl-regular {
     @apply text-2xl leading-[36px] font-normal;
+    font-family: var(--font-main);
   }
 
   .text-xl-semi {
     @apply text-2xl leading-[36px] font-semibold;
+    font-family: var(--font-main);
   }
 
   .text-2xl-regular {
     @apply text-[30px] leading-[48px] font-normal;
+    font-family: var(--font-main);
   }
 
   .text-2xl-semi {
     @apply text-[30px] leading-[48px] font-semibold;
+    font-family: var(--font-main);
   }
 
   .text-3xl-regular {
     @apply text-[32px] leading-[44px] font-normal;
+    font-family: var(--font-main);
   }
 
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
+    font-family: var(--font-main);
   }
 
   .animate-marquee {

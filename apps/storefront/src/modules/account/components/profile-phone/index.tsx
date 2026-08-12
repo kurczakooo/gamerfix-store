@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useActionState } from "react";
+import React, { useEffect, useActionState } from "react"
 
 import Input from "@modules/common/components/input"
 
@@ -45,10 +45,10 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   }, [state])
 
   return (
-    <form action={formAction} className="w-full">
+    <form action={formAction} className="w-full overflow-visible">
       <AccountInfo
         label="Numer telefonu"
-        currentInfo={`${customer.phone}`}
+        currentInfo={customer.phone ? `${customer.phone}` : "Brak danych"}
         isSuccess={successState}
         isError={!!state.error}
         errorMessage={state.error || undefined}

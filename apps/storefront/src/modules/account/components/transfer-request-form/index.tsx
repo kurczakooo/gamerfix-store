@@ -26,7 +26,10 @@ export default function TransferRequestForm() {
     <div className="flex flex-col gap-y-4 w-full">
       <div className="grid sm:grid-cols-2 items-center gap-x-8 gap-y-4 w-full">
         <div className="flex flex-col gap-y-1">
-          <Heading level="h3" className="!text-sm font-semibold text-neutral-950">
+          <Heading
+            level="h3"
+            className="!text-sm font-semibold text-neutral-950"
+          >
             Przypisanie zamówienia do swojego konta
           </Heading>
           <p className="text-small-regular text-neutral-500">
@@ -39,7 +42,11 @@ export default function TransferRequestForm() {
           className="flex flex-col gap-y-1 sm:items-end"
         >
           <div className="flex flex-col gap-y-2 w-full">
-            <Input className="w-full" name="order_id" placeholder="Order ID" />
+            <Input
+              className="w-full"
+              name="order_id"
+              placeholder="ID zamówienia"
+            />
             <SubmitButton
               variant="secondary"
               size="small"
@@ -64,14 +71,12 @@ export default function TransferRequestForm() {
                 Przypisanie zamównienia {state.order?.id} zażądane
               </Text>
               <Text className="text-base-regular text-neutral-600">
-                Email potwierdzający prośbę przypisania zamówienia wysłano na adres {state.order?.email}
+                Email potwierdzający prośbę przypisania zamówienia wysłano na
+                adres {state.order?.email}
               </Text>
             </div>
           </div>
-          <IconButton
-            className="h-fit"
-            onClick={() => setShowSuccess(false)}
-          >
+          <IconButton className="h-fit" onClick={() => setShowSuccess(false)}>
             <XCircleSolid className="w-4 h-4 text-neutral-500" />
           </IconButton>
         </div>

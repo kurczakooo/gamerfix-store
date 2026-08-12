@@ -4,8 +4,8 @@ import Image from "next/image"
 import about from "../../../../../data/about.json"
 
 export const metadata: Metadata = {
-  title: "O firmie",
-  description: "Informacje o firmie Gamer Fix",
+  title: "O firmie | Gamer Fix",
+  description: "Informacje, historia i galeria zdjęć serwisu Gamer Fix",
 }
 
 export default async function About() {
