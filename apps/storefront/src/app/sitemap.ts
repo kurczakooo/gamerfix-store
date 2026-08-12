@@ -50,7 +50,7 @@ const staticPages: MetadataRoute.Sitemap = [
     priority: 0.9,
   },
   {
-    url: `${baseUrl}/pl/repair-service`,
+    url: `${baseUrl}/pl/repair-shop`,
     lastModified: today,
     changeFrequency: "daily",
     priority: 0.9,
@@ -75,6 +75,12 @@ const staticPages: MetadataRoute.Sitemap = [
   },
   {
     url: `${baseUrl}/pl/ship-and-pay`,
+    lastModified: today,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  },
+  {
+    url: `${baseUrl}/pl/returns`,
     lastModified: today,
     changeFrequency: "monthly",
     priority: 0.7,

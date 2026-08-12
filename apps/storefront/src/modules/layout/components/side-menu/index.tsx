@@ -12,7 +12,7 @@ import Menu from "@modules/common/icons/menu"
 const SideMenuItems = {
   "Strona główna": "/",
   Sklep: "/store",
-  Serwis: "/repair-service",
+  Serwis: "/repair-shop",
   Kontakt: "/contact",
   Konto: "/account",
   Koszyk: "/cart",

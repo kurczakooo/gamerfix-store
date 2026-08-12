@@ -24,12 +24,12 @@ const AccountLayout: React.FC<AccountLayoutProps> = ({
         <div className="flex flex-col small:flex-row items-end justify-between small:border-t border-gray-200 py-12 gap-8">
           <div>
             <h3 className="text-xl-semi mb-4">Masz pytania?</h3>
-            <span className="txt-medium">
+            <span className="txt-base-semi">
               Jeśli potrzebujesz pomocy, odwiedź nasze zakładki z najczęściej
               zadawanymi pytaniami oraz danymi kontaktowymi.
             </span>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1">
             <UnderlineLink href="/faq">FAQ</UnderlineLink>
             <UnderlineLink href="/contact">Kontakt</UnderlineLink>
           </div>
