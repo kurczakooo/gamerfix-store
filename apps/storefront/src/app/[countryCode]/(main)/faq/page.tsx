@@ -4,8 +4,8 @@ import faq from "../../../../../data/faq.json"
 import Accordion from "@modules/products/components/product-tabs/accordion"
 
 export const metadata: Metadata = {
-  title: "FAQ",
-  description: "Najczęściej zadawane pytania i odpowiedzi do nich",
+  title: "FAQ | Gamer Fix",
+  description: "Pytania, które klienci zadają najczęściej i odpowiedzi do nich",
 }
 
 export default async function About() {

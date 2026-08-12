@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import returns from "../../../../../data/returns.json"
 
 export const metadata: Metadata = {
-  title: "Zwroty i reklamacje",
+  title: "Zwroty i reklamacje | Gamer Fix",
   description:
     "Zasady zwrotu i reklamacji produktów ze sklepu i usług serwisowych wykonanych przez Gamer Fix",
 }

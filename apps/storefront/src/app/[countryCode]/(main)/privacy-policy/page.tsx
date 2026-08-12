@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import privacy from "../../../../../data/privacy-policy.json"
 
 export const metadata: Metadata = {
-  title: "Polityka Prywatności",
+  title: "Polityka Prywatności | Gamer Fix",
   description: "Polityka prywatności sklepu i serwisu Gamer Fix",
 }
 

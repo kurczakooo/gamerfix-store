@@ -10,8 +10,9 @@ import contactInfo from "../../../../../data/contact.json"
 import ContactForm from "@modules/subpages/templates/contact-form"
 
 export const metadata: Metadata = {
-  title: "Kontakt | Gamer Fix - Serwis i sklep z konso",
-  description: "Skontaktuj się z nami, ",
+  title: "Kontakt | Gamer Fix",
+  description:
+    "Dane kontaktowe i formularz kontaktowy seriwsu Gamer Fix. Skontaktuj się telefonicznie, mailowo, lub poprzez formularz kontaktowy.",
 }
 
 export default async function Contact() {
