@@ -10,6 +10,7 @@ import SideMenu from "@modules/layout/components/side-menu"
 import Cart from "@modules/common/icons/cart"
 import CartButtonTotalItems from "@modules/layout/components/cart-button/button-total-items"
 import ShopButton from "@modules/layout/components/shop-button"
+import CompanyLogo from "@modules/layout/components/company-logo/index."
 
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
@@ -20,7 +21,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-40 group">
-      <header className="relative h-12 mx-auto border-b duration-200 bg-white border-ui-border-base">
+      <header className="relative h-13 mx-auto border-b duration-200 bg-white border-ui-border-base">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex small:hidden basis-0 h-full items-center">
             <div className="h-full text-xl font-semibold">
@@ -32,17 +33,9 @@ export default async function Nav() {
             </div>
           </div>
 
-          <div className="flex flex-1 small:flex-none items-center justify-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="hover:text-ui-fg-base text-xl"
-              data-testid="nav-store-link"
-            >
-              Gamer Fix
-            </LocalizedClientLink>
-          </div>
+          <CompanyLogo nav />
 
-          <div className="flex items-center gap-x-12 h-full justify-center text-xl font-semibold">
+          <div className="flex items-center gap-x-12 h-full justify-center text-xl font-semibold sm:pr-8">
             <div className="hidden small:flex items-center gap-x-6 h-full">
               <Suspense
                 fallback={

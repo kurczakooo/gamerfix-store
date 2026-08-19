@@ -10,6 +10,7 @@ import Phone from "@modules/common/icons/phone"
 import Email from "@modules/common/icons/email"
 
 import contactInfo from "../../../../../data/contact.json"
+import CompanyLogo from "@modules/layout/components/company-logo/index."
 
 export default async function Footer() {
   const { collections } = await listCollections({
@@ -18,16 +19,11 @@ export default async function Footer() {
   const productCategories = await listCategories()
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
+    <footer className="border-t border-ui-border-base w-full bg-white">
       <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
+        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-20">
           <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base"
-            >
-              Gamer Fix
-            </LocalizedClientLink>
+            <CompanyLogo />
             <ul className="grid grid-cols-1 gap-y-2 pt-2 text-ui-fg-subtle text-small-base">
               <li className="hover:text-ui-fg-base">
                 <div className="flex items-center gap-1">
@@ -158,7 +154,7 @@ export default async function Footer() {
             </div>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
+        <div className="flex w-full mb-8 justify-between text-ui-fg-muted">
           <Text className="text-xs">
             © {new Date().getFullYear()} Gamer Fix
           </Text>
