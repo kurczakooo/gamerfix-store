@@ -43,7 +43,7 @@ const ShopDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] left-[-300px] bg-white border-x border-b border-gray-200 w-[800px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+11px)] left-[-300px] bg-white border-x border-b border-gray-200 w-[800px] text-ui-fg-base"
             data-testid="nav-cart-dropdown"
           >
             <div className="overflow-y-scroll max-h-[402px] px-4 py-4 grid grid-cols-1 gap-y-8 no-scrollbar">
