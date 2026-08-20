@@ -1,4 +1,3 @@
-import Divider from "@modules/common/components/divider"
 import { Heading } from "@modules/common/components/ui"
 import { Metadata } from "next"
 import Image from "next/image"
@@ -58,164 +57,127 @@ const storePaymentMethods = [
   },
 ]
 
+type Method = {
+  name: string
+  description: string
+  logo: string
+}
+
+const MethodGrid = ({
+  methods,
+  payment = false,
+}: {
+  methods: Method[]
+  payment?: boolean
+}) => (
+  <div
+    className={
+      payment
+        ? "grid grid-cols-1 gap-4 sm:grid-cols-2"
+        : "grid grid-cols-1 gap-4 sm:grid-cols-2"
+    }
+  >
+    {methods.map((method) => (
+      <div
+        key={method.name}
+        className="flex min-h-[128px] flex-1 items-center justify-between gap-6 border border-ui-border-base bg-white py-5 pl-5 sm:py-6 sm:pl-6"
+      >
+        <div className="min-w-0">
+          <h3 className="text-base-semi text-ui-fg-base">{method.name}</h3>
+          <p className="mt-1 text-small-regular text-ui-fg-subtle">
+            {method.description}
+          </p>
+        </div>
+        <div className="flex h-16 w-[120px] shrink-0 items-center justify-center">
+          <Image
+            src={method.logo}
+            alt={method.name}
+            width={120}
+            height={56}
+            className="h-full w-full object-contain"
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+)
+
+const MethodSection = ({
+  title,
+  description,
+  methods,
+  payment,
+}: {
+  title: string
+  description?: string
+  methods: Method[]
+  payment?: boolean
+}) => (
+  <>
+    <div className="max-w-2xl my-4">
+      <h2 className="text-large-semi text-ui-fg-base">{title}</h2>
+      {description && (
+        <p className="mt-2 text-base-regular text-ui-fg-subtle">
+          {description}
+        </p>
+      )}
+    </div>
+    <MethodGrid methods={methods} payment={payment} />
+  </>
+)
+
 export default async function ShippingPayments() {
   return (
-    <div className="content-container">
-      <div className="py-8 px-2 flex flex-col gap-12">
+    <div
+      className="content-container"
+      data-testid="shipping-payments-container"
+    >
+      <div className="py-6 px-2">
         <Heading level="h1" className="text-3xl-regular">
-          Dostawa i płatność w sklepie
+          Dostawa i płatność
         </Heading>
 
-        <section>
-          <h2 className="text-xl font-semibold text-ui-fg-base mb-6">
-            Dostępne metody dostawy
-          </h2>
+        <div className="pt-8 flex flex-col gap-8 small:gap-10">
+          <section>
+            <h2 className="text-xl-semi text-ui-fg-base mb-2">
+              Dostawa i płatność w sklepie
+            </h2>
+            <div className="flex flex-col">
+              <MethodSection
+                title="Dostępne metody dostawy"
+                methods={storeShippingMethods}
+              />
+              <MethodSection
+                title="Metody płatności"
+                methods={storePaymentMethods}
+                payment
+              />
+            </div>
+          </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {storeShippingMethods.map((method) => (
-              <div
-                key={method.name}
-                className="border rounded-lg p-6 flex flex-col gap-4 bg-white"
-              >
-                <Image
-                  src={method.logo}
-                  alt={method.name}
-                  height={40}
-                  width={100}
-                  className="object-contain h-24 w-auto"
-                />
-
-                <p className="text-sm text-ui-fg-subtle">
-                  {method.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-ui-fg-base mb-6">
-            Metody płatności
-          </h2>
-
-          <div className="flex flex-wrap gap-6">
-            {storePaymentMethods.map((method) => (
-              <div
-                key={method.name}
-                className="border rounded-lg px-6 py-4 flex items-center bg-white"
-              >
-                <Image
-                  src={method.logo}
-                  alt={method.name}
-                  width={100}
-                  height={40}
-                  className="object-contain h-24 w-auto"
-                />
-
-                <p className="text-sm text-ui-fg-subtle">
-                  {method.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <Divider />
-
-        <Heading level="h1" className="text-3xl-regular">
-          Dostawa i płatność w serwisie
-        </Heading>
-
-        <section>
-          <h2 className="text-xl font-semibold text-ui-fg-base mb-6">
-            Dostępne metody wysyłki sprzętu na serwis
-          </h2>
-
-          <p className="text-sm text-ui-fg-subtle mb-6">
-            W celu dostarczenia sprzętu na serwis osobiście prosimy o kontakt
-            telefoniczny.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {repairShopShippingMethods.map((method) => (
-              <div
-                key={method.name}
-                className="border rounded-lg p-6 flex flex-col gap-4 bg-white"
-              >
-                <Image
-                  src={method.logo}
-                  alt={method.name}
-                  width={120}
-                  height={50}
-                  className="object-contain h-24 w-auto"
-                />
-
-                <p className="text-sm text-ui-fg-subtle">
-                  {method.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-ui-fg-base mb-6">
-            Dostępne metody odbioru sprzętu
-          </h2>
-
-          <p className="text-sm text-ui-fg-subtle mb-6">
-            W celu odebrania naprawionego sprzętu osobiście prosimy o kontakt
-            telefoniczny.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {storeShippingMethods.map((method) => (
-              <div
-                key={method.name}
-                className="border rounded-lg p-6 flex flex-col gap-4 bg-white"
-              >
-                <Image
-                  src={method.logo}
-                  alt={method.name}
-                  width={120}
-                  height={50}
-                  className="object-contain h-24 w-auto"
-                />
-
-                <p className="text-sm text-ui-fg-subtle">
-                  {method.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-ui-fg-base mb-6">
-            Metody płatności
-          </h2>
-
-          <div className="flex flex-wrap gap-6">
-            {storePaymentMethods.map((method) => (
-              <div
-                key={method.name}
-                className="border rounded-lg px-6 py-4 flex items-center bg-white"
-              >
-                <Image
-                  src={method.logo}
-                  alt={method.name}
-                  width={100}
-                  height={40}
-                  className="object-contain h-24 w-auto"
-                />
-
-                <p className="text-sm text-ui-fg-subtle">
-                  {method.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+          <section className="border-t border-ui-border-base pt-8">
+            <h2 className="text-xl-semi text-ui-fg-base mb-2">
+              Dostawa i płatność w serwisie
+            </h2>
+            <div className="flex flex-col">
+              <MethodSection
+                title="Dostępne metody wysyłki sprzętu na serwis"
+                description="W celu dostarczenia sprzętu na serwis osobiście prosimy o kontakt telefoniczny."
+                methods={repairShopShippingMethods}
+              />
+              <MethodSection
+                title="Dostępne metody odbioru sprzętu"
+                description="W celu odebrania naprawionego sprzętu osobiście prosimy o kontakt telefoniczny."
+                methods={storeShippingMethods}
+              />
+              <MethodSection
+                title="Metody płatności"
+                methods={storePaymentMethods}
+                payment
+              />
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   )
