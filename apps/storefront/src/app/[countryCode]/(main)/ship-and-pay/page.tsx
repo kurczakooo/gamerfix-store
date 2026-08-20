@@ -20,27 +20,39 @@ const storeShippingMethods = [
     description: "Szybka dostawa do wybranego paczkomatu.",
     logo: "/images/shipping/inpost_paczkomaty.png",
   },
+]
+
+const repairShopShippingMethods = [
   {
-    name: "Orlen paczka",
-    description:
-      "Dostawa kurierska do wskazanego automatu paczkowego Orlen Paczka.",
-    logo: "/images/shipping/orlen.png",
+    name: "InPost Kurier",
+    description: "Nadanie paczki u kuriera, który przyjedzie pod twój adres.",
+    logo: "/images/shipping/inpost_kurier.png",
+  },
+  {
+    name: "InPost Paczkomaty",
+    description: "Nadanie paczki w paczkomacie.",
+    logo: "/images/shipping/inpost_paczkomaty.png",
   },
 ]
 
 const storePaymentMethods = [
   {
-    name: "BLIK na telefon",
-    description: "Płatność za pomocą BLIK na wskazany numer telefonu.",
+    name: "BLIK",
+    description: "Płatność za pomocą kodu BLIK.",
     logo: "/images/payment/blik_telefon.png",
   },
   {
+    name: "Szybki przelew",
+    description: "Płatność szybkim przelewem bankowym.",
+    logo: "/images/payment/szybki_przelew.png",
+  },
+  {
     name: "Manualny przelew",
-    description: "Płatność za pomocą przelewu manualnego.",
+    description: "Płatność za pomocą przelewu tradycyjnego.",
     logo: "/images/payment/przelew.svg",
   },
   {
-    name: "Płatność przy odbiorze paczki",
+    name: "Płatność za pobraniem",
     description: "Płatność przy odbiorze paczki od kuriera.",
     logo: "/images/payment/pobranie.svg",
   },
@@ -63,7 +75,7 @@ export default async function ShippingPayments() {
             {storeShippingMethods.map((method) => (
               <div
                 key={method.name}
-                className="border rounded-lg p-6 flex flex-col gap-4"
+                className="border rounded-lg p-6 flex flex-col gap-4 bg-white"
               >
                 <Image
                   src={method.logo}
@@ -90,7 +102,7 @@ export default async function ShippingPayments() {
             {storePaymentMethods.map((method) => (
               <div
                 key={method.name}
-                className="border rounded-lg px-6 py-4 flex items-center"
+                className="border rounded-lg px-6 py-4 flex items-center bg-white"
               >
                 <Image
                   src={method.logo}
@@ -116,14 +128,51 @@ export default async function ShippingPayments() {
 
         <section>
           <h2 className="text-xl font-semibold text-ui-fg-base mb-6">
-            Dostępne metody dostawy
+            Dostępne metody wysyłki sprzętu na serwis
           </h2>
+
+          <p className="text-sm text-ui-fg-subtle mb-6">
+            W celu dostarczenia sprzętu na serwis osobiście prosimy o kontakt
+            telefoniczny.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {repairShopShippingMethods.map((method) => (
+              <div
+                key={method.name}
+                className="border rounded-lg p-6 flex flex-col gap-4 bg-white"
+              >
+                <Image
+                  src={method.logo}
+                  alt={method.name}
+                  width={120}
+                  height={50}
+                  className="object-contain h-24 w-auto"
+                />
+
+                <p className="text-sm text-ui-fg-subtle">
+                  {method.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-semibold text-ui-fg-base mb-6">
+            Dostępne metody odbioru sprzętu
+          </h2>
+
+          <p className="text-sm text-ui-fg-subtle mb-6">
+            W celu odebrania naprawionego sprzętu osobiście prosimy o kontakt
+            telefoniczny.
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {storeShippingMethods.map((method) => (
               <div
                 key={method.name}
-                className="border rounded-lg p-6 flex flex-col gap-4"
+                className="border rounded-lg p-6 flex flex-col gap-4 bg-white"
               >
                 <Image
                   src={method.logo}
@@ -150,7 +199,7 @@ export default async function ShippingPayments() {
             {storePaymentMethods.map((method) => (
               <div
                 key={method.name}
-                className="border rounded-lg px-6 py-4 flex items-center"
+                className="border rounded-lg px-6 py-4 flex items-center bg-white"
               >
                 <Image
                   src={method.logo}
