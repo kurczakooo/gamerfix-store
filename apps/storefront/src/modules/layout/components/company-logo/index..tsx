@@ -3,9 +3,44 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { clx } from "@modules/common/components/ui"
 import Image from "next/image"
+import { useEffect, useState } from "react"
+
+const icons = [
+  "/images/content/controller192.png",
+  "/images/content/ps5192.png",
+  "/images/content/phone192.png",
+  "/images/content/xbox192.png",
+  "/images/content/laptop192.png",
+]
+
+const ICON_INDEX_KEY = "gamer-fix-logo-index"
+let currentIcon: string | null = null
 
 const CompanyLogo = ({ nav }: { nav?: boolean }) => {
   const navAdjustment = nav ? "justify-center" : "justify-start"
+
+  const [icon, setIcon] = useState<string | null>(currentIcon)
+
+  useEffect(() => {
+    if (!currentIcon) {
+      let nextIndex = 0
+
+      try {
+        const savedIndex = Number(localStorage.getItem(ICON_INDEX_KEY))
+        nextIndex = Number.isInteger(savedIndex) ? savedIndex % icons.length : 0
+        localStorage.setItem(
+          ICON_INDEX_KEY,
+          String((nextIndex + 1) % icons.length)
+        )
+      } catch {
+        nextIndex = Math.floor(Math.random() * icons.length)
+      }
+
+      currentIcon = icons[nextIndex]
+    }
+
+    setIcon(currentIcon)
+  }, [])
 
   return (
     <>
@@ -17,13 +52,17 @@ const CompanyLogo = ({ nav }: { nav?: boolean }) => {
         )}
         data-testid="nav-store-link"
       >
-        <Image
-          src="/android-chrome-192x192.png"
-          alt="Gamer Fix logo"
-          width={48}
-          height={48}
-          className="w-11 h-11 sm:w-12 sm:h-12"
-        />
+        <span className="w-11 h-11 sm:w-12 sm:h-12">
+          {icon && (
+            <Image
+              src={icon}
+              alt="Gamer Fix logo"
+              width={48}
+              height={48}
+              className="w-11 h-11 sm:w-12 sm:h-12"
+            />
+          )}
+        </span>
         Gamer Fix
       </LocalizedClientLink>
     </>
