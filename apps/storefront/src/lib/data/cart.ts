@@ -59,7 +59,7 @@ export async function getOrSetCart(countryCode: string) {
     throw new Error(`Region not found for country code: ${countryCode}`)
   }
 
-  let cart = await retrieveCart(undefined, "id,region_id")
+  let cart = await retrieveCart(undefined, "id,region_id,*items")
 
   const headers = {
     ...(await getAuthHeaders()),
@@ -114,14 +114,38 @@ export async function updateCart(data: HttpTypes.StoreUpdateCart) {
     .catch(medusaError)
 }
 
+function checkItemInCartVsInventory(
+  variantId: string,
+  managedInventory: boolean,
+  inventoryQuantity: number,
+  quantityToAdd: number,
+  cart: HttpTypes.StoreCart
+) {
+  const itemQuantityInCart =
+    cart.items?.find((item) => item.variant_id === variantId)?.quantity || 0
+
+  if (
+    managedInventory &&
+    itemQuantityInCart + quantityToAdd > inventoryQuantity
+  ) {
+    return false
+  }
+
+  return true
+}
+
 export async function addToCart({
   variantId,
   quantity,
   countryCode,
+  managedInventory,
+  inventoryQuantity,
 }: {
   variantId: string
   quantity: number
   countryCode: string
+  managedInventory: boolean
+  inventoryQuantity: number
 }) {
   if (!variantId) {
     throw new Error("Missing variant ID when adding to cart")
@@ -131,6 +155,18 @@ export async function addToCart({
 
   if (!cart) {
     throw new Error("Error retrieving or creating cart")
+  }
+
+  if (
+    !checkItemInCartVsInventory(
+      variantId,
+      managedInventory,
+      inventoryQuantity,
+      quantity,
+      cart
+    )
+  ) {
+    throw new Error("Amount in cart exceeds available inventory")
   }
 
   const headers = {
