@@ -71,10 +71,30 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
           {item.product_title}
         </Text>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
+        {type === "full" && (
+          <div className="flex gap-2 items-center w-28 small:hidden">
+            <DeleteButton id={item.id} data-testid="product-delete-button" />
+            <CartItemSelect
+              value={item.quantity}
+              onChange={(value) => changeQuantity(parseInt(value.target.value))}
+              className="w-14 h-10 p-4"
+              data-testid="product-select-button"
+            >
+              {quantityOptions.map((quantity) => (
+                <option value={quantity} key={quantity}>
+                  {quantity}
+                </option>
+              ))}
+            </CartItemSelect>
+            <span className="text-sm text-ui-fg-muted">szt.</span>
+            {updating && <Spinner />}
+          </div>
+        )}
+        <ErrorMessage error={error} data-testid="product-error-message" />
       </Table.Cell>
 
       {type === "full" && (
-        <Table.Cell>
+        <Table.Cell className="hidden small:table-cell">
           <div className="flex gap-2 items-center w-28">
             <DeleteButton id={item.id} data-testid="product-delete-button" />
             <CartItemSelect
@@ -89,6 +109,7 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                 </option>
               ))}
             </CartItemSelect>
+            <span className="text-sm text-ui-fg-muted">szt.</span>
             {updating && <Spinner />}
           </div>
           <ErrorMessage error={error} data-testid="product-error-message" />
