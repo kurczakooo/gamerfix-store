@@ -5,6 +5,7 @@ import { listCategories } from "@lib/data/categories"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "@modules/store/templates"
 import { filterCategoriesByHandle } from "@lib/util/product"
+import { getCollectionByHandle } from "@lib/data/collections"
 
 export const metadata: Metadata = {
   title: "Sklep | Konsole, Pady, Gry, Akcesoria, Sprzęt | Gamer Fix",
@@ -30,7 +31,10 @@ export default async function StorePage(props: Params) {
   const searchParams = await props.searchParams
   const { sortBy, page } = searchParams
   const optionValueIds = parseOptionValueIds(searchParams)
-  const allCategories = await listCategories()
+  const [allCategories, productCollection] = await Promise.all([
+    listCategories(),
+    getCollectionByHandle("products"),
+  ])
   const productCategories = filterCategoriesByHandle(
     allCategories,
     "service",
@@ -44,6 +48,8 @@ export default async function StorePage(props: Params) {
       countryCode={params.countryCode}
       optionValueIds={optionValueIds}
       categories={productCategories}
+      service={false}
+      collectionId={productCollection?.id}
     />
   )
 }

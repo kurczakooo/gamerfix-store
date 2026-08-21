@@ -8,6 +8,7 @@ export default async function ShopButton() {
   return (
     <ShopDropdown
       categories={filterCategoriesByHandle(productCategories, "service", false)}
+      services={false}
     />
   )
 }

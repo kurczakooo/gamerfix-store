@@ -11,6 +11,7 @@ import Cart from "@modules/common/icons/cart"
 import CartButtonTotalItems from "@modules/layout/components/cart-button/button-total-items"
 import ShopButton from "@modules/layout/components/shop-button"
 import CompanyLogo from "@modules/layout/components/company-logo/index."
+import RepairShopButton from "@modules/repair-shop-button"
 
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
@@ -50,13 +51,17 @@ export default async function Nav() {
               </Suspense>
             </div>
             <div className="hidden small:flex items-center gap-x-6 h-full">
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/repair-shop"
-                data-testid="nav-services-link"
+              <Suspense
+                fallback={
+                  <LocalizedClientLink
+                    className="hover:text-ui-fg-base flex gap-2"
+                    href="/repair-shop"
+                    data-testid="nav-repair-shop-link"
+                  ></LocalizedClientLink>
+                }
               >
-                Serwis
-              </LocalizedClientLink>
+                <RepairShopButton />
+              </Suspense>
             </div>
             <div className="hidden small:flex items-center gap-x-6 h-full">
               <LocalizedClientLink

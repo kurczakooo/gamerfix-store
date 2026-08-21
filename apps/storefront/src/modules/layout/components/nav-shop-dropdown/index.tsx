@@ -13,13 +13,17 @@ import { Fragment, useState } from "react"
 
 const ShopDropdown = ({
   categories: categories,
+  services: services,
 }: {
   categories?: StoreProductCategory[] | null
+  services: boolean
 }) => {
   const [shopDropdownOpen, setShopDropdownOpen] = useState(false)
 
   const open = () => setShopDropdownOpen(true)
   const close = () => setShopDropdownOpen(false)
+  const parentCategories =
+    categories?.filter((category) => !category.parent_category) || []
 
   return (
     <div className="h-full z-50" onMouseEnter={open} onMouseLeave={close}>
@@ -27,9 +31,11 @@ const ShopDropdown = ({
         <PopoverButton className="h-full">
           <LocalizedClientLink
             className="hover:text-ui-fg-base"
-            href="/store"
+            href={services === true ? "/repair-shop" : "/store"}
             data-testid="nav-store-link"
-          >{`Sklep`}</LocalizedClientLink>
+          >
+            {services === true ? `Serwis` : `Sklep`}
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={shopDropdownOpen}
@@ -50,7 +56,10 @@ const ShopDropdown = ({
               {categories && categories?.length > 0 && (
                 <div className="flex flex-col ">
                   <ul
-                    className="grid grid-cols-3 "
+                    className="grid"
+                    style={{
+                      gridTemplateColumns: `repeat(${parentCategories.length}, minmax(0, 1fr))`,
+                    }}
                     data-testid="navbar-categories"
                   >
                     {categories?.map((c) => {
