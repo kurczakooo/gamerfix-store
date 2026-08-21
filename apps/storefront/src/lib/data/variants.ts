@@ -26,7 +26,7 @@ export const retrieveVariant = async (
       {
         method: "GET",
         query: {
-          fields: "*images",
+          fields: "*images,+inventory_quantity,+manage_inventory",
         },
         headers,
         next,

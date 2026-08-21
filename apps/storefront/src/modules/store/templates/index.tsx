@@ -15,12 +15,16 @@ const StoreTemplate = ({
   countryCode,
   optionValueIds,
   categories,
+  service,
+  collectionId,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
   optionValueIds?: OptionValueIds
   categories: HttpTypes.StoreProductCategory[]
+  service: boolean
+  collectionId?: string
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -37,7 +41,9 @@ const StoreTemplate = ({
       <RefinementList sortBy={sort} />
       <div className="w-full">
         <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">Wszystkie produkty</h1>
+          <h1 data-testid="store-page-title">
+            {service ? `Wszystkie usługi` : `Wszystkie produkty`}
+          </h1>
         </div>
         {rootCategories.length > 0 && (
           <div className="mb-8 text-base-large">
@@ -67,6 +73,7 @@ const StoreTemplate = ({
             page={pageNumber}
             countryCode={countryCode}
             optionValueIds={optionValueIds}
+            collectionId={collectionId}
           />
         </Suspense>
       </div>
