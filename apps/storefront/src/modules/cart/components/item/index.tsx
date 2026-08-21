@@ -41,13 +41,9 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
   }
 
   const inventoryQuantity = item.variant?.inventory_quantity ?? 0
-  const maxQuantity = item.variant?.manage_inventory
-    ? Math.max(item.quantity, inventoryQuantity)
-    : 10
-  const quantityOptions = Array.from(
-    { length: Math.max(Math.min(maxQuantity, 10), 1) },
-    (_, i) => i + 1
-  )
+  const maxQuantity = item.variant?.manage_inventory ? inventoryQuantity : 10
+  // ^^^^^^^if no managed inventory, can buy max of 10
+  const quantityOptions = Array.from({ length: maxQuantity }, (_, i) => i + 1)
 
   return (
     <Table.Row className="w-full" data-testid="product-row">

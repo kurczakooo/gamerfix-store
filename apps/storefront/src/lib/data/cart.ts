@@ -15,6 +15,7 @@ import {
 } from "./cookies"
 import { getRegion } from "./regions"
 import { getLocale } from "./locale-actions"
+import { retrieveVariant } from "./variants"
 
 /**
  * Retrieves a cart by its ID. If no ID is provided, it will use the cart ID from the cookies.
@@ -48,7 +49,24 @@ export async function retrieveCart(cartId?: string, fields?: string) {
       next,
       cache: "force-cache",
     })
-    .then(({ cart }: { cart: HttpTypes.StoreCart }) => cart)
+    .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
+      await Promise.all(
+        (cart.items ?? []).map(async (item) => {
+          if (!item.variant_id || !item.variant) {
+            return
+          }
+
+          const variant = await retrieveVariant(item.variant_id)
+
+          if (variant) {
+            item.variant.inventory_quantity = variant.inventory_quantity
+            item.variant.manage_inventory = variant.manage_inventory
+          }
+        })
+      )
+
+      return cart
+    })
     .catch(() => null)
 }
 
