@@ -26,6 +26,8 @@ export default async function ProductPreview({
     new Date(product.created_at) >
       new Date(Date.now() - 1000 * 60 * 60 * 24 * days)
 
+  console.log(product.metadata)
+
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group">
       <div data-testid="product-wrapper">
@@ -35,6 +37,7 @@ export default async function ProductPreview({
           size="full"
           isFeatured={isFeatured}
           isNew={isNew}
+          bestSeller={product.metadata ? product.metadata?.bestseller : false}
         />
         <div className="mt-4">
           <Text

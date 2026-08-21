@@ -18,7 +18,7 @@ export default async function ProductRail({
     regionId: region.id,
     queryParams: {
       collection_id: collection.id,
-      fields: "*variants.calculated_price",
+      fields: "*variants.calculated_price,+metadata",
     },
   })
 
@@ -29,7 +29,7 @@ export default async function ProductRail({
   const href = collection.handle === "products" ? "/store" : "/repair-shop"
 
   return (
-    <div className="content-container py-12 small:py-24">
+    <div className="content-container py-4 small:py-8">
       <div className="flex justify-between mb-8">
         <Text className="text-xl-semi">{collection.title}</Text>
         <InteractiveLink href={href}>Wyświetl wszystkie</InteractiveLink>

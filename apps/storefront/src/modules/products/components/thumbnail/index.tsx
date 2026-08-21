@@ -10,6 +10,7 @@ type ThumbnailProps = {
   size?: "small" | "medium" | "large" | "full" | "square"
   isFeatured?: boolean
   isNew?: boolean
+  bestSeller: boolean
   className?: string
   "data-testid"?: string
 }
@@ -20,6 +21,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   size = "small",
   isFeatured,
   isNew,
+  bestSeller,
   className,
   "data-testid": dataTestid,
 }) => {
@@ -43,8 +45,13 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
       data-testid={dataTestid}
     >
       <ImageOrPlaceholder image={initialImage} size={size} />
+      {bestSeller && (
+        <span className="absolute left-2 top-2 z-10 rounded-md bg-gray-950 px-2 py-1 text-xsmall-semi sm:text-small-semi uppercase text-white">
+          Bestseller
+        </span>
+      )}
       {isNew && (
-        <span className="absolute right-2 top-2 z-10 rounded-md bg-blue-500 px-2 py-1 text-xsmall-semi sm:text-small-semi uppercase text-white">
+        <span className="absolute right-2 top-2 z-10 rounded-md bg-[--fg-interactive] px-2 py-1 text-xsmall-semi sm:text-small-semi uppercase text-white">
           Nowość
         </span>
       )}
