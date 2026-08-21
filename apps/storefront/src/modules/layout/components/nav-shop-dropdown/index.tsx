@@ -13,13 +13,17 @@ import { Fragment, useState } from "react"
 
 const ShopDropdown = ({
   categories: categories,
+  services: services,
 }: {
   categories?: StoreProductCategory[] | null
+  services: boolean
 }) => {
   const [shopDropdownOpen, setShopDropdownOpen] = useState(false)
 
   const open = () => setShopDropdownOpen(true)
   const close = () => setShopDropdownOpen(false)
+  const parentCategories =
+    categories?.filter((category) => !category.parent_category) || []
 
   return (
     <div className="h-full z-50" onMouseEnter={open} onMouseLeave={close}>
@@ -27,9 +31,11 @@ const ShopDropdown = ({
         <PopoverButton className="h-full">
           <LocalizedClientLink
             className="hover:text-ui-fg-base"
-            href="/store"
+            href={services === true ? "/repair-shop" : "/store"}
             data-testid="nav-store-link"
-          >{`Sklep`}</LocalizedClientLink>
+          >
+            {services === true ? `Serwis` : `Sklep`}
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={shopDropdownOpen}
@@ -43,14 +49,17 @@ const ShopDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] left-[-300px] bg-white border-x border-b border-gray-200 w-[800px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+11px)] left-[-300px] bg-white border-x border-b border-gray-200 w-[800px] text-ui-fg-base"
             data-testid="nav-cart-dropdown"
           >
             <div className="overflow-y-scroll max-h-[402px] px-4 py-4 grid grid-cols-1 gap-y-8 no-scrollbar">
               {categories && categories?.length > 0 && (
                 <div className="flex flex-col ">
                   <ul
-                    className="grid grid-cols-3 "
+                    className="grid"
+                    style={{
+                      gridTemplateColumns: `repeat(${parentCategories.length}, minmax(0, 1fr))`,
+                    }}
                     data-testid="navbar-categories"
                   >
                     {categories?.map((c) => {

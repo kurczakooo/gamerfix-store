@@ -88,6 +88,11 @@ h6 {
     font-family: var(--font-main);
   }
 
+  .text-xsmall-semi {
+    @apply text-[10px] leading-4 font-semibold;
+    font-family: var(--font-main);
+  }
+
   .text-small-regular {
     @apply text-xs leading-5 font-normal;
     font-family: var(--font-main);
@@ -177,4 +182,39 @@ h6 {
       }
     }
   }
+}
+
+.pattern-bg {
+  position: relative;
+  overflow: clip;
+}
+
+.pattern-icons {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 512px;
+
+  pointer-events: none;
+  opacity: 0.04;
+}
+
+.pattern-icons img {
+  width: 512px;
+  height: 512px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(2);
+}
+
+.pattern-icons img:nth-child(odd) {
+  justify-self: start;
+  transform: translateX(-30%);
+}
+
+.pattern-icons img:nth-child(even) {
+  justify-self: end;
+  transform: translateX(30%);
 }

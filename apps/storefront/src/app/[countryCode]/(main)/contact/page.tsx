@@ -108,7 +108,7 @@ export default async function Contact() {
               </div>
             </section>
           </div>
-          <div className="rounded-lg border border-ui-border-base p-8 min-h-[500px]">
+          <div className="rounded-lg border border-ui-border-base p-8 min-h-[500px] bg-white">
             <h2 className="text-xl font-semibold text-ui-fg-base mb-2">
               Formularz kontaktowy
             </h2>

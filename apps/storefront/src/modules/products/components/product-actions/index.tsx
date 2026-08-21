@@ -4,6 +4,7 @@ import { addToCart } from "@lib/data/cart"
 import { useIntersection } from "@lib/hooks/use-in-view"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@modules/common/components/ui"
+import ErrorMessage from "@modules/checkout/components/error-message"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
 import { isEqual } from "lodash"
@@ -12,6 +13,11 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
 import { useRouter } from "next/navigation"
+
+const addToCartErrorMessages: Record<string, string> = {
+  "Amount in cart exceeds available inventory":
+    "Ilość w koszyku nie może przekraczać ilości dostępnych sztuk",
+}
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -38,6 +44,7 @@ export default function ProductActions({
 
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
   const [isAdding, setIsAdding] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const countryCode = useParams().countryCode as string
 
   // If there is only 1 variant, preselect the options
@@ -124,15 +131,28 @@ export default function ProductActions({
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
 
+    setErrorMessage(null)
     setIsAdding(true)
 
-    await addToCart({
-      variantId: selectedVariant.id,
-      quantity: 1,
-      countryCode,
-    })
+    try {
+      await addToCart({
+        variantId: selectedVariant.id,
+        quantity: 1,
+        managedInventory: !!selectedVariant.manage_inventory,
+        inventoryQuantity: selectedVariant.inventory_quantity ?? 0,
+        countryCode,
+      })
+    } catch (error) {
+      const message = error instanceof Error ? error.message : ""
 
-    setIsAdding(false)
+      setErrorMessage(
+        addToCartErrorMessages[message] ||
+          message ||
+          "Nie udało się dodać produktu do koszyka"
+      )
+    } finally {
+      setIsAdding(false)
+    }
   }
 
   return (
@@ -164,7 +184,8 @@ export default function ProductActions({
           {selectedVariant?.manage_inventory && (
             <div className="text-base-regular text-gray-600">
               Dostępnych sztuk:{" "}
-              {selectedVariant?.inventory_quantity >= 0
+              {selectedVariant?.inventory_quantity != null &&
+              selectedVariant.inventory_quantity >= 0
                 ? selectedVariant.inventory_quantity
                 : "Wybierz opcje"}
             </div>
@@ -193,6 +214,10 @@ export default function ProductActions({
             ? "Wyprzedane"
             : "Dodaj do koszyka"}
         </Button>
+        <ErrorMessage
+          error={errorMessage}
+          data-testid="add-product-error-message"
+        />
         <MobileActions
           product={product}
           variant={selectedVariant}
