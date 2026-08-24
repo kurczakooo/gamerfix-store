@@ -208,7 +208,7 @@ const Shipping: React.FC<ShippingProps> = ({
         <>
           <div className="grid">
             <div className="flex flex-col">
-              <span className="font-medium txt-medium text-ui-fg-base">
+              <span className="font-medium txt-medium text-ui-fg-base mb-4">
                 Wybierz metodę dostawy
               </span>
             </div>

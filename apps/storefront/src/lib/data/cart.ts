@@ -211,6 +211,48 @@ export async function addToCart({
     .catch(medusaError)
 }
 
+export async function addPayOnDeliveryFeeToCart({
+  title,
+  quantity,
+  unitPrice,
+  countryCode,
+}: {
+  title: string
+  quantity: number
+  unitPrice: number
+  countryCode: string
+}) {
+  const cart = await getOrSetCart(countryCode)
+
+  if (!cart) {
+    throw new Error("Error retrieving or creating cart")
+  }
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  await sdk.client
+    .fetch(`/store/cart-fee`, {
+      method: "POST",
+      headers: headers,
+      body: {
+        cart_id: cart.id,
+        title,
+        quantity,
+        unit_price: unitPrice,
+      },
+    })
+    .then(async () => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+
+      const fulfillmentCacheTag = await getCacheTag("fulfillment")
+      revalidateTag(fulfillmentCacheTag)
+    })
+    .catch(medusaError)
+}
+
 export async function updateLineItem({
   lineId,
   quantity,
