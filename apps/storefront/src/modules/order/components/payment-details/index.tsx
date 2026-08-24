@@ -1,6 +1,6 @@
 import { Heading, Text } from "@modules/common/components/ui"
 
-import { isPayOnDeliveryDpay, paymentInfoMap } from "@lib/constants"
+import { isPayOnDeliveryAutopay, paymentInfoMap } from "@lib/constants"
 import Divider from "@modules/common/components/divider"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
@@ -41,7 +41,7 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
                     amount: payment.amount,
                     currency_code: order.currency_code,
                   })} ${
-                    isPayOnDeliveryDpay(payment.provider_id)
+                    isPayOnDeliveryAutopay(payment.provider_id)
                       ? `- Do zapłaty przy odbiorze zamówienia`
                       : `- zapłacono ${new Date(
                           payment.created_at ?? ""

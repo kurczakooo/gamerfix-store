@@ -1,7 +1,7 @@
 "use client"
 import { RadioGroup } from "@headlessui/react"
 import {
-  isPayOnDeliveryDpay,
+  isPayOnDeliveryAutopay,
   isStripeLike,
   paymentInfoMap,
 } from "@lib/constants"
@@ -107,7 +107,7 @@ const Payment = ({
       const checkActiveSession =
         activeSession?.provider_id === selectedPaymentMethod
 
-      if (isPayOnDeliveryDpay(selectedPaymentMethod) && !deliveryFeeInCart) {
+      if (isPayOnDeliveryAutopay(selectedPaymentMethod) && !deliveryFeeInCart) {
         await addPayOnDeliveryFeeToCart({
           title: "Opłata za pobranie",
           quantity: 1,
@@ -116,7 +116,7 @@ const Payment = ({
         })
       }
 
-      if (!isPayOnDeliveryDpay(selectedPaymentMethod) && deliveryFeeInCart) {
+      if (!isPayOnDeliveryAutopay(selectedPaymentMethod) && deliveryFeeInCart) {
         await updateLineItem({ lineId: deliveryFeeInCart.id, quantity: 0 })
       }
 
@@ -147,11 +147,11 @@ const Payment = ({
 
   const sortedPaymentMethods = useMemo(() => {
     const normal = availablePaymentMethods.filter(
-      (m) => !isPayOnDeliveryDpay(m.id)
+      (m) => !isPayOnDeliveryAutopay(m.id)
     )
 
     const pobranie = availablePaymentMethods.filter((m) =>
-      isPayOnDeliveryDpay(m.id)
+      isPayOnDeliveryAutopay(m.id)
     )
 
     return [...normal, ...pobranie]

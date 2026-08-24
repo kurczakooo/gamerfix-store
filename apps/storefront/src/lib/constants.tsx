@@ -1,7 +1,7 @@
 import { CreditCard } from "@medusajs/icons"
 import Bancontact from "@modules/common/icons/bancontact"
 import Blik from "@modules/common/icons/blik"
-import DpayTransfer from "@modules/common/icons/dpay-transfer"
+import AutopayTransfer from "@modules/common/icons/autopay-transfer"
 import Ideal from "@modules/common/icons/ideal"
 import PayPal from "@modules/common/icons/paypal"
 import PayOnDelivery from "@modules/common/icons/pobranie"
@@ -40,11 +40,11 @@ export const paymentInfoMap: Record<
     title: "Blik",
     icon: <Blik size={48} />,
   },
-  pp_dpay_transfer_dpay: {
+  pp_autopay_transfer_dpay: {
     title: "Szybki przelew",
-    icon: <DpayTransfer size={48} />,
+    icon: <AutopayTransfer size={48} />,
   },
-  pp_dpay_pobranie_dpay: {
+  pp_autopay_pobranie_dpay: {
     title: "Płatność za pobraniem",
     icon: <PayOnDelivery size={48} />,
   },
@@ -63,13 +63,13 @@ export const isPaypal = (providerId?: string) => {
 export const isManual = (providerId?: string) => {
   return providerId?.startsWith("pp_system_default")
 }
-export const isBlikDpay = (providerId?: string) => {
+export const isBlikAutopay = (providerId?: string) => {
   return providerId?.startsWith("pp_dpay_blik_dpay")
 }
-export const isTransferDpay = (providerId?: string) => {
+export const isTransferAutopay = (providerId?: string) => {
   return providerId?.startsWith("pp_dpay_transfer_dpay")
 }
-export const isPayOnDeliveryDpay = (providerId?: string) => {
+export const isPayOnDeliveryAutopay = (providerId?: string) => {
   return providerId?.startsWith("pp_dpay_pobranie_dpay")
 }
 

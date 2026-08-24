@@ -1,6 +1,10 @@
 "use client"
 
-import { isBlikDpay, isPayOnDeliveryDpay, isTransferDpay } from "@lib/constants"
+import {
+  isBlikAutopay,
+  isPayOnDeliveryAutopay,
+  isTransferAutopay,
+} from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@modules/common/components/ui"
@@ -29,7 +33,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   console.log(paymentSession?.provider_id)
 
   switch (true) {
-    case isPayOnDeliveryDpay(paymentSession?.provider_id):
+    case isPayOnDeliveryAutopay(paymentSession?.provider_id):
       return (
         <PayOnDeliveryPaymentButton
           notReady={notReady}
@@ -37,7 +41,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
           data-testid={dataTestId}
         />
       )
-    case isTransferDpay(paymentSession?.provider_id):
+    case isTransferAutopay(paymentSession?.provider_id):
       return (
         <TransferPaymentButton
           notReady={notReady}
@@ -45,7 +49,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
           data-testid={dataTestId}
         />
       )
-    case isBlikDpay(paymentSession?.provider_id):
+    case isBlikAutopay(paymentSession?.provider_id):
       return (
         <DpayBlikPaymentButton
           notReady={notReady}
