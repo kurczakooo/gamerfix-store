@@ -25,7 +25,7 @@ import { retrieveVariant } from "./variants"
 export async function retrieveCart(cartId?: string, fields?: string) {
   const id = cartId || (await getCartId())
   fields ??=
-    "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
+    "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name, +metadata"
 
   if (!id) {
     return null
@@ -329,6 +329,40 @@ export async function setShippingMethod({
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
       revalidateTag(cartCacheTag)
+    })
+    .catch(medusaError)
+}
+
+export async function setParcelLockerPoint({
+  cartId,
+  existingMetadata,
+  point,
+}: {
+  cartId: string
+  existingMetadata?: Record<string, unknown> | null
+  point: { name: string; code: string } | null
+}) {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.store.cart
+    .update(
+      cartId,
+      {
+        metadata: {
+          ...existingMetadata,
+          parcel_locker_point: point,
+        },
+      },
+      {},
+      headers
+    )
+    .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+
+      return cart
     })
     .catch(medusaError)
 }
