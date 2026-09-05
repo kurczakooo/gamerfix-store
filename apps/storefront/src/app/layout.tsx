@@ -7,11 +7,11 @@ export const metadata: Metadata = {
 }
 
 const icons = [
-  "/images/content/laptop.png",
-  "/images/content/controller.png",
-  "/images/content/ps5.png",
-  "/images/content/phone.png",
-  "/images/content/xbox.png",
+  "/images/content/laptop512.webp",
+  "/images/content/controller512.webp",
+  "/images/content/ps5512.webp",
+  "/images/content/phone512.webp",
+  "/images/content/xbox512.webp",
 ]
 
 const patternIcons = Array.from(
