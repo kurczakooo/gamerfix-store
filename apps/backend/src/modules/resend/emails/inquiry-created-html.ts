@@ -17,11 +17,11 @@ const escapeHtml = (value: string) =>
 
 const renderIcons = (storeUrl: string) =>
   [
-    "laptop192.png",
-    "ps5192.png",
-    "controller192.png",
-    "xbox192.png",
-    "phone192.png",
+    "laptop192.webp",
+    "ps5192.webp",
+    "controller192.webp",
+    "xbox192.webp",
+    "phone192.webp",
   ]
     .map(
       (iconName) =>
