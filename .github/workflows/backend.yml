@@ -70,6 +70,8 @@ jobs:
             S3_FILE_URL=${{ secrets.S3_FILE_URL }}
             S3_REGION=${{ secrets.S3_REGION }}
             S3_SECRET_ACCESS_KEY=${{ secrets.S3_SECRET_ACCESS_KEY }}
+            RESEND_FROM_EMAIL=${{ secrets.RESEND_FROM_EMAIL }}
+            RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
             EOF
 
             docker compose pull
