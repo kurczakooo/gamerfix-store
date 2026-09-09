@@ -3,6 +3,7 @@ import { RadioGroup } from "@headlessui/react"
 import {
   isPayOnDeliveryAutopay,
   isStripeLike,
+  isTransferAutopay,
   paymentInfoMap,
 } from "@lib/constants"
 import {
@@ -50,6 +51,18 @@ const Payment = ({
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     activeSession?.provider_id ?? ""
   )
+
+  const sortedPaymentMethods = useMemo(() => {
+    const normal = availablePaymentMethods.filter(
+      (m) => !isPayOnDeliveryAutopay(m.id)
+    )
+
+    const pobranie = availablePaymentMethods.filter((m) =>
+      isPayOnDeliveryAutopay(m.id)
+    )
+
+    return [...normal, ...pobranie]
+  }, [availablePaymentMethods])
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -123,6 +136,16 @@ const Payment = ({
       if (!checkActiveSession) {
         await initiatePaymentSession(cart, {
           provider_id: selectedPaymentMethod,
+          ...(isTransferAutopay(selectedPaymentMethod)
+            ? {
+                data: {
+                  orderId: cart.id,
+                  amount: cart.total,
+                  description: `Zamowienie`,
+                  customerEmail: cart.email,
+                },
+              }
+            : {}),
         })
       }
 
@@ -144,18 +167,6 @@ const Payment = ({
   useEffect(() => {
     setError(null)
   }, [isOpen])
-
-  const sortedPaymentMethods = useMemo(() => {
-    const normal = availablePaymentMethods.filter(
-      (m) => !isPayOnDeliveryAutopay(m.id)
-    )
-
-    const pobranie = availablePaymentMethods.filter((m) =>
-      isPayOnDeliveryAutopay(m.id)
-    )
-
-    return [...normal, ...pobranie]
-  }, [availablePaymentMethods])
 
   return (
     <div className="bg-white">

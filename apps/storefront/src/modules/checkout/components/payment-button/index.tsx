@@ -8,7 +8,7 @@ import {
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@modules/common/components/ui"
-import React, { use, useState } from "react"
+import React, { useState } from "react"
 import ErrorMessage from "../error-message"
 import { SubmitButton } from "../submit-button"
 import Input from "@modules/common/components/input"
@@ -174,22 +174,25 @@ const TransferPaymentButton = ({
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-  const onPaymentCompleted = async () => {
-    await placeOrder()
-      .catch((err) => {
-        setErrorMessage(err.message)
-      })
-      .finally(() => {
-        setSubmitting(false)
-      })
-  }
-
-  const session = cart.payment_collection?.payment_sessions?.find(
-    (s) => s.status === "pending"
-  )
-
   const handlePayment = async () => {
     setSubmitting(true)
+    setErrorMessage(null)
+
+    const result = await placeOrder().catch((err) => {
+      setErrorMessage(err.message)
+      setSubmitting(false)
+      return null
+    })
+
+    // placeOrder redirects on success, or returns Autopay's redirect URL while payment is pending
+    const redirectUrl = (result as { autopayRedirectUrl?: string } | null)
+      ?.autopayRedirectUrl
+
+    if (redirectUrl) {
+      window.location.href = redirectUrl
+    } else {
+      setSubmitting(false)
+    }
   }
 
   return (

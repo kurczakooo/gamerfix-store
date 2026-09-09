@@ -48,7 +48,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
             {paymentInfoMap[paymentProviderId]?.title || paymentProviderId}
           </Text>
           {isPayOnDeliveryAutopay(paymentProviderId) && (
-            <PaymentOnDeliveryBadge className="hidden small:block" />
+            <PaymentOnDeliveryBadge />
           )}
         </div>
         <span className="justify-self-end text-ui-fg-base">

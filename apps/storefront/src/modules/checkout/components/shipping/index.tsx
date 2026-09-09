@@ -71,12 +71,14 @@ const Shipping: React.FC<ShippingProps> = ({
   const [selectedPoint, setSelectedPoint] = useState<{
     name: string
     code: string
-  } | null>(
-    (cart.metadata?.parcel_locker_point as {
-      name: string
-      code: string
-    } | null) ?? null
-  )
+  } | null>(() => {
+    const name = cart.metadata?.parcel_locker_name
+    const code = cart.metadata?.parcel_locker_code
+
+    return typeof name === "string" && typeof code === "string"
+      ? { name, code }
+      : null
+  })
 
   const [showPickupOptions, setShowPickupOptions] =
     useState<string>(PICKUP_OPTION_OFF)
@@ -137,7 +139,8 @@ const Shipping: React.FC<ShippingProps> = ({
         setParcelLockerPoint({
           cartId: cart.id,
           existingMetadata: cart.metadata,
-          point: params.point,
+          parcel_locker_name: params.point.name,
+          parcel_locker_code: params.point.code,
         })
       },
     })

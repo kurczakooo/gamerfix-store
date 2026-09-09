@@ -47,7 +47,9 @@ module.exports = defineConfig({
             resolve: "./src/modules/autopay",
             id: "autopay",
             options: {
-              apiKey: process.env.DPAY_HASH,
+              apiKey: process.env.AUTOPAY_KEY,
+              apiServiceId: process.env.AUTOPAY_SERVICE_ID,
+              apiSeparator: process.env.AUTOPAY_SEPARATOR,
             },
           },
         ],

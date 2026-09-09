@@ -2,8 +2,6 @@ import { CreditCard } from "@medusajs/icons"
 import Bancontact from "@modules/common/icons/bancontact"
 import Blik from "@modules/common/icons/blik"
 import AutopayTransfer from "@modules/common/icons/autopay-transfer"
-import Ideal from "@modules/common/icons/ideal"
-import PayPal from "@modules/common/icons/paypal"
 import PayOnDelivery from "@modules/common/icons/pobranie"
 import React from "react"
 
@@ -12,39 +10,19 @@ export const paymentInfoMap: Record<
   string,
   { title: string; icon: React.JSX.Element }
 > = {
-  //   pp_stripe_stripe: {
-  //     title: "Credit card",
-  //     icon: <CreditCard />,
-  //   },
   //   "pp_medusa-payments_default": {
   //     title: "Credit card",
   //     icon: <CreditCard />,
   //   },
-  //   "pp_stripe-ideal_stripe": {
-  //     title: "iDeal",
-  //     icon: <Ideal />,
+  //   pp_autopay_blik_autopay: {
+  //     title: "Blik",
+  //     icon: <Blik size={48} />,
   //   },
-  //   "pp_stripe-bancontact_stripe": {
-  //     title: "Bancontact",
-  //     icon: <Bancontact />,
-  //   },
-  //   pp_paypal_paypal: {
-  //     title: "PayPal",
-  //     icon: <PayPal />,
-  //   },
-  //   pp_system_default: {
-  //     title: "Manualna płatność",
-  //     icon: <CreditCard />,
-  //   },
-  pp_dpay_blik_dpay: {
-    title: "Blik",
-    icon: <Blik size={48} />,
-  },
-  pp_autopay_transfer_dpay: {
-    title: "Szybki przelew",
+  pp_autopay_transfer_autopay: {
+    title: "Blik lub Szybki przelew",
     icon: <AutopayTransfer size={48} />,
   },
-  pp_autopay_pobranie_dpay: {
+  pp_autopay_pobranie_autopay: {
     title: "Płatność za pobraniem",
     icon: <PayOnDelivery size={48} />,
   },
@@ -57,20 +35,14 @@ export const isStripeLike = (providerId?: string) => {
   )
 }
 
-export const isPaypal = (providerId?: string) => {
-  return providerId?.startsWith("pp_paypal")
-}
-export const isManual = (providerId?: string) => {
-  return providerId?.startsWith("pp_system_default")
-}
 export const isBlikAutopay = (providerId?: string) => {
-  return providerId?.startsWith("pp_dpay_blik_dpay")
+  return providerId?.startsWith("pp_autopay_blik_autopay")
 }
 export const isTransferAutopay = (providerId?: string) => {
-  return providerId?.startsWith("pp_dpay_transfer_dpay")
+  return providerId?.startsWith("pp_autopay_transfer_autopay")
 }
 export const isPayOnDeliveryAutopay = (providerId?: string) => {
-  return providerId?.startsWith("pp_dpay_pobranie_dpay")
+  return providerId?.startsWith("pp_autopay_pobranie_autopay")
 }
 
 // Add currencies that don't need to be divided by 100

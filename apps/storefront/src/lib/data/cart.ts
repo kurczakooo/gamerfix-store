@@ -336,11 +336,13 @@ export async function setShippingMethod({
 export async function setParcelLockerPoint({
   cartId,
   existingMetadata,
-  point,
+  parcel_locker_name,
+  parcel_locker_code,
 }: {
   cartId: string
   existingMetadata?: Record<string, unknown> | null
-  point: { name: string; code: string } | null
+  parcel_locker_name: string | null
+  parcel_locker_code: string | null
 }) {
   const headers = {
     ...(await getAuthHeaders()),
@@ -352,7 +354,8 @@ export async function setParcelLockerPoint({
       {
         metadata: {
           ...existingMetadata,
-          parcel_locker_point: point,
+          parcel_locker_name: parcel_locker_name,
+          parcel_locker_code: parcel_locker_code,
         },
       },
       {},
@@ -533,7 +536,15 @@ export async function placeOrder(cartId?: string) {
   }
 
   const cartRes = await sdk.store.cart
-    .complete(id, {}, headers)
+    .complete(
+      id,
+      {
+        // default order fields omit the nested payment data holding the Autopay redirect html
+        fields:
+          "id,*shipping_address,*payment_collections.payment_sessions,*payment_collections.payments",
+      },
+      headers
+    )
     .then(async (cartRes) => {
       const cartCacheTag = await getCacheTag("carts")
       revalidateTag(cartCacheTag)
@@ -542,14 +553,29 @@ export async function placeOrder(cartId?: string) {
     .catch(medusaError)
 
   if (cartRes?.type === "order") {
-    const countryCode =
-      cartRes.order.shipping_address?.country_code?.toLowerCase()
+    const order = cartRes.order
+    const paymentCollection = order.payment_collections?.[0]
+
+    // an authorized-with-redirect payment sends the customer to Autopay instead of completing checkout
+    const autopayData =
+      paymentCollection?.payment_sessions?.find((s) => s.data?.autopay)?.data ??
+      paymentCollection?.payments?.find((p: any) => p.data?.autopay)?.data
+
+    const autopayRedirectUrl = (
+      autopayData?.autopay as { redirectUrl?: string } | undefined
+    )?.redirectUrl
 
     const orderCacheTag = await getCacheTag("orders")
     revalidateTag(orderCacheTag)
 
     removeCartId()
-    redirect(`/${countryCode}/order/${cartRes?.order.id}/confirmed`)
+
+    if (autopayRedirectUrl) {
+      return { autopayRedirectUrl }
+    }
+
+    const countryCode = order.shipping_address?.country_code?.toLowerCase()
+    redirect(`/${countryCode}/order/${order.id}/confirmed`)
   }
 
   return cartRes.cart
