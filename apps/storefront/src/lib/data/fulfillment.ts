@@ -2,7 +2,9 @@
 
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
-import { getAuthHeaders, getCacheOptions } from "./cookies"
+import { getAuthHeaders, getCacheOptions, getCacheTag } from "./cookies"
+import medusaError from "@lib/util/medusa-error"
+import { revalidateTag } from "next/cache"
 
 export const listCartShippingMethods = async (cartId: string) => {
   const headers = {
@@ -15,7 +17,7 @@ export const listCartShippingMethods = async (cartId: string) => {
 
   return sdk.client
     .fetch<HttpTypes.StoreShippingOptionListResponse>(
-      `/store/shipping-options`,
+      `/store/product-shipping-options`,
       {
         method: "GET",
         query: {
@@ -23,7 +25,7 @@ export const listCartShippingMethods = async (cartId: string) => {
         },
         headers,
         next,
-        cache: "force-cache",
+        cache: "no-store",
       }
     )
     .then(({ shipping_options }) => shipping_options)
@@ -65,4 +67,75 @@ export const calculatePriceForShippingOption = async (
     .catch((_e) => {
       return null
     })
+}
+
+export async function setSendToServiceMethod({
+  cartId,
+  existingMetadata,
+  sent_to_service_method,
+}: {
+  cartId: string
+  existingMetadata?: Record<string, unknown> | null
+  sent_to_service_method: string | null
+}) {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.store.cart
+    .update(
+      cartId,
+      {
+        metadata: {
+          ...existingMetadata,
+          sent_to_service_method: sent_to_service_method,
+        },
+      },
+      {},
+      headers
+    )
+    .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+
+      return cart
+    })
+    .catch(medusaError)
+}
+
+export async function setParcelLockerPoint({
+  cartId,
+  existingMetadata,
+  parcel_locker_name,
+  parcel_locker_code,
+}: {
+  cartId: string
+  existingMetadata?: Record<string, unknown> | null
+  parcel_locker_name: string | null
+  parcel_locker_code: string | null
+}) {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.store.cart
+    .update(
+      cartId,
+      {
+        metadata: {
+          ...existingMetadata,
+          parcel_locker_name: parcel_locker_name,
+          parcel_locker_code: parcel_locker_code,
+        },
+      },
+      {},
+      headers
+    )
+    .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+
+      return cart
+    })
+    .catch(medusaError)
 }
