@@ -1,7 +1,10 @@
 "use client"
 import { Radio, RadioGroup } from "@headlessui/react"
 import { setShippingMethod } from "@lib/data/cart"
-import { calculatePriceForShippingOption } from "@lib/data/fulfillment"
+import {
+  calculatePriceForShippingOption,
+  setParcelLockerPoint,
+} from "@lib/data/fulfillment"
 import { convertToLocale } from "@lib/util/money"
 import { CheckCircleSolid, Loader } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
@@ -11,6 +14,8 @@ import MedusaRadio from "@modules/common/components/radio"
 import { Button, clx, Heading, Text } from "@modules/common/components/ui"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import RepairShipping from "../repair-shipping"
+import Image from "next/image"
 
 const PICKUP_OPTION_ON = "__PICKUP_ON"
 const PICKUP_OPTION_OFF = "__PICKUP_OFF"
@@ -18,9 +23,10 @@ const PICKUP_OPTION_OFF = "__PICKUP_OFF"
 type ShippingProps = {
   cart: HttpTypes.StoreCart
   availableShippingMethods: HttpTypes.StoreCartShippingOption[] | null
+  repairsInCart: boolean
 }
 
-function formatAddress(address: HttpTypes.StoreCartAddress) {
+export function formatAddress(address: HttpTypes.StoreCartAddress) {
   if (!address) {
     return ""
   }
@@ -49,6 +55,7 @@ function formatAddress(address: HttpTypes.StoreCartAddress) {
 const Shipping: React.FC<ShippingProps> = ({
   cart,
   availableShippingMethods,
+  repairsInCart,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingPrices, setIsLoadingPrices] = useState(true)
@@ -62,6 +69,8 @@ const Shipping: React.FC<ShippingProps> = ({
   const [shippingMethodId, setShippingMethodId] = useState<string | null>(
     cart.shipping_methods?.at(-1)?.shipping_option_id || null
   )
+  const [isRepairShippingUpdating, setIsRepairShippingUpdating] =
+    useState(false)
 
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -173,45 +182,61 @@ const Shipping: React.FC<ShippingProps> = ({
 
   return (
     <div className="bg-white">
-      <div className="flex flex-row items-center justify-between mb-6">
-        <Heading
-          level="h2"
-          className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
-            {
-              "opacity-50 pointer-events-none select-none":
-                !isOpen && cart.shipping_methods?.length === 0,
-            }
-          )}
-        >
-          Dostawa
-          {!isOpen && (cart.shipping_methods?.length ?? 0) > 0 && (
-            <CheckCircleSolid />
-          )}
-        </Heading>
-        {!isOpen &&
-          cart?.shipping_address &&
-          cart?.billing_address &&
-          cart?.email && (
-            <Text>
-              <button
-                onClick={handleEdit}
-                className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
-                data-testid="edit-delivery-button"
-              >
-                Edytuj
-              </button>
-            </Text>
-          )}
+      <div className="flex flex-row items-center justify-between">
+        {!isOpen && (
+          <>
+            <Heading
+              level="h2"
+              className={clx(
+                "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+                {
+                  "opacity-50 pointer-events-none select-none":
+                    cart.shipping_methods?.length === 0,
+                }
+              )}
+            >
+              Dostawa {repairsInCart && "i odbiór"}
+              {(cart.shipping_methods?.length ?? 0) > 0 && <CheckCircleSolid />}
+            </Heading>
+            {(cart.shipping_methods?.length ?? 0) > 0 && (
+              <Text>
+                <button
+                  onClick={handleEdit}
+                  className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+                  data-testid="edit-delivery-button"
+                >
+                  Edytuj
+                </button>
+              </Text>
+            )}
+          </>
+        )}
       </div>
+      {repairsInCart && (
+        <RepairShipping
+          cart={cart}
+          isOpen={isOpen}
+          onUpdatingChange={setIsRepairShippingUpdating}
+        />
+      )}
       {isOpen ? (
         <>
+          {isOpen && (
+            <Heading
+              level="h2"
+              className={
+                "flex flex-row text-3xl-regular gap-x-2 items-baseline my-6"
+              }
+            >
+              Dostawa {repairsInCart && "produktów / Odbiór sprzętu"}
+            </Heading>
+          )}
           <div className="grid">
-            <div className="flex flex-col">
-              <span className="font-medium txt-medium text-ui-fg-base">
-                Wybierz metodę dostawy
-              </span>
-            </div>
+            <Text className="txt-medium-plus text-ui-fg-base pb-4">
+              Wybierz metodę dostawy produktów
+              {repairsInCart &&
+                " (Jeśli zamówienie obejmuje produkty i usługę, produkty zostaną dostarczone razem z naprawionym sprzętem)"}
+            </Text>
             <div data-testid="delivery-options-container">
               <div className="pb-8 md:pt-0 pt-2">
                 {hasPickupOptions && (
@@ -282,10 +307,23 @@ const Shipping: React.FC<ShippingProps> = ({
                           }
                         )}
                       >
-                        <div className="flex items-center gap-x-4">
+                        <div className="flex items-center">
                           <MedusaRadio
                             checked={option.id === shippingMethodId}
                           />
+                          <div className="flex h-10 w-[72px] shrink-0 items-center justify-center small:h-16 small:w-[120px]">
+                            <Image
+                              src={
+                                option.name.includes("Kurier")
+                                  ? "/images/shipping/inpost_kurier.png"
+                                  : "/images/shipping/inpost_paczkomaty.png"
+                              }
+                              alt={option.id}
+                              width={120}
+                              height={56}
+                              className="h-full w-full object-contain"
+                            />
+                          </div>
                           <span className="text-base-regular">
                             {option.name}
                           </span>
@@ -402,7 +440,7 @@ const Shipping: React.FC<ShippingProps> = ({
               size="large"
               className="mt"
               onClick={handleSubmit}
-              isLoading={isLoading}
+              isLoading={isLoading || isRepairShippingUpdating}
               disabled={!cart.shipping_methods?.[0]}
               data-testid="submit-delivery-option-button"
             >
@@ -411,12 +449,12 @@ const Shipping: React.FC<ShippingProps> = ({
           </div>
         </>
       ) : (
-        <div>
+        <div className="mt-6">
           <div className="text-small-regular">
             {cart && (cart.shipping_methods?.length ?? 0) > 0 && (
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Metoda dostawy
+                  Metoda dostawy {repairsInCart && " / Odbioru sprzętu"}
                 </Text>
                 <Text className="txt-medium text-ui-fg-subtle">
                   {cart.shipping_methods!.at(-1)!.name}{" "}
