@@ -7,7 +7,7 @@ const Hero = () => {
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: "url('/images/content/hero_2.png')",
+          backgroundImage: "url('/images/content/hero.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           filter: "blur(1px)",

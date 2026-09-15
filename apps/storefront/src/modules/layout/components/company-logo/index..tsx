@@ -6,11 +6,11 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 
 const icons = [
-  "/images/content/controller192.png",
-  "/images/content/ps5192.png",
-  "/images/content/phone192.png",
-  "/images/content/xbox192.png",
-  "/images/content/laptop192.png",
+  "/images/content/controller192.webp",
+  "/images/content/ps5192.webp",
+  "/images/content/phone192.webp",
+  "/images/content/xbox192.webp",
+  "/images/content/laptop192.webp",
 ]
 
 const ICON_INDEX_KEY = "gamer-fix-logo-index"
