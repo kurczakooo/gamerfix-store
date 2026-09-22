@@ -10,7 +10,7 @@ type ItemsTemplateProps = {
 }
 
 const ItemsTemplate = ({ cart }: ItemsTemplateProps) => {
-  const items = cart?.items
+  const items = cart?.items?.filter((item) => !item.metadata?.is_cod_fee)
   return (
     <div>
       <div className="pb-3 flex items-center">

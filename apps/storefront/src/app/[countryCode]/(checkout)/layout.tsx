@@ -1,5 +1,6 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import ChevronDown from "@modules/common/icons/chevron-down"
+import CompanyLogo from "@modules/layout/components/company-logo/index."
 
 export default function CheckoutLayout({
   children,
@@ -23,14 +24,8 @@ export default function CheckoutLayout({
               Wróć
             </span>
           </LocalizedClientLink>
-          <LocalizedClientLink
-            href="/"
-            className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            data-testid="store-link"
-          >
-            GAMER FIX
-          </LocalizedClientLink>
-          <div className="flex-1 basis-0" />
+          <CompanyLogo />
+          <div className="flex-1 basis-0 hidden small:block" />
         </nav>
       </div>
       <div className="relative" data-testid="checkout-container">

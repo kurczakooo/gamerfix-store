@@ -8,20 +8,20 @@ const TotalItems = ({
 }: {
   cart?: HttpTypes.StoreCart | null
 }) => {
+  const items = cartState?.items?.filter((item) => !item.metadata?.is_cod_fee)
+
   const totalItems =
-    cartState?.items?.reduce((acc, item) => {
+    items?.reduce((acc, item) => {
       return acc + item.quantity
     }, 0) || 0
 
   return (
-    <div
-      className="h-full z-50"
-    >
+    <div className="h-full z-50">
       <LocalizedClientLink
-            className="hover:text-ui-fg-base"
-            href="/cart"
-            data-testid="nav-cart-link"
-          >{`(${totalItems})`}</LocalizedClientLink>
+        className="hover:text-ui-fg-base"
+        href="/cart"
+        data-testid="nav-cart-link"
+      >{`(${totalItems})`}</LocalizedClientLink>
     </div>
   )
 }

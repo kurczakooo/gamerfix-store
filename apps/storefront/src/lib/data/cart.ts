@@ -25,7 +25,7 @@ import { retrieveVariant } from "./variants"
 export async function retrieveCart(cartId?: string, fields?: string) {
   const id = cartId || (await getCartId())
   fields ??=
-    "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
+    "*items, *region, *items.product, *items.product.collection, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
 
   if (!id) {
     return null
@@ -211,6 +211,48 @@ export async function addToCart({
     .catch(medusaError)
 }
 
+export async function addPayOnDeliveryFeeToCart({
+  title,
+  quantity,
+  unitPrice,
+  countryCode,
+}: {
+  title: string
+  quantity: number
+  unitPrice: number
+  countryCode: string
+}) {
+  const cart = await getOrSetCart(countryCode)
+
+  if (!cart) {
+    throw new Error("Error retrieving or creating cart")
+  }
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  await sdk.client
+    .fetch(`/store/cart-fee`, {
+      method: "POST",
+      headers: headers,
+      body: {
+        cart_id: cart.id,
+        title,
+        quantity,
+        unit_price: unitPrice,
+      },
+    })
+    .then(async () => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+
+      const fulfillmentCacheTag = await getCacheTag("fulfillment")
+      revalidateTag(fulfillmentCacheTag)
+    })
+    .catch(medusaError)
+}
+
 export async function updateLineItem({
   lineId,
   quantity,
@@ -291,6 +333,43 @@ export async function setShippingMethod({
     .catch(medusaError)
 }
 
+export async function setParcelLockerPoint({
+  cartId,
+  existingMetadata,
+  parcel_locker_name,
+  parcel_locker_code,
+}: {
+  cartId: string
+  existingMetadata?: Record<string, unknown> | null
+  parcel_locker_name: string | null
+  parcel_locker_code: string | null
+}) {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.store.cart
+    .update(
+      cartId,
+      {
+        metadata: {
+          ...existingMetadata,
+          parcel_locker_name: parcel_locker_name,
+          parcel_locker_code: parcel_locker_code,
+        },
+      },
+      {},
+      headers
+    )
+    .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
+      const cartCacheTag = await getCacheTag("carts")
+      revalidateTag(cartCacheTag)
+
+      return cart
+    })
+    .catch(medusaError)
+}
+
 export async function initiatePaymentSession(
   cart: HttpTypes.StoreCart,
   data: HttpTypes.StoreInitializePaymentSession
@@ -320,16 +399,32 @@ export async function applyPromotions(codes: string[]) {
     ...(await getAuthHeaders()),
   }
 
-  return sdk.store.cart
-    .update(cartId, { promo_codes: codes }, {}, headers)
-    .then(async () => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+  const invalidPromoCodeMessage =
+    "Zamówienie nie spełnia warunków promocji bądź kod rabatowy jest nieważny"
 
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
+  // Backend always returns 400 here, whether the code is invalid, expired, or the cart doesn't qualify
+  const { cart } = await sdk.store.cart
+    .update(cartId, { promo_codes: codes }, {}, headers)
+    .catch(() => {
+      throw new Error(invalidPromoCodeMessage)
     })
-    .catch(medusaError)
+
+  const cartCacheTag = await getCacheTag("carts")
+  revalidateTag(cartCacheTag)
+
+  const fulfillmentCacheTag = await getCacheTag("fulfillment")
+  revalidateTag(fulfillmentCacheTag)
+
+  // Medusa silently ignores promo codes that don't meet requirements or are expired instead of erroring
+  const appliedCodes = (cart.promotions ?? [])
+    .map((promotion) => promotion.code)
+    .filter((code): code is string => !!code)
+
+  const hasRejectedCode = codes.some((code) => !appliedCodes.includes(code))
+
+  if (hasRejectedCode) {
+    throw new Error(invalidPromoCodeMessage)
+  }
 }
 
 export async function applyGiftCard(code: string) {
@@ -457,7 +552,15 @@ export async function placeOrder(cartId?: string) {
   }
 
   const cartRes = await sdk.store.cart
-    .complete(id, {}, headers)
+    .complete(
+      id,
+      {
+        // default order fields omit the nested payment data holding the Autopay redirect html
+        fields:
+          "id,*shipping_address,*payment_collections.payment_sessions,*payment_collections.payments",
+      },
+      headers
+    )
     .then(async (cartRes) => {
       const cartCacheTag = await getCacheTag("carts")
       revalidateTag(cartCacheTag)
@@ -466,14 +569,29 @@ export async function placeOrder(cartId?: string) {
     .catch(medusaError)
 
   if (cartRes?.type === "order") {
-    const countryCode =
-      cartRes.order.shipping_address?.country_code?.toLowerCase()
+    const order = cartRes.order
+    const paymentCollection = order.payment_collections?.[0]
+
+    // an authorized-with-redirect payment sends the customer to Autopay instead of completing checkout
+    const autopayData =
+      paymentCollection?.payment_sessions?.find((s) => s.data?.autopay)?.data ??
+      paymentCollection?.payments?.find((p: any) => p.data?.autopay)?.data
+
+    const autopayRedirectUrl = (
+      autopayData?.autopay as { redirectUrl?: string } | undefined
+    )?.redirectUrl
 
     const orderCacheTag = await getCacheTag("orders")
     revalidateTag(orderCacheTag)
 
     removeCartId()
-    redirect(`/${countryCode}/order/${cartRes?.order.id}/confirmed`)
+
+    if (autopayRedirectUrl) {
+      return { autopayRedirectUrl }
+    }
+
+    const countryCode = order.shipping_address?.country_code?.toLowerCase()
+    redirect(`/${countryCode}/order/${order.id}/confirmed`)
   }
 
   return cartRes.cart
