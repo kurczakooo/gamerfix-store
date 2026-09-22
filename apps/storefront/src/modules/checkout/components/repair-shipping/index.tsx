@@ -119,9 +119,9 @@ const RepairShipping: React.FC<RepairShippingProps> = ({
                       }
                     >
                       {({ checked }) => (
-                        <div className="flex flex-1 min-w-0 items-start">
+                        <div className="flex flex-1 min-w-0 items-center">
                           <MedusaRadio checked={checked} />
-                          <div className="flex min-w-0 flex-1 items-start">
+                          <div className="flex min-w-0 flex-1 items-center">
                             <div className="flex h-10 w-[72px] shrink-0 items-center justify-center small:h-16 small:w-[120px]">
                               <Image
                                 src={option.icon}

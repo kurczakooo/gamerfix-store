@@ -24,7 +24,7 @@ export const paymentInfoMap: Record<
   },
   pp_autopay_pobranie_autopay: {
     title: "Płatność za pobraniem",
-    icon: <PayOnDelivery size={48} />,
+    icon: <PayOnDelivery size={56} />,
   },
 }
 

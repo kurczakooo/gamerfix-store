@@ -329,19 +329,6 @@ const Shipping: React.FC<ShippingProps> = ({
                           <MedusaRadio
                             checked={showPickupOptions === PICKUP_OPTION_ON}
                           />
-                          <div className="flex h-10 w-[72px] shrink-0 items-center justify-center small:h-16 small:w-[120px]">
-                            <Image
-                              src={
-                                option.name.includes("Kurier")
-                                  ? "/images/shipping/inpost_kurier.png"
-                                  : "/images/shipping/inpost_paczkomaty.png"
-                              }
-                              alt={option.id}
-                              width={120}
-                              height={56}
-                              className="h-full w-full object-contain"
-                            />
-                          </div>
                           <span className="text-base-regular">
                             Odbierz swoje zamówienie
                           </span>
@@ -382,10 +369,23 @@ const Shipping: React.FC<ShippingProps> = ({
                             }
                           )}
                         >
-                          <div className="flex items-center gap-x-4">
+                          <div className="flex items-center">
                             <MedusaRadio
                               checked={option.id === shippingMethodId}
                             />
+                            <div className="flex h-10 w-[72px] shrink-0 items-center justify-center small:h-16 small:w-[120px]">
+                              <Image
+                                src={
+                                  option.name.includes("Paczkomat")
+                                    ? "/images/shipping/inpost_paczkomaty.png"
+                                    : "/images/shipping/inpost_kurier.png"
+                                }
+                                alt={option.id}
+                                width={120}
+                                height={56}
+                                className="h-full w-full object-contain"
+                              />
+                            </div>
                             <span className="text-base-regular">
                               {option.name}
                             </span>
@@ -399,7 +399,7 @@ const Shipping: React.FC<ShippingProps> = ({
                                     e.stopPropagation()
                                     showFurgonetkaMap()
                                   }}
-                                  className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover disabled:text-ui-fg-disabled underline test-small-regular"
+                                  className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover disabled:text-ui-fg-disabled underline test-small-regular pl-4"
                                 >
                                   Wybierz paczkomat
                                 </button>
