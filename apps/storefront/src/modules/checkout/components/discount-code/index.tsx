@@ -55,10 +55,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
       }
       setErrorMessage("")
     } catch (e) {
-      //   setErrorMessage(e instanceof Error ? e.message : String(e))
-      setErrorMessage(
-        `Wpisany kod rabatowy "${input.value}" jest nieprawidłowy`
-      )
+      setErrorMessage((e as Error).message)
     }
   }
 

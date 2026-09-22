@@ -399,16 +399,32 @@ export async function applyPromotions(codes: string[]) {
     ...(await getAuthHeaders()),
   }
 
-  return sdk.store.cart
-    .update(cartId, { promo_codes: codes }, {}, headers)
-    .then(async () => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+  const invalidPromoCodeMessage =
+    "Zamówienie nie spełnia warunków promocji bądź kod rabatowy jest nieważny"
 
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
+  // Backend always returns 400 here, whether the code is invalid, expired, or the cart doesn't qualify
+  const { cart } = await sdk.store.cart
+    .update(cartId, { promo_codes: codes }, {}, headers)
+    .catch(() => {
+      throw new Error(invalidPromoCodeMessage)
     })
-    .catch(medusaError)
+
+  const cartCacheTag = await getCacheTag("carts")
+  revalidateTag(cartCacheTag)
+
+  const fulfillmentCacheTag = await getCacheTag("fulfillment")
+  revalidateTag(fulfillmentCacheTag)
+
+  // Medusa silently ignores promo codes that don't meet requirements or are expired instead of erroring
+  const appliedCodes = (cart.promotions ?? [])
+    .map((promotion) => promotion.code)
+    .filter((code): code is string => !!code)
+
+  const hasRejectedCode = codes.some((code) => !appliedCodes.includes(code))
+
+  if (hasRejectedCode) {
+    throw new Error(invalidPromoCodeMessage)
+  }
 }
 
 export async function applyGiftCard(code: string) {
