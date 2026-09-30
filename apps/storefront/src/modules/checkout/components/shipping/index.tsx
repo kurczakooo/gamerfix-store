@@ -405,7 +405,7 @@ const Shipping: React.FC<ShippingProps> = ({
                                 </button>
                                 {option.id === shippingMethodId &&
                                   selectedPoint && (
-                                    <span className="text-small-regular text-ui-fg-subtle">
+                                    <span className="text-small-regular text-ui-fg-subtle pl-4">
                                       {selectedPoint.name}
                                     </span>
                                   )}
