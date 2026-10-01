@@ -1,4 +1,5 @@
 import { getBaseURL } from "@lib/util/env"
+import CookieBanner from "@modules/common/components/cookie-banner"
 import { Metadata } from "next"
 import "../styles/globals.css"
 
@@ -40,6 +41,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           </div>
           {props.children}
         </main>
+        <CookieBanner />
       </body>
     </html>
   )
