@@ -1,5 +1,6 @@
 "use client"
 
+import { Spinner } from "@medusajs/icons"
 import { IconBadge, clx } from "@modules/common/components/ui"
 import {
   SelectHTMLAttributes,
@@ -14,12 +15,16 @@ import ChevronDown from "@modules/common/icons/chevron-down"
 
 type NativeSelectProps = {
   placeholder?: string
+  isLoading?: boolean
   errors?: Record<string, unknown>
   touched?: Record<string, unknown>
 } & Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">
 
 const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
-  ({ placeholder = "Wybierz...", className, children, ...props }, ref) => {
+  (
+    { placeholder = "Wybierz...", isLoading, className, children, ...props },
+    ref
+  ) => {
     const innerRef = useRef<HTMLSelectElement>(null)
     const [isPlaceholder, setIsPlaceholder] = useState(false)
 
@@ -52,6 +57,7 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
           <select
             ref={innerRef}
             {...props}
+            disabled={props.disabled || isLoading}
             className="appearance-none bg-transparent border-none px-4 transition-colors duration-150 focus:border-gray-700 outline-none w-16 h-16 items-center justify-center"
           >
             <option disabled value="">
@@ -62,6 +68,11 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
           <span className="absolute flex pointer-events-none justify-end w-8 group-hover:animate-pulse">
             <ChevronDown />
           </span>
+          {isLoading && (
+            <span className="absolute inset-0 flex items-center justify-center rounded-[inherit] bg-white/70 pointer-events-none">
+              <Spinner className="animate-spin" />
+            </span>
+          )}
         </IconBadge>
       </div>
     )
