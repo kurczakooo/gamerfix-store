@@ -587,14 +587,12 @@ export async function placeOrder(cartId?: string) {
     removeCartId()
 
     if (autopayRedirectUrl) {
-      return { autopayRedirectUrl }
+      redirect(autopayRedirectUrl)
+    } else {
+      const countryCode = order.shipping_address?.country_code?.toLowerCase()
+      redirect(`/${countryCode}/order/${order.id}/confirmed`)
     }
-
-    const countryCode = order.shipping_address?.country_code?.toLowerCase()
-    redirect(`/${countryCode}/order/${order.id}/confirmed`)
   }
-
-  return cartRes.cart
 }
 
 /**

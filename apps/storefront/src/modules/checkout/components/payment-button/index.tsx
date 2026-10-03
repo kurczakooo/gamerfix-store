@@ -178,21 +178,11 @@ const TransferPaymentButton = ({
     setSubmitting(true)
     setErrorMessage(null)
 
-    const result = await placeOrder().catch((err) => {
+    await placeOrder().catch((err) => {
       setErrorMessage(err.message)
       setSubmitting(false)
       return null
     })
-
-    // placeOrder redirects on success, or returns Autopay's redirect URL while payment is pending
-    const redirectUrl = (result as { autopayRedirectUrl?: string } | null)
-      ?.autopayRedirectUrl
-
-    if (redirectUrl) {
-      window.location.href = redirectUrl
-    } else {
-      setSubmitting(false)
-    }
   }
 
   return (
