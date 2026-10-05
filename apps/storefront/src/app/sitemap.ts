@@ -3,6 +3,8 @@ import { listAllProducts } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import type { MetadataRoute } from "next"
 
+export const dynamic = "force-dynamic"
+
 export const baseUrl = "https://gamerfix.pl"
 const countryCode = "pl"
 const today = new Date()
