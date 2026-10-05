@@ -70,7 +70,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
     entity: "order",
     fields: ["id", "display_id", "shipping_address.country_code"],
     filters: {
-      display_id: Number(displayId),
+      display_id: displayId,
     },
   });
 

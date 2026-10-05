@@ -25,8 +25,8 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   }
 
   const pendingPayment = order.payment_collections
-    ?.flatMap(collection => collection.payments ?? [])
-    .find(payment => !payment.captured_at && !payment.canceled_at);
+    ?.flatMap((collection) => collection?.payments ?? [])
+    .find((payment) => !payment?.captured_at && !payment?.canceled_at);
 
   if (!pendingPayment) {
     res.status(200).json({ captured: false });

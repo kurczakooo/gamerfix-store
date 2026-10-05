@@ -11,7 +11,11 @@ const AUTOPAY_SEPARATOR = process.env.AUTOPAY_SEPARATOR!;
 
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
   try {
-    const encodedTransactions = req.body?.transactions;
+    const encodedTransactions = (
+      req.body as {
+        transactions?: string;
+      }
+    )?.transactions;
 
     if (typeof encodedTransactions !== "string") {
       console.error("Autopay ITN: missing transactions");
@@ -31,7 +35,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
         .send(
           buildAutopayConfirmation({
             serviceId: itn.serviceID,
-            remoteOutId: itn.transaction.remoteID,
+            orderId: itn.transaction.remoteID,
             confirmation: "NOTCONFIRMED",
             secret: AUTOPAY_SECRET,
             separator: AUTOPAY_SEPARATOR,

@@ -1,7 +1,6 @@
 import { createHash } from "crypto";
 
 type CalculateItnHashOptions = {
-  serviceId: string;
   secret: string;
   separator: string;
 };

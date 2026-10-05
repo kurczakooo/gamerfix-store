@@ -37,7 +37,7 @@ export async function captureAutopayPayment(
       "payment_collections.payments.data",
     ],
     filters: {
-      display_id: Number(orderDisplayId),
+      display_id: orderDisplayId,
     },
   });
 
@@ -56,7 +56,7 @@ export async function captureAutopayPayment(
   }
 
   const payment = paymentCollection.payments?.find(
-    (payment) => payment.provider_id === "pp_autopay_transfer_autopay",
+    (payment) => payment?.provider_id === "pp_autopay_transfer_autopay",
   );
 
   if (!payment) {
@@ -65,7 +65,7 @@ export async function captureAutopayPayment(
 
   // Idempotency:
   // if the ITN gets sent again we handle it here
-  if (payment.captured_amount && payment.captured_amount > 0) {
+  if (payment.captured_at && paymentCollection.captured_amount) {
     return payment;
   }
 
