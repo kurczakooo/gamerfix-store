@@ -23,7 +23,7 @@ import {
   ProviderWebhookPayload,
   PaymentSessionStatus,
 } from "@medusajs/framework/types";
-import { calculateHash } from "../../utils/calculate-hex";
+import { calculateHash } from "../../utils/calculate-payment-hash";
 
 type Options = {
   apiKey: string;
@@ -47,14 +47,20 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
       throw new Error("Autopay transfer provider requires an apiKey option");
     }
     if (!options.apiServiceId) {
-      throw new Error("Autopay transfer provider requires an apiServiceId option");
+      throw new Error(
+        "Autopay transfer provider requires an apiServiceId option",
+      );
     }
     if (!options.apiSeparator) {
-      throw new Error("Autopay transfer provider requires an apiSeparator option");
+      throw new Error(
+        "Autopay transfer provider requires an apiSeparator option",
+      );
     }
   }
 
-  async initiatePayment(input: InitiatePaymentInput): Promise<InitiatePaymentOutput> {
+  async initiatePayment(
+    input: InitiatePaymentInput,
+  ): Promise<InitiatePaymentOutput> {
     const paymentId = (input.data?.id as string) || crypto.randomUUID();
 
     return {
@@ -74,9 +80,12 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
     // OrderID = order_display_number + "_" + cart_id[:10]
 
     const orderId =
-      input.data?.orderDisplayId + "_" + input.data?.orderId?.toString().slice(21);
+      input.data?.orderDisplayId +
+      "_" +
+      input.data?.orderId?.toString().slice(21);
     const amount = input.data?.amount;
-    const description = input.data?.description + " " + input.data?.orderDisplayId;
+    const description =
+      input.data?.description + " " + input.data?.orderDisplayId;
     const customerEmail = input.data?.customerEmail;
 
     if (
@@ -124,7 +133,9 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
       console.log("Autopay redirect:", location);
 
       if (!location) {
-        throw new Error(`Autopay returned ${response.status} but no Location header`);
+        throw new Error(
+          `Autopay returned ${response.status} but no Location header`,
+        );
       }
 
       return {
@@ -149,7 +160,9 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
     throw new Error(`Unexpected response from Autopay: ${response.status}`);
   }
 
-  async capturePayment(input: CapturePaymentInput): Promise<CapturePaymentOutput> {
+  async capturePayment(
+    input: CapturePaymentInput,
+  ): Promise<CapturePaymentOutput> {
     console.log("CapturePayment");
 
     /**
@@ -208,7 +221,9 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
     };
   }
 
-  async retrievePayment(input: RetrievePaymentInput): Promise<RetrievePaymentOutput> {
+  async retrievePayment(
+    input: RetrievePaymentInput,
+  ): Promise<RetrievePaymentOutput> {
     return {
       data: {
         ...input.data,
