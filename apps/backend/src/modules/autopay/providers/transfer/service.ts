@@ -114,8 +114,6 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
     form.append("CustomerEmail", customerEmail);
     form.append("Hash", hash);
 
-    console.log(form.toString());
-
     const response = await fetch("https://pay.autopay.eu/payment", {
       method: "POST",
       headers: {
@@ -125,12 +123,8 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
       redirect: "manual",
     });
 
-    console.log("status:", response.status);
-
     if (response.status >= 300 && response.status < 400) {
       const location = response.headers.get("location");
-
-      console.log("Autopay redirect:", location);
 
       if (!location) {
         throw new Error(
@@ -163,14 +157,6 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
   async capturePayment(
     input: CapturePaymentInput,
   ): Promise<CapturePaymentOutput> {
-    console.log("CapturePayment");
-
-    /**
-     * Dla BLIK Level 0:
-     * capture prawdopodobnie będzie pusty,
-     * bo autoryzacja następuje przez dpay.
-     */
-
     return {
       data: {
         ...input.data,
@@ -187,11 +173,6 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
   }
 
   async refundPayment(input: RefundPaymentInput): Promise<RefundPaymentOutput> {
-    /**
-     * Tutaj później:
-     * POST dpay refund endpoint
-     */
-
     return {
       data: {
         ...input.data,
@@ -210,12 +191,6 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
   async getPaymentStatus(
     input: GetPaymentStatusInput,
   ): Promise<GetPaymentStatusOutput> {
-    console.log("GetPaymentStatus");
-    /**
-     * Docelowo:
-     * GET transaction status z dpay
-     */
-
     return {
       status: "pending",
     };
@@ -232,8 +207,6 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
   }
 
   async updatePayment(input: UpdatePaymentInput): Promise<UpdatePaymentOutput> {
-    console.log("UpdatePayment");
-
     return {
       data: {
         ...input.data,
@@ -244,17 +217,6 @@ class TransferProviderService extends AbstractPaymentProvider<Options> {
   async getWebhookActionAndData(
     data: ProviderWebhookPayload["payload"],
   ): Promise<WebhookActionResult> {
-    console.log("GetWebhookData");
-    /**
-     * Tutaj obsłużymy IPN dpay.
-     *
-     * dpay -> webhook
-     *        |
-     *        v
-     * Medusa:
-     *        capture / authorize / fail
-     */
-
     return {
       action: "not_supported",
     };

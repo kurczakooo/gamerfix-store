@@ -8,9 +8,6 @@ export async function captureAutopayPayment(
 ) {
   // Autopay OrderID:
   // 57_TCNXMPCWEB
-  //
-  // Pierwsza część = Medusa display_id
-  // Druga część = suffix cart ID
 
   const separatorIndex = autopayOrderId.indexOf("_");
 
@@ -52,18 +49,11 @@ export async function captureAutopayPayment(
     );
   }
 
-  console.log("AUTOPAY MEDUSA ORDER:", JSON.stringify(order, null, 2));
-
   const paymentCollection = order.payment_collections?.[0];
 
   if (!paymentCollection) {
     throw new Error(`Payment collection not found for order ${order.id}`);
   }
-
-  console.log(
-    "AUTOPAY PAYMENT COLLECTION:",
-    JSON.stringify(paymentCollection, null, 2),
-  );
 
   const payment = paymentCollection.payments?.find(
     (payment) => payment.provider_id === "pp_autopay_transfer_autopay",
@@ -73,12 +63,9 @@ export async function captureAutopayPayment(
     throw new Error(`Autopay payment not found for order ${order.id}`);
   }
 
-  // Idempotencja:
-  // jeśli Autopay wyśle ten sam ITN ponownie,
-  // nie próbujemy drugi raz robić capture.
+  // Idempotency:
+  // if the ITN gets sent again we handle it here
   if (payment.captured_amount && payment.captured_amount > 0) {
-    console.log(`Autopay payment ${payment.id} is already captured`);
-
     return payment;
   }
 
@@ -90,20 +77,12 @@ export async function captureAutopayPayment(
     );
   }
 
-  console.log("Capturing Autopay payment:", {
-    paymentId: payment.id,
-    amount: captureAmount,
-    orderId: order.id,
-  });
-
   const { result } = await capturePaymentWorkflow(scope).run({
     input: {
       payment_id: payment.id,
       amount: captureAmount,
     },
   });
-
-  console.log("Autopay payment captured:", result);
 
   return result;
 }

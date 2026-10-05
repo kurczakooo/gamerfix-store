@@ -11,8 +11,6 @@ const AUTOPAY_SEPARATOR = process.env.AUTOPAY_SEPARATOR!;
 
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
   try {
-    console.log("AUTOPAY ITN RECEIVED");
-
     const encodedTransactions = req.body?.transactions;
 
     if (typeof encodedTransactions !== "string") {
@@ -23,13 +21,8 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
 
     const itn = parseAutopayItn(encodedTransactions);
 
-    console.log("AUTOPAY ITN PARSED:", itn);
-
-    // --------------------------------------------------
     // 1. Validate service ID
-    // --------------------------------------------------
-
-    if (itn.serviceID !== process.env.AUTOPAY_SERVICE_ID) {
+    if (itn.serviceID !== AUTOPAY_SERVICE_ID) {
       console.error("Autopay ITN: invalid service ID");
 
       return res
@@ -46,10 +39,7 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
         );
     }
 
-    // --------------------------------------------------
     // 2. Validate hash
-    // --------------------------------------------------
-
     const expectedHash = calculateItnHash(
       itn.serviceID,
       itn.transaction.orderID,
@@ -68,8 +58,6 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
 
     const hashValid = expectedHash.toLowerCase() === itn.hash.toLowerCase();
 
-    console.log("Autopay ITN hash valid:", hashValid);
-
     if (!hashValid) {
       console.error("Autopay ITN: invalid hash");
 
@@ -87,23 +75,12 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
         );
     }
 
-    // --------------------------------------------------
     // 3. SUCCESS
-    // --------------------------------------------------
-
     if (itn.transaction.paymentStatus === "SUCCESS") {
-      console.log(`Autopay payment SUCCESS: ${itn.transaction.orderID}`);
-
-      // Tutaj robimy capture Medusa.
       await captureAutopayPayment(req.scope, itn.transaction.orderID);
-
-      console.log(`Autopay payment captured: ${itn.transaction.orderID}`);
     }
 
-    // --------------------------------------------------
     // 4. Confirmation
-    // --------------------------------------------------
-
     const confirmation = buildAutopayConfirmation({
       serviceId: itn.serviceID,
       orderId: itn.transaction.orderID,
