@@ -72,6 +72,9 @@ jobs:
             S3_SECRET_ACCESS_KEY=${{ secrets.S3_SECRET_ACCESS_KEY }}
             RESEND_FROM_EMAIL=${{ secrets.RESEND_FROM_EMAIL }}
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+            AUTOPAY_SERVICE_ID=${{ secrets.AUTOPAY_SERVICE_ID }}
+            AUTOPAY_KEY=${{ secrets.AUTOPAY_KEY }}
+            AUTOPAY_SEPARATOR=${{ secrets.AUTOPAY_SEPARATOR }}
             EOF
 
             docker compose pull
