@@ -9,7 +9,7 @@ const AUTOPAY_SECRET = process.env.AUTOPAY_KEY!;
 const AUTOPAY_SEPARATOR = process.env.AUTOPAY_SEPARATOR!;
 
 // const STORE_URL = process.env.STORE_URL!;
-const STORE_URL = "http://localhost:8000";
+const STORE_URL = "https://gamerfix.pl";
 
 function hashesMatch(actual: string, expected: string): boolean {
   const actualBuffer = Buffer.from(actual.toLowerCase(), "utf8");
@@ -26,13 +26,6 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
   const serviceId = String(req.query.ServiceID || "");
   const orderId = String(req.query.OrderID || "");
   const receivedHash = String(req.query.Hash || "");
-
-  console.log("AUTOPAY RETURN RECEIVED");
-  console.log({
-    serviceId,
-    orderId,
-    receivedHash,
-  });
 
   if (!serviceId || !orderId || !receivedHash) {
     return res.status(400).send("Missing Autopay return parameters");
@@ -60,7 +53,7 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
   // 3. Resolve Medusa Query
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY);
 
-  // Your Autopay OrderID looks like:
+  // Autopay OrderID looks like:
   // 57_TCNXMPCWEB
   //
   // The first part is Medusa's display_id.
@@ -103,8 +96,6 @@ export async function GET(req: MedusaRequest, res: MedusaResponse) {
 
   // 6. Redirect customer back to storefront
   const redirectUrl = `${STORE_URL}/${countryCode}/order/${order.id}/confirmed`;
-
-  console.log("Autopay return redirect:", redirectUrl);
 
   return res.redirect(302, redirectUrl);
 }
