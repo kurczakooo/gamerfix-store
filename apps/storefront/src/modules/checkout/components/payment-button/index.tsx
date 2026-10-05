@@ -30,7 +30,6 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     (cart.shipping_methods?.length ?? 0) < 1
 
   const paymentSession = cart.payment_collection?.payment_sessions?.[0]
-  console.log(paymentSession?.provider_id)
 
   switch (true) {
     case isPayOnDeliveryAutopay(paymentSession?.provider_id):
@@ -64,103 +63,97 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
 
 export default PaymentButton
 
-const DpayBlikPaymentButton = ({
-  cart,
-  notReady,
-  "data-testid": dataTestId,
-}: {
-  cart: HttpTypes.StoreCart
-  notReady: boolean
-  "data-testid"?: string
-}) => {
-  const [submitting, setSubmitting] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const [blikCode, setBlikCode] = useState("")
-  const [completingBlik, setCompletingBlik] = useState(false)
+// BLIK CURRENTLY NOT IN USE
+// const DpayBlikPaymentButton = ({
+//   cart,
+//   notReady,
+//   "data-testid": dataTestId,
+// }: {
+//   cart: HttpTypes.StoreCart
+//   notReady: boolean
+//   "data-testid"?: string
+// }) => {
+//   const [submitting, setSubmitting] = useState(false)
+//   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+//   const [blikCode, setBlikCode] = useState("")
+//   const [completingBlik, setCompletingBlik] = useState(false)
 
-  const onPaymentCompleted = async () => {
-    await placeOrder()
-      .catch((err) => {
-        setErrorMessage(err.message)
-      })
-      .finally(() => {
-        setSubmitting(false)
-        setCompletingBlik(false)
-        setBlikCode("")
-      })
-  }
+//   const onPaymentCompleted = async () => {
+//     await placeOrder()
+//       .catch((err) => {
+//         setErrorMessage(err.message)
+//       })
+//       .finally(() => {
+//         setSubmitting(false)
+//         setCompletingBlik(false)
+//         setBlikCode("")
+//       })
+//   }
 
-  const handlePayment = () => {
-    setSubmitting(true)
+//   const handlePayment = () => {
+//     setSubmitting(true)
 
-    // send order to db with payment not completed
-  }
+//     // send order to db with payment not completed
+//   }
 
-  const formAction = () => {
-    setCompletingBlik(true)
+//   const formAction = () => {
+//     setCompletingBlik(true)
 
-    // onPaymentCompleted()
-    console.log("Completed")
+//     // onPaymentCompleted()
+//   }
 
-    // request with blik code to backend
-    // backend request with blik code to dpay
-    // dpay returns aswer to backend
-    // based on the answer set the payment to success or fail
-    // based on payment status send a answer to frontend with fail or success and show proper screen
-  }
+//   return (
+//     <div className="relative">
+//       {!submitting && !completingBlik && (
+//         <Button
+//           disabled={notReady}
+//           isLoading={submitting}
+//           onClick={handlePayment}
+//           size="large"
+//           data-testid="submit-order-button"
+//         >
+//           Złóż zamówienie i przejdź do płatności
+//         </Button>
+//       )}
 
-  return (
-    <div className="relative">
-      {!submitting && !completingBlik && (
-        <Button
-          disabled={notReady}
-          isLoading={submitting}
-          onClick={handlePayment}
-          size="large"
-          data-testid="submit-order-button"
-        >
-          Złóż zamówienie i przejdź do płatności
-        </Button>
-      )}
+//       {submitting && (
+//         <form action={formAction}>
+//           <div className="flex flex-col gap-y-2 mt-6 max-w-[200px]">
+//             <Input
+//               disabled={completingBlik}
+//               value={blikCode}
+//               onChange={(e) => setBlikCode(e.target.value)}
+//               label="Kod BLIK"
+//               name="blik_code"
+//               required
+//               maxLength={6}
+//               pattern="[0-9]{6}"
+//               inputMode="numeric"
+//               data-testid="blik-code-input"
+//             />
+//             <SubmitButton
+//               data-testid="blik-pay-button"
+//               disabled={completingBlik}
+//             >
+//               Zapłać
+//             </SubmitButton>
+//           </div>
+//         </form>
+//       )}
 
-      {submitting && (
-        <form action={formAction}>
-          <div className="flex flex-col gap-y-2 mt-6 max-w-[200px]">
-            <Input
-              disabled={completingBlik}
-              value={blikCode}
-              onChange={(e) => setBlikCode(e.target.value)}
-              label="Kod BLIK"
-              name="blik_code"
-              required
-              maxLength={6}
-              pattern="[0-9]{6}"
-              inputMode="numeric"
-              data-testid="blik-code-input"
-            />
-            <SubmitButton
-              data-testid="blik-pay-button"
-              disabled={completingBlik}
-            >
-              Zapłać
-            </SubmitButton>
-          </div>
-        </form>
-      )}
+//       {completingBlik && (
+//         <div className="mt-2 tetxt-medium-compact text-ui-fg-base my-6">
+//           Potwierdź płatność w aplikacji bankowej...
+//         </div>
+//       )}
 
-      {completingBlik && (
-        <div className="mt-2 tetxt-medium-compact text-ui-fg-base my-6">
-          Potwierdź płatność w aplikacji bankowej...
-        </div>
-      )}
-
-      <ErrorMessage
-        error={errorMessage}
-        data-testid="manual-payment-error-message"
-      />
-    </div>
-  )
-}
+//       <ErrorMessage
+//         error={errorMessage}
+//         data-testid="manual-payment-error-message"
+//       />
+//     </div>
+//   )
+// }
 
 const TransferPaymentButton = ({
   cart,
