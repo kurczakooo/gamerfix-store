@@ -11,7 +11,7 @@ type ItemsProps = {
 }
 
 const Items = ({ order }: ItemsProps) => {
-  const items = order.items
+  const items = order.items?.filter((item) => !item.metadata?.is_cod_fee)
 
   return (
     <div className="flex flex-col">

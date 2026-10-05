@@ -9,6 +9,7 @@ import {
 } from "@medusajs/framework/types";
 import { CreateEmailOptions, Resend } from "resend";
 import { inquiryCreatedEmailHtml } from "./emails/inquiry-created-html";
+import { orderPlacedConfirmationEmailHtml } from "./emails/order-placed-confirmation-html";
 
 type ResendOptions = {
   api_key: string;
@@ -32,6 +33,7 @@ enum Templates {
 }
 
 const templates: { [key in Templates]?: (props: unknown) => string } = {
+  [Templates.ORDER_PLACED]: orderPlacedConfirmationEmailHtml,
   [Templates.INQUIRY_CREATED]: inquiryCreatedEmailHtml,
 };
 
@@ -82,11 +84,11 @@ class ResendNotificationProviderService extends AbstractNotificationProviderServ
     }
     switch (template) {
       case Templates.ORDER_PLACED:
-        return "Order Confirmation";
+        return "Potwierdzenie zamówienie";
       case Templates.INQUIRY_CREATED:
         return "Nowe zapytanie od klienta";
       default:
-        return "New Email";
+        return "Nowy Email";
     }
   }
 
@@ -104,7 +106,10 @@ class ResendNotificationProviderService extends AbstractNotificationProviderServ
 
     const commonOptions = {
       from: this.options.from,
-      to: [notification.to],
+      to:
+        notification.template === Templates.ORDER_PLACED
+          ? "serwis.gamefix@gmail.com"
+          : [notification.to],
       subject: this.getTemplateSubject(notification.template as Templates),
     };
 

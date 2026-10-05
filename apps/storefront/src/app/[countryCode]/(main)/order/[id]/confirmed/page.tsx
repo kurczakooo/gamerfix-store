@@ -1,4 +1,4 @@
-import { retrieveOrder } from "@lib/data/orders"
+import { retrieveOrder, captureOrderPayment } from "@lib/data/orders"
 import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -13,6 +13,10 @@ export const metadata: Metadata = {
 
 export default async function OrderConfirmedPage(props: Props) {
   const params = await props.params
+
+  // the customer lands here after an off-site redirect (e.g. Autopay), so capture the pending payment
+  await captureOrderPayment(params.id)
+
   const order = await retrieveOrder(params.id).catch(() => null)
 
   if (!order) {

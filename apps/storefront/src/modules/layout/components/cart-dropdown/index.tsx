@@ -31,8 +31,10 @@ const CartDropdown = ({
   const open = () => setCartDropdownOpen(true)
   const close = () => setCartDropdownOpen(false)
 
+  const items = cartState?.items?.filter((item) => !item.metadata?.is_cod_fee)
+
   const totalItems =
-    cartState?.items?.reduce((acc, item) => {
+    items?.reduce((acc, item) => {
       return acc + item.quantity
     }, 0) || 0
 
@@ -111,10 +113,10 @@ const CartDropdown = ({
             <div className="p-4 flex items-center justify-center">
               <h3 className="text-large-semi">Koszyk</h3>
             </div>
-            {cartState && cartState.items?.length ? (
+            {cartState && items?.length ? (
               <>
                 <div className="overflow-y-scroll max-h-[402px] px-4 grid grid-cols-1 gap-y-8 no-scrollbar p-px">
-                  {cartState.items
+                  {items
                     .sort((a, b) => {
                       return (a.created_at ?? "") > (b.created_at ?? "")
                         ? -1

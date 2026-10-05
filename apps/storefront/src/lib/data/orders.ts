@@ -19,7 +19,7 @@ export const retrieveOrder = async (id: string) => {
       method: "GET",
       query: {
         fields:
-          "*payment_collections.payments,*items,*items.metadata,*items.variant,*items.product",
+          "+metadata,*payment_collections.payments,*items,*items.metadata,*items.variant,*items.product",
       },
       headers,
       next,
@@ -27,6 +27,20 @@ export const retrieveOrder = async (id: string) => {
     })
     .then(({ order }) => order)
     .catch((err) => medusaError(err))
+}
+
+// captures the order's pending payment once the customer returns from an off-site redirect (e.g. Autopay)
+export const captureOrderPayment = async (id: string) => {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.client
+    .fetch<{ captured: boolean }>(`/store/orders/${id}/capture-payment`, {
+      method: "POST",
+      headers,
+    })
+    .catch(() => ({ captured: false }))
 }
 
 export const listOrders = async (

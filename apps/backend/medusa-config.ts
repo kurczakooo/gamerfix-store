@@ -55,6 +55,22 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/inquiry",
     },
+    {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/autopay",
+            id: "autopay",
+            options: {
+              apiKey: process.env.AUTOPAY_KEY,
+              apiServiceId: process.env.AUTOPAY_SERVICE_ID,
+              apiSeparator: process.env.AUTOPAY_SEPARATOR,
+            },
+          },
+        ],
+      },
+    },
   ],
   admin: {
     // Set max upload size to 30MB

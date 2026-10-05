@@ -25,11 +25,11 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
 
   return (
     <div className="bg-white">
-      <div className="flex flex-row items-center justify-between mb-6">
+      <div className="flex flex-row items-center justify-between">
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline mb-4",
+            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none": !isOpen,
             }
@@ -40,15 +40,15 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
       </div>
       {isOpen && previousStepsCompleted && (
         <>
-          <PaymentButton cart={cart} data-testid="submit-order-button" />
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
-              <Text className="txt-medium-compact text-ui-fg-base my-6">
-                Klikając przycisk potwierdzasz, że akceptujesz nasz Regulamin
-                oraz Politykę Prywatności.
+              <Text className="txt-medium-compact text-ui-fg-base mt-4">
+                Finalizując zamówienie potwierdzasz, że akceptujesz nasz
+                Regulamin oraz Politykę Prywatności.
               </Text>
             </div>
           </div>
+          <PaymentButton cart={cart} data-testid="submit-order-button" />
         </>
       )}
     </div>

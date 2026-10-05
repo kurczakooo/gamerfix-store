@@ -15,12 +15,14 @@ type RefinementListProps = {
   search?: boolean
   hideOptionsPicker?: boolean
   "data-testid"?: string
+  service: boolean
 }
 
 const RefinementList = ({
   sortBy,
   hideOptionsPicker = false,
   "data-testid": dataTestId,
+  service,
 }: RefinementListProps) => {
   const router = useRouter()
   const pathname = usePathname()
@@ -70,7 +72,7 @@ const RefinementList = ({
         setQueryParams={setQueryParams}
         data-testid={dataTestId}
       />
-      {!hideOptionsPicker && (
+      {!service && !hideOptionsPicker && (
         <OptionsPicker
           selectedValueIds={selectedOptionValueIds}
           setOptionValueIds={setOptionValueIds}

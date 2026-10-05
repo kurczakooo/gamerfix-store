@@ -1,7 +1,16 @@
 "use client"
 import { RadioGroup } from "@headlessui/react"
-import { isStripeLike, paymentInfoMap } from "@lib/constants"
-import { initiatePaymentSession } from "@lib/data/cart"
+import {
+  isPayOnDeliveryAutopay,
+  isStripeLike,
+  isTransferAutopay,
+  paymentInfoMap,
+} from "@lib/constants"
+import {
+  addPayOnDeliveryFeeToCart,
+  initiatePaymentSession,
+  updateLineItem,
+} from "@lib/data/cart"
 import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import PaymentContainer, {
@@ -16,8 +25,13 @@ import {
   clx,
 } from "@modules/common/components/ui"
 import { HttpTypes } from "@medusajs/types"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useCallback, useEffect, useState } from "react"
+import {
+  usePathname,
+  useRouter,
+  useSearchParams,
+  useParams,
+} from "next/navigation"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
 const Payment = ({
   cart,
@@ -38,20 +52,32 @@ const Payment = ({
     activeSession?.provider_id ?? ""
   )
 
+  const sortedPaymentMethods = useMemo(() => {
+    const normal = availablePaymentMethods.filter(
+      (m) => !isPayOnDeliveryAutopay(m.id)
+    )
+
+    const pobranie = availablePaymentMethods.filter((m) =>
+      isPayOnDeliveryAutopay(m.id)
+    )
+
+    return [...normal, ...pobranie]
+  }, [availablePaymentMethods])
+
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
-
+  const countryCode = useParams().countryCode as string
   const isOpen = searchParams.get("step") === "payment"
 
   const setPaymentMethod = async (method: string) => {
     setError(null)
     setSelectedPaymentMethod(method)
-    if (isStripeLike(method)) {
-      await initiatePaymentSession(cart, {
-        provider_id: method,
-      })
-    }
+    // if (isStripeLike(method)) {
+    //   await initiatePaymentSession(cart, {
+    //     provider_id: method,
+    //   })
+    // }
   }
 
   const paidByGiftcard = !!(
@@ -81,6 +107,10 @@ const Payment = ({
     })
   }
 
+  const deliveryFeeInCart = cart?.items?.find(
+    (item) => item.metadata?.is_cod_fee
+  )
+
   const handleSubmit = async () => {
     setIsLoading(true)
     try {
@@ -90,9 +120,32 @@ const Payment = ({
       const checkActiveSession =
         activeSession?.provider_id === selectedPaymentMethod
 
+      if (isPayOnDeliveryAutopay(selectedPaymentMethod) && !deliveryFeeInCart) {
+        await addPayOnDeliveryFeeToCart({
+          title: "Opłata za pobranie",
+          quantity: 1,
+          unitPrice: 5.0,
+          countryCode: countryCode,
+        })
+      }
+
+      if (!isPayOnDeliveryAutopay(selectedPaymentMethod) && deliveryFeeInCart) {
+        await updateLineItem({ lineId: deliveryFeeInCart.id, quantity: 0 })
+      }
+
       if (!checkActiveSession) {
         await initiatePaymentSession(cart, {
           provider_id: selectedPaymentMethod,
+          ...(isTransferAutopay(selectedPaymentMethod)
+            ? {
+                data: {
+                  orderId: cart.id,
+                  amount: cart.total,
+                  description: `Zamowienie`,
+                  customerEmail: cart.email,
+                },
+              }
+            : {}),
         })
       }
 
@@ -151,7 +204,7 @@ const Payment = ({
                 value={selectedPaymentMethod}
                 onChange={(value: string) => setPaymentMethod(value)}
               >
-                {availablePaymentMethods.map((paymentMethod) => (
+                {sortedPaymentMethods.map((paymentMethod) => (
                   <div key={paymentMethod.id}>
                     {isStripeLike(paymentMethod.id) ? (
                       <StripeCardContainer
