@@ -1,5 +1,13 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk";
-import { Button, Container, Heading, Input, Text, toast } from "@medusajs/ui";
+import {
+  Button,
+  Checkbox,
+  Container,
+  Heading,
+  Input,
+  Text,
+  toast,
+} from "@medusajs/ui";
 import { Photo } from "@medusajs/icons";
 import { useEffect, useState, type ChangeEvent } from "react";
 import {
@@ -41,6 +49,7 @@ export default function ImageTestPage() {
   const [original, setOriginal] = useState<File | null>(null);
   const [optimized, setOptimized] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [watermarkEnabled, setWatermarkEnabled] = useState(true);
 
   const [originalPreview, setOriginalPreview] = useState<string | null>(null);
   const [optimizedPreview, setOptimizedPreview] = useState<string | null>(null);
@@ -120,6 +129,7 @@ export default function ImageTestPage() {
         previewFile,
         options.maxResolution,
         options.quality,
+        watermarkEnabled,
       );
 
       setOptimized(result);
@@ -243,14 +253,30 @@ export default function ImageTestPage() {
             Select an image
           </Text>
 
-          <input
-            id="image-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleChange}
-            disabled={loading}
-            className="block w-full max-w-md cursor-pointer rounded-md border border-ui-border-base bg-ui-bg-base p-2 text-sm"
-          />
+          <div className="flex flex-wrap items-center gap-4">
+            <input
+              id="image-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+              disabled={loading}
+              className="block w-full max-w-md cursor-pointer rounded-md border border-ui-border-base bg-ui-bg-base p-2 text-sm"
+            />
+
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="watermark-enabled"
+                checked={watermarkEnabled}
+                onCheckedChange={(checked) =>
+                  setWatermarkEnabled(checked === true)
+                }
+                disabled={loading}
+              />
+              <label htmlFor="watermark-enabled" className="text-sm">
+                Add watermark
+              </label>
+            </div>
+          </div>
 
           <Text size="small" className="text-ui-fg-subtle">
             Select an image after changing the settings.

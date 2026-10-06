@@ -88,6 +88,33 @@ async function loadImage(source: Blob): Promise<{
   }
 }
 
+function drawWatermark(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+): void {
+  const text = "gamerfix.pl";
+  const referenceFontSize = 100;
+
+  context.save();
+  context.font = `600 ${referenceFontSize}px Arial, sans-serif`;
+
+  const fontSize =
+    (width * 0.5 * referenceFontSize) / context.measureText(text).width;
+
+  context.font = `600 ${fontSize}px Arial, sans-serif`;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.globalAlpha = 0.25;
+  context.lineJoin = "round";
+  context.lineWidth = fontSize * 0.06;
+  context.strokeStyle = "#000";
+  context.fillStyle = "#fff";
+  context.strokeText(text, width / 2, height / 2);
+  context.fillText(text, width / 2, height / 2);
+  context.restore();
+}
+
 export async function prepareImageForBrowser(file: File): Promise<File> {
   const format = await detectImageFormat(file);
   const source =
@@ -120,6 +147,7 @@ export async function optimizeImage(
   file: File,
   maxResolution?: number,
   quality?: number,
+  watermark = true,
 ): Promise<File> {
   const source = await prepareImageForBrowser(file);
   const decoded = await loadImage(source);
@@ -150,6 +178,9 @@ export async function optimizeImage(
     }
 
     context.drawImage(image, 0, 0, width, height);
+    if (watermark) {
+      drawWatermark(context, width, height);
+    }
 
     const blob = await new Promise<Blob>((resolve, reject) => {
       canvas.toBlob(
