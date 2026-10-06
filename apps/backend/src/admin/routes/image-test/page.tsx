@@ -1,13 +1,55 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk";
-import { Button, Container, Heading, Input, Text, toast } from "@medusajs/ui";
+import {
+  Button,
+  Checkbox,
+  Container,
+  Heading,
+  Input,
+  Text,
+  toast,
+} from "@medusajs/ui";
 import { Photo } from "@medusajs/icons";
 import { useEffect, useState, type ChangeEvent } from "react";
-import { optimizeImage } from "../../utils/optimize-image";
+import {
+  optimizeImage,
+  prepareImageForBrowser,
+} from "../../utils/optimize-image";
+
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return `${error.name}: ${error.message}`;
+  }
+
+  if (typeof error === "string") {
+    return error;
+  }
+
+  if (typeof error === "object" && error !== null) {
+    if ("message" in error && typeof error.message === "string") {
+      const code =
+        "code" in error &&
+        (typeof error.code === "number" || typeof error.code === "string")
+          ? ` (${error.code})`
+          : "";
+
+      return `${error.message}${code}`;
+    }
+
+    try {
+      return JSON.stringify(error) ?? "Unknown error";
+    } catch {
+      return "Unknown error (details could not be serialized)";
+    }
+  }
+
+  return String(error);
+}
 
 export default function ImageTestPage() {
   const [original, setOriginal] = useState<File | null>(null);
   const [optimized, setOptimized] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [watermarkEnabled, setWatermarkEnabled] = useState(true);
 
   const [originalPreview, setOriginalPreview] = useState<string | null>(null);
   const [optimizedPreview, setOptimizedPreview] = useState<string | null>(null);
@@ -56,10 +98,7 @@ export default function ImageTestPage() {
     setOriginal(file);
     setOptimized(null);
     setLoading(true);
-
-    // Create preview for original image
-    const originalUrl = URL.createObjectURL(file);
-    setOriginalPreview(originalUrl);
+    setOriginalPreview(null);
 
     // Clear previous optimized preview
     if (optimizedPreview) {
@@ -68,6 +107,9 @@ export default function ImageTestPage() {
     }
 
     try {
+      const previewFile = await prepareImageForBrowser(file);
+      setOriginalPreview(URL.createObjectURL(previewFile));
+
       // Build optional parameters
       const options: {
         maxResolution?: number;
@@ -83,7 +125,12 @@ export default function ImageTestPage() {
         options.quality = Number(quality) / 100;
       }
 
-      const result = await optimizeImage(file, options.maxResolution, options.quality);
+      const result = await optimizeImage(
+        previewFile,
+        options.maxResolution,
+        options.quality,
+        watermarkEnabled,
+      );
 
       setOptimized(result);
 
@@ -95,10 +142,10 @@ export default function ImageTestPage() {
         description: "The image has been successfully optimized.",
       });
     } catch (error) {
-      console.error(error);
+      console.error("Failed to optimize image:", error);
 
       toast.error("Failed to optimize image", {
-        description: "Something went wrong while optimizing the image.",
+        description: getErrorMessage(error),
       });
     } finally {
       setLoading(false);
@@ -167,7 +214,7 @@ export default function ImageTestPage() {
                 min={1}
                 placeholder="2500"
                 value={maxSize}
-                onChange={event => setMaxSize(event.target.value)}
+                onChange={(event) => setMaxSize(event.target.value)}
                 disabled={loading}
               />
 
@@ -189,7 +236,7 @@ export default function ImageTestPage() {
                 step={1}
                 placeholder="80"
                 value={quality}
-                onChange={event => setQuality(event.target.value)}
+                onChange={(event) => setQuality(event.target.value)}
                 disabled={loading}
               />
 
@@ -206,14 +253,30 @@ export default function ImageTestPage() {
             Select an image
           </Text>
 
-          <input
-            id="image-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleChange}
-            disabled={loading}
-            className="block w-full max-w-md cursor-pointer rounded-md border border-ui-border-base bg-ui-bg-base p-2 text-sm"
-          />
+          <div className="flex flex-wrap items-center gap-4">
+            <input
+              id="image-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleChange}
+              disabled={loading}
+              className="block w-full max-w-md cursor-pointer rounded-md border border-ui-border-base bg-ui-bg-base p-2 text-sm"
+            />
+
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="watermark-enabled"
+                checked={watermarkEnabled}
+                onCheckedChange={(checked) =>
+                  setWatermarkEnabled(checked === true)
+                }
+                disabled={loading}
+              />
+              <label htmlFor="watermark-enabled" className="text-sm">
+                Add watermark
+              </label>
+            </div>
+          </div>
 
           <Text size="small" className="text-ui-fg-subtle">
             Select an image after changing the settings.
@@ -302,7 +365,10 @@ export default function ImageTestPage() {
                       {original && (
                         <Text size="small">
                           <strong>Reduction:</strong>{" "}
-                          {((1 - optimized.size / original.size) * 100).toFixed(1)}%
+                          {((1 - optimized.size / original.size) * 100).toFixed(
+                            1,
+                          )}
+                          %
                         </Text>
                       )}
                     </div>
