@@ -47,7 +47,7 @@ export async function retrieveCart(cartId?: string, fields?: string) {
       },
       headers,
       next,
-      cache: "force-cache",
+      cache: "no-store",
     })
     .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
       await Promise.all(
@@ -638,6 +638,6 @@ export async function listCartOptions() {
     query: { cart_id: cartId },
     next,
     headers,
-    cache: "force-cache",
+    cache: "no-store",
   })
 }
