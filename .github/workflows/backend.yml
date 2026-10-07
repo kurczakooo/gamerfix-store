@@ -75,6 +75,8 @@ jobs:
             AUTOPAY_SERVICE_ID=${{ secrets.AUTOPAY_SERVICE_ID }}
             AUTOPAY_KEY=${{ secrets.AUTOPAY_KEY }}
             AUTOPAY_SEPARATOR=${{ secrets.AUTOPAY_SEPARATOR }}
+            MEDUSA_FF_CACHING=${{ secrets.MEDUSA_FF_CACHING }}
+            CACHE_REDIS_URL=${{ secrets.CACHE_REDIS_URL }}
             EOF
 
             docker compose pull
