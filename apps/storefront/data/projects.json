@@ -1,0 +1,112 @@
+{
+    "response": {
+        "projects": [
+            {
+                "id": 1,
+                "title": "PlayStation 5 bez obrazu przez uszkodzone gniazdo HDMI",
+                "displayDate": "2025-01-18",
+                "description": "Konsola trafiła do serwisu, ponieważ po podłączeniu do telewizora nie wyświetlała obrazu. Klient opisywał, że PS5 uruchamia się normalnie, świeci i reaguje na kontroler, ale ekran pozostaje czarny. Problem pojawił się po okresie bezproblemowego użytkowania i z czasem występował niezależnie od wybranego wejścia HDMI.\n\nNajpierw sprawdziliśmy konsolę na kilku sprawnych przewodach i ekranach, aby wykluczyć usterkę akcesoriów. Oględziny pod mikroskopem ujawniły wygięte styki oraz pęknięte połączenia w gnieździe HDMI. Uszkodzone złącze zostało ostrożnie wylutowane, pola na płycie oczyszczone, a sąsiednie elementy zabezpieczone na czas pracy.\n\nPo zamontowaniu nowego gniazda sprawdziliśmy ciągłość połączeń i przetestowaliśmy obraz w kilku rozdzielczościach. Konsola przeszła również dłuższą próbę gry, podczas której sygnał nie zanikał. Do właściciela wróciła gotowa do podłączenia, z prawidłowo działającym obrazem.",
+                "images": ["/images/content/ps5.png", "/images/content/ps5192.webp", "/images/content/ps5512.webp"]
+            },
+            {
+                "id": 2,
+                "title": "Usunięcie dryfowania analogów w kontrolerze Xbox",
+                "displayDate": "2025-02-06",
+                "description": "Kontroler Xbox trafił do serwisu, gdy postać w grze zaczęła poruszać się sama. Klient zauważył, że problem dotyczy przede wszystkim prawego analoga: kamera powoli obracała się nawet wtedy, gdy drążek pozostawał puszczony. Mocniejsze wychylenie na chwilę zmieniało kierunek ruchu, ale nie rozwiązywało problemu.\n\nPodłączyliśmy kontroler do narzędzia diagnostycznego i obserwowaliśmy odczyty obu analogów w różnych położeniach. Prawy moduł nie wracał stabilnie do punktu neutralnego. Po otwarciu obudowy potwierdziliśmy jego zużycie i znaleźliśmy pył wokół mechanizmu. Sprawdziliśmy też stan taśm, przycisków oraz spustów, aby upewnić się, że naprawa nie pominie dodatkowych usterek.\n\nZużyty moduł został wymieniony, płytka oczyszczona, a kontroler ponownie złożony i skalibrowany. Na koniec sprawdziliśmy zakres ruchu i reakcję w grze. Odczyty pozostały stabilne, kamera przestała samoczynnie się obracać, a pozostałe przyciski działały prawidłowo.",
+                "images": ["/images/content/controller.png", "/images/content/controller192.webp", "/images/content/controller512.webp"]
+            },
+            {
+                "id": 3,
+                "title": "Czyszczenie i wymiana pasty w przegrzewającym się laptopie gamingowym",
+                "displayDate": "2025-02-22",
+                "description": "Laptop gamingowy trafił do nas po tym, jak zaczął wyłączać się w trakcie wymagających gier. Klient zgłaszał też bardzo głośną pracę wentylatorów, nawet przy prostych zadaniach, oraz obudowę robiącą się wyraźnie gorąca. Wcześniej problem narastał stopniowo, więc pierwszym podejrzeniem było ograniczone chłodzenie.\n\nZmierzyliśmy temperatury procesora i układu graficznego, a następnie sprawdziliśmy przepływ powietrza. Po demontażu układu chłodzenia okazało się, że radiatory są mocno zapchane kurzem, pasta termoprzewodząca wyschła, a jeden z elementów nie przylegał równomiernie. Oceniliśmy również termopady, by dobrać poprawny sposób ich ponownego ułożenia.\n\nRadiatory i kanały wentylacyjne zostały dokładnie oczyszczone, pastę wymieniliśmy, a chłodzenie zamontowaliśmy z równym dociskiem. Laptop przeszedł test obciążeniowy procesora i karty graficznej oraz dłuższą próbę gry. Temperatury się ustabilizowały, wentylatory pracowały ciszej, a urządzenie nie wyłączało się podczas testów.",
+                "images": ["/images/content/laptop.png", "/images/content/laptop192.webp", "/images/content/laptop512.webp"]
+            },
+            {
+                "id": 4,
+                "title": "Odzyskanie stabilnego uruchamiania komputera po awarii zasilania",
+                "displayDate": "2025-03-11",
+                "description": "Komputer stacjonarny trafił do serwisu po nagłym zaniku zasilania. Klient opisywał, że po naciśnięciu przycisku uruchamiania wentylatory zaczynają się obracać, ale monitor nie pokazuje obrazu. Sprzęt nie przechodził też prawidłowo testu POST, przez co nie można było uruchomić systemu ani skorzystać z zapisanych plików.\n\nDiagnostykę rozpoczęliśmy od odłączenia urządzeń peryferyjnych i sprawdzenia podstawowych podzespołów. Zasilacz został przetestowany pod obciążeniem, a kartę graficzną i pamięć RAM sprawdziliśmy osobno. Testy wskazały na jeden niestabilny moduł RAM, który powodował błędy podczas inicjalizacji płyty głównej. Oczyściliśmy styki i zamieniliśmy kości miejscami, aby potwierdzić źródło problemu.\n\nPo wymianie wadliwego modułu komputer uruchomił się poprawnie i przeszedł test pamięci. Wykonaliśmy kilka pełnych restartów oraz próbę pracy pod obciążeniem. System działał stabilnie, a dane użytkownika pozostały nienaruszone.",
+                "images": ["/images/content/hero.webp", "/images/content/hero_2.png", "/images/content/laptop.png"]
+            },
+            {
+                "id": 5,
+                "title": "Naprawa portu USB-C w konsoli Nintendo Switch",
+                "displayDate": "2025-03-29",
+                "description": "Konsola Nintendo Switch trafiła do serwisu, gdy ładowanie zaczęło przerywać. Klient musiał ustawiać przewód pod określonym kątem, a konsola nie łączyła się ze stacją dokującą. Z czasem nawet lekkie poruszenie wtyczką powodowało utratę kontaktu, dlatego dalsze korzystanie mogło pogłębić uszkodzenie gniazda.\n\nSprawdziliśmy kilka sprawnych przewodów i ładowarek, aby wykluczyć problem z akcesoriami. Inspekcja pod mikroskopem ujawniła mechanicznie naruszone gniazdo USB-C i uszkodzone luty. Przed wymianą skontrolowaliśmy okolice portu oraz linie zasilania, a następnie usunęliśmy stare złącze z zachowaniem ostrożności wobec pól lutowniczych.\n\nNowy port został zamontowany przy kontrolowanej temperaturze. Po naprawie sprawdziliśmy ładowanie, połączenie ze stacją dokującą i przesyłanie obrazu, a także pracę konsoli na baterii. Wszystkie testy przebiegły prawidłowo i wtyczka utrzymywała stabilny kontakt.",
+                "images": ["/images/content/ps5.png", "/images/content/xbox192.webp", "/images/content/xbox512.webp"]
+            },
+            {
+                "id": 6,
+                "title": "Przywrócenie działania laptopa po zalaniu klawiatury",
+                "displayDate": "2025-04-14",
+                "description": "Laptop trafił do serwisu po przypadkowym rozlaniu napoju na klawiaturę. Klient zgłaszał, że część klawiszy przestała działać, a inne wpisywały znaki samoczynnie. Urządzenie zostało szybko odłączone od zasilania, ale właściciel chciał upewnić się, czy ciecz nie przedostała się również do wnętrza obudowy.\n\nPo rozebraniu laptopa sprawdziliśmy klawiaturę, taśmę sygnałową i płytę główną. W okolicy złącza znaleźliśmy ślady cieczy oraz osad. Oczyściliśmy zabrudzone elementy odpowiednią metodą i dokładnie obejrzeliśmy sąsiednie obwody pod kątem korozji. Testy potwierdziły, że sama klawiatura została uszkodzona i wymaga wymiany.\n\nZamontowaliśmy sprawny moduł, a przed złożeniem ponownie sprawdziliśmy złącza i uruchomiliśmy urządzenie. Każdy klawisz został przetestowany, podobnie jak touchpad, ładowanie i porty. Laptop działał stabilnie, a klawiatura poprawnie rejestrowała wpisy bez samoczynnego powtarzania znaków.",
+                "images": ["/images/content/laptop.png", "/images/content/laptop192.webp", "/images/content/laptop512.webp"]
+            },
+            {
+                "id": 7,
+                "title": "Naprawa gniazda zasilania w komputerze stacjonarnym",
+                "displayDate": "2025-05-03",
+                "description": "Komputer stacjonarny trafił do serwisu, ponieważ potrafił nagle się wyłączyć. Klient zauważył, że problem często pojawia się po poruszeniu przewodem zasilającym, a czasem komputer w ogóle nie reaguje na przycisk uruchamiania. Podmiana przewodu nie przyniosła poprawy, więc usterki szukaliśmy wewnątrz obudowy.\n\nSprawdziliśmy gniazdo zasilacza, wyłącznik i połączenia przewodów, a sam zasilacz przetestowaliśmy na stanowisku. Gniazdo IEC miało poluzowane styki, a połączenie przy wyłączniku nie było pewne. Taki kontakt mógł powodować chwilowe przerwy w zasilaniu, dlatego skontrolowaliśmy także stan izolacji i mocowania przewodów.\n\nPoprawiliśmy i zabezpieczyliśmy połączenia, a następnie wielokrotnie uruchomiliśmy komputer. Przeprowadziliśmy próbę pod obciążeniem i delikatnie poruszyliśmy przewodem, obserwując stabilność zasilania. Komputer nie wyłączał się, a przycisk uruchamiania działał za każdym razem.",
+                "images": ["/images/content/hero.webp", "/images/content/hero_2.png"]
+            },
+            {
+                "id": 8,
+                "title": "Wymiana wentylatora w głośnej konsoli Xbox Series X",
+                "displayDate": "2025-05-21",
+                "description": "Xbox Series X trafił do serwisu z powodu narastającego hałasu. Klient opisywał szorstki dźwięk, który pojawiał się kilka minut po uruchomieniu i stawał się głośniejszy podczas gry. Konsola nadal działała, ale hałas budził obawy, że wentylator może wkrótce przestać chłodzić urządzenie prawidłowo.\n\nPo otwarciu obudowy sprawdziliśmy układ chłodzenia i kanały przepływu powietrza. Wnętrze było zakurzone, a wentylator miał wyczuwalny luz i zużyte łożysko. Oczyściliśmy radiator oraz pozostałe elementy chłodzenia, a następnie porównaliśmy zużyty moduł z częścią przeznaczoną do tego modelu konsoli.\n\nZamontowaliśmy nowy wentylator i ponownie złożyliśmy urządzenie. Podczas dłuższej próby pracy pod obciążeniem kontrolowaliśmy dźwięk i temperaturę. Nie pojawił się wcześniejszy hałas, przepływ powietrza był prawidłowy, a konsola działała stabilnie.",
+                "images": ["/images/content/xbox.png", "/images/content/xbox192.webp", "/images/content/xbox512.webp"]
+            },
+            {
+                "id": 9,
+                "title": "Usunięcie artefaktów obrazu w komputerze gamingowym",
+                "displayDate": "2025-06-08",
+                "description": "Komputer gamingowy trafił do nas, gdy podczas grania na ekranie zaczęły pojawiać się kolorowe kwadraty. Klient zgłaszał, że po kilku minutach gry aplikacja zamyka się z błędem sterownika, a czasem obraz wraca dopiero po ponownym uruchomieniu komputera. Objawy występowały również na innym monitorze.\n\nSprawdziliśmy temperatury, kartę graficzną i jej zasilanie, a następnie skontrolowaliśmy osadzenie podzespołu w gnieździe PCIe. Diagnostyka ujawniła niestabilny styk przewodu zasilającego oraz zabrudzone złącze. Oczyściliśmy styki, ponownie i prawidłowo zamontowaliśmy kartę, a uszkodzony przewód zastąpiliśmy sprawnym.\n\nPo naprawie wykonaliśmy test pamięci karty i próbę obciążeniową GPU, a następnie uruchomiliśmy kilka gier i benchmarków. Obraz pozostał czysty, komputer nie zgłaszał błędów, a temperatury i pobór mocy mieściły się w prawidłowym zakresie.",
+                "images": ["/images/content/hero.webp", "/images/content/hero_2.png", "/images/content/laptop.png"]
+            },
+            {
+                "id": 10,
+                "title": "Naprawa przycisku R1 w kontrolerze PlayStation",
+                "displayDate": "2025-06-27",
+                "description": "Kontroler PlayStation trafił do serwisu, ponieważ przycisk R1 reagował tylko po mocnym naciśnięciu. Klient zauważył, że w grach wymagających szybkiej reakcji przycisk czasem nie rejestruje polecenia, choć pozostałe elementy kontrolera działają normalnie. Problem utrudniał rozgrywkę i z czasem stawał się coraz bardziej zauważalny.\n\nPo otwarciu obudowy sprawdziliśmy mechanizm przycisku, taśmę oraz punkty lutownicze. Testy potwierdziły zużycie mikrostyku i zabrudzenie w jego okolicy. Przy okazji oceniliśmy stan gumowych elementów, obudowy, analogów i pozostałych przycisków, aby wykluczyć dodatkowe uszkodzenia.\n\nWymieniliśmy mikrostyk i oczyściliśmy płytkę przed ponownym montażem. Następnie wielokrotnie naciskaliśmy R1 z różną siłą i sprawdziliśmy reakcję w grze. Przycisk działał powtarzalnie, a analogi i pozostałe przyciski poprawnie rejestrowały polecenia.",
+                "images": ["/images/content/controller.png", "/images/content/controller192.webp", "/images/content/controller512.webp"]
+            },
+            {
+                "id": 11,
+                "title": "Wymiana uszkodzonego dysku i konfiguracja systemu w laptopie",
+                "displayDate": "2025-07-16",
+                "description": "Laptop trafił do serwisu, gdy uruchamiał się coraz wolniej i zawieszał podczas kopiowania plików. Klient otrzymywał też okresowe błędy odczytu i obawiał się utraty dokumentów. Przed rozpoczęciem naprawy omówiliśmy stan nośnika oraz możliwość zabezpieczenia danych, ponieważ dalsze używanie uszkodzonego dysku mogło pogłębić problem.\n\nDiagnostyka potwierdziła narastające błędy nośnika. Najpierw skopiowaliśmy pliki, które nadal można było bezpiecznie odczytać, i sprawdziliśmy kompletność zabezpieczonych danych. Następnie przygotowaliśmy nowy dysk SSD, zamontowaliśmy go i skonfigurowaliśmy system wraz z niezbędnymi sterownikami.\n\nPo przywróceniu kopii przetestowaliśmy stan nowego nośnika, szybkość uruchamiania, aktualizacje i podstawowe funkcje laptopa. Urządzenie działało stabilnie, pliki użytkownika były dostępne, a klient otrzymał informację o wykonanej kopii i wymianie dysku.",
+                "images": ["/images/content/laptop.png", "/images/content/laptop192.webp", "/images/content/laptop512.webp"]
+            },
+            {
+                "id": 12,
+                "title": "Przywrócenie ładowania kontrolera Nintendo Switch Pro",
+                "displayDate": "2025-08-02",
+                "description": "Kontroler Nintendo Switch Pro trafił do serwisu, ponieważ mimo poprawnego działania bezprzewodowego nie ładował się po podłączeniu przewodu. Klient musiał korzystać z niego coraz krócej, a poruszenie wtyczką czasem powodowało chwilowe pojawienie się ładowania. Sprawdziliśmy, czy przyczyną nie jest przewód lub ładowarka.\n\nPo wykluczeniu akcesoriów zmierzyliśmy napięcie na porcie i w obwodzie ładowania. Inspekcja wykazała zabrudzone, poluzowane gniazdo USB-C, które traciło kontakt przy poruszeniu przewodem. Obejrzeliśmy również połączenia pod powiększeniem i oczyściliśmy okolice portu przed jego ponownym zamocowaniem.\n\nPo naprawie kontroler ładował się stabilnie i utrzymywał połączenie przewodowe. Sprawdziliśmy także działanie przycisków i analogów oraz czas pracy na baterii. Właściciel mógł ponownie ładować kontroler bez ustawiania przewodu pod określonym kątem.",
+                "images": ["/images/content/controller.png", "/images/content/controller192.webp"]
+            },
+            {
+                "id": 13,
+                "title": "Czyszczenie układu chłodzenia i naprawa throttlingu procesora",
+                "displayDate": "2025-08-19",
+                "description": "Komputer biurowy trafił do nas, ponieważ po kilku minutach pracy zaczynał wyraźnie zwalniać. Klient szczególnie odczuwał problem podczas wideokonferencji: obraz i dźwięk potrafiły się zacinać, mimo że początkowo komputer działał płynnie. Zgłoszono również częstą pracę wentylatora przy niewielkim obciążeniu.\n\nMonitorowaliśmy temperaturę i taktowanie procesora. Pomimo prostych zadań układ szybko osiągał wysoką temperaturę i obniżał wydajność. Po zdjęciu chłodzenia znaleźliśmy kurz blokujący radiator, wyschniętą pastę oraz wentylator, który obracał się z oporem. Sprawdziliśmy też mocowanie chłodzenia i stan przewodu wentylatora.\n\nOczyściliśmy radiator, wentylator i wnętrze obudowy, nałożyliśmy nową pastę i poprawnie zamontowaliśmy chłodzenie. Po naprawie komputer przeszedł kilka testów obciążeniowych oraz próbę wideokonferencji. Temperatury pozostały stabilne, a wydajność nie spadała podczas dłuższej pracy.",
+                "images": ["/images/content/laptop.png", "/images/content/laptop192.webp", "/images/content/hero.webp"]
+            },
+            {
+                "id": 14,
+                "title": "Naprawa gniazda słuchawkowego w przenośnej konsoli",
+                "displayDate": "2025-09-07",
+                "description": "Przenośna konsola trafiła do serwisu z problemem dźwięku w słuchawkach. Klient słyszał audio tylko w jednym kanale, a poruszenie wtyczką powodowało trzaski i chwilowe przerwy. Wbudowane głośniki działały normalnie, co sugerowało, że problem może dotyczyć samego gniazda słuchawkowego.\n\nSprawdziliśmy kilka zestawów słuchawkowych, aby wykluczyć uszkodzenie akcesoriów. Następnie obejrzeliśmy gniazdo i jego połączenia na płycie. Znaleźliśmy poluzowany port oraz pęknięte połączenie lutowane, prawdopodobnie osłabione przez częste naprężanie przewodu. Skontrolowaliśmy również sąsiednie elementy, żeby upewnić się, że usterka nie sięga dalej.\n\nGniazdo ponownie zamocowaliśmy i wzmocniliśmy połączenia. Po złożeniu przetestowaliśmy dźwięk w obu kanałach, poruszając delikatnie wtyczką, a także sprawdziliśmy wbudowane głośniki. Audio było czyste i nie przerywało podczas testu.",
+                "images": ["/images/content/xbox.png", "/images/content/ps5.png"]
+            },
+            {
+                "id": 15,
+                "title": "Rozwiązanie problemu z brakiem obrazu po rozbudowie komputera",
+                "displayDate": "2025-09-24",
+                "description": "Komputer trafił do serwisu po samodzielnej wymianie karty graficznej. Po naciśnięciu przycisku wentylatory się obracały, ale monitor pozostawał czarny. Klient sprawdził już inny przewód obrazu i monitor, jednak nie przyniosło to poprawy. Zależało mu na uruchomieniu nowego podzespołu bez ryzyka uszkodzenia pozostałych części.\n\nNajpierw sprawdziliśmy sygnały diagnostyczne płyty głównej, osadzenie karty w gnieździe PCIe oraz przewody zasilające. Okazało się, że karta nie była całkowicie wsunięta, a jeden z przewodów nie zatrzasnął się prawidłowo. Obejrzeliśmy również gniazdo i przewody pod kątem uszkodzeń, po czym poprawnie zamontowaliśmy kartę.\n\nKomputer przeszedł POST i wyświetlił obraz. Zaktualizowaliśmy sterowniki, sprawdziliśmy wykrywanie karty w systemie i wykonaliśmy test obciążeniowy. Obraz pozostał stabilny, a podzespoły pracowały prawidłowo podczas dalszej próby.",
+                "images": ["/images/content/hero.webp", "/images/content/hero_2.png", "/images/content/laptop.png"]
+            }
+        ],
+        "count": 15
+    }
+}

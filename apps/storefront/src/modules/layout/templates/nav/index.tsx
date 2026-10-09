@@ -72,6 +72,15 @@ export default async function Nav() {
                 Kontakt
               </LocalizedClientLink>
             </div>
+            <div className="hidden small:flex items-center gap-x-6 h-full">
+              <LocalizedClientLink
+                className="hover:text-ui-fg-base"
+                href="/projects"
+                data-testid="nav-projects-link"
+              >
+                Realizacje
+              </LocalizedClientLink>
+            </div>
           </div>
           <div className="flex items-center gap-x-6 h-full text-xl font-semibold">
             <div className="hidden small:flex items-center gap-x-6 h-full">

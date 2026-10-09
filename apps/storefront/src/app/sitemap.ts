@@ -64,15 +64,21 @@ const staticPages: MetadataRoute.Sitemap = [
     priority: 0.9,
   },
   {
-    url: `${baseUrl}/pl/faq`,
+    url: `${baseUrl}/pl/projects`,
     lastModified: today,
-    changeFrequency: "weekly",
-    priority: 0.7,
+    changeFrequency: "daily",
+    priority: 0.8,
   },
   {
     url: `${baseUrl}/pl/contact`,
     lastModified: today,
     changeFrequency: "monthly",
+    priority: 0.8,
+  },
+  {
+    url: `${baseUrl}/pl/faq`,
+    lastModified: today,
+    changeFrequency: "weekly",
     priority: 0.7,
   },
   {
