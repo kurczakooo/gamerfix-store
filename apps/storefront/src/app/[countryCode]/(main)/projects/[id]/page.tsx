@@ -49,12 +49,21 @@ export default async function ProjectPage({ params }: Props) {
       data-testid="category-container"
     >
       <div className="flex flex-col gap-y-4">
-        <LocalizedClientLink
-          href="/projects"
-          className="text-medium text-ui-fg-muted hover:text-ui-fg-subtle"
-        >
-          Realizacje
-        </LocalizedClientLink>
+        <div className="flex flex-1 justify-between">
+          <LocalizedClientLink
+            href="/projects"
+            className="text-medium text-ui-fg-muted hover:text-ui-fg-subtle"
+          >
+            Realizacje
+          </LocalizedClientLink>
+
+          <Text
+            className="text-base text-ui-fg-muted whitespace-pre-line"
+            data-testid="project-description"
+          >
+            {project.displayDate}
+          </Text>
+        </div>
         <Heading
           level="h2"
           className="text-3xl leading-10 text-ui-fg-base"
