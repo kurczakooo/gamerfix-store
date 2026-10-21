@@ -1,4 +1,5 @@
 import { Text, clx } from "@modules/common/components/ui"
+import { formatPrice } from "@lib/util/format-price"
 import { VariantPrice } from "types/global"
 
 export default async function PreviewPrice({ price }: { price: VariantPrice }) {
@@ -16,13 +17,21 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
             className="text-ui-fg-interactive text-small-semi font-semibold sm:text-large-semi"
             data-testid="price"
           >
-            {price.calculated_price}
+            {formatPrice(
+              price.calculated_price,
+              price.calculated_price_number,
+              price.currency_code
+            )}
           </Text>
           <Text
             className="line-through text-xsmall-semi font-semibold sm:text-large-semi text-ui-fg-muted"
             data-testid="original-price"
           >
-            {price.original_price}
+            {formatPrice(
+              price.original_price,
+              price.original_price_number,
+              price.currency_code
+            )}
           </Text>
         </>
       )}
@@ -31,7 +40,11 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
           className="text-ui-fg-subtle text-small-semi font-semibold sm:text-large-semi"
           data-testid="price"
         >
-          {price.calculated_price}
+          {formatPrice(
+            price.calculated_price,
+            price.calculated_price_number,
+            price.currency_code
+          )}
         </Text>
       )}
     </>
