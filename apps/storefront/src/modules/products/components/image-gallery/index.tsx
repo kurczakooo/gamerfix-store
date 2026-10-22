@@ -47,7 +47,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
 
   return (
     <div className="flex items-start relative">
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
+      <div className="flex flex-col flex-1 gap-y-4">
         <div className="overflow-hidden rounded-rounded" ref={emblaMainRef}>
           <div className="flex touch-pan-y touch-pinch-zoom rounded-rounded">
             {images.map((image, index) => (
@@ -81,6 +81,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                 <button
                   type="button"
                   onClick={() => onThumbClick(index)}
+                  onMouseEnter={() => onThumbClick(index)}
                   aria-label={`Show product image ${index + 1}`}
                   aria-current={
                     index === selectedImageIndex ? "true" : undefined

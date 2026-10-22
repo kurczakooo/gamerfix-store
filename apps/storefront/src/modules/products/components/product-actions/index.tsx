@@ -3,7 +3,7 @@
 import { addToCart } from "@lib/data/cart"
 import { useIntersection } from "@lib/hooks/use-in-view"
 import { HttpTypes } from "@medusajs/types"
-import { Button } from "@modules/common/components/ui"
+import { Button, clx } from "@modules/common/components/ui"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
@@ -13,6 +13,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
 import { useRouter } from "next/navigation"
+import QuantitySelection from "./quantity-selection"
 
 const addToCartErrorMessages: Record<string, string> = {
   "Amount in cart exceeds available inventory":
@@ -43,9 +44,13 @@ export default function ProductActions({
   const searchParams = useSearchParams()
 
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
+  const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const countryCode = useParams().countryCode as string
+
+  const actionsRef = useRef<HTMLDivElement>(null)
+  const inView = useIntersection(actionsRef, "0px")
 
   // If there is only 1 variant, preselect the options
   useEffect(() => {
@@ -72,6 +77,11 @@ export default function ProductActions({
       ...prev,
       [optionId]: value,
     }))
+  }
+
+  // set the quantity for the selected variant
+  const setQuantityValue = (value: number) => {
+    setQuantity(value)
   }
 
   //check if the selected options produce a valid variant
@@ -101,6 +111,14 @@ export default function ProductActions({
 
   // check if the selected variant is in stock
   const inStock = useMemo(() => {
+    // If there is inventory available, we can add to cart
+    if (
+      selectedVariant?.manage_inventory &&
+      selectedVariant?.inventory_quantity == 0
+    ) {
+      return false
+    }
+
     // If we don't manage inventory, we can always add to cart
     if (selectedVariant && !selectedVariant.manage_inventory) {
       return true
@@ -111,21 +129,9 @@ export default function ProductActions({
       return true
     }
 
-    // If there is inventory available, we can add to cart
-    if (
-      selectedVariant?.manage_inventory &&
-      (selectedVariant?.inventory_quantity || 0) > 0
-    ) {
-      return true
-    }
-
     // Otherwise, we can't add to cart
     return false
   }, [selectedVariant])
-
-  const actionsRef = useRef<HTMLDivElement>(null)
-
-  const inView = useIntersection(actionsRef, "0px")
 
   // add the selected variant to the cart
   const handleAddToCart = async () => {
@@ -137,7 +143,7 @@ export default function ProductActions({
     try {
       await addToCart({
         variantId: selectedVariant.id,
-        quantity: 1,
+        quantity: quantity,
         managedInventory: !!selectedVariant.manage_inventory,
         inventoryQuantity: selectedVariant.inventory_quantity ?? 0,
         countryCode,
@@ -157,7 +163,46 @@ export default function ProductActions({
 
   return (
     <>
-      <div className="flex flex-col gap-y-2" ref={actionsRef}>
+      <div className="flex flex-col gap-y-2 small:w-96" ref={actionsRef}>
+        {/* Availability Marker */}
+        <div className="pt-4">
+          {selectedVariant?.manage_inventory && (
+            <div
+              className={clx(
+                "text-base-bold text-gray-600",
+                selectedVariant?.inventory_quantity === 0 && "text-red-600",
+                selectedVariant?.inventory_quantity && "text-green-600"
+              )}
+            >
+              <div className="inline-flex items-center gap-2 text-base-bold">
+                {selectedVariant?.inventory_quantity != 0 && (
+                  <span
+                    aria-hidden="true"
+                    className="relative h-2 w-2 shrink-0"
+                  >
+                    <span className="absolute inset-0 rounded-full bg-green-600 shadow-[0_0_8px_2px_rgba(22,163,74,0.65)] animate-pulse motion-reduce:animate-none" />
+                    <span className="relative z-10 block h-2 w-2 rounded-full bg-green-600" />
+                  </span>
+                )}
+                Dostępnych sztuk:{"  "}
+                {selectedVariant?.inventory_quantity != null &&
+                selectedVariant.inventory_quantity >= 0
+                  ? selectedVariant.inventory_quantity
+                  : "Wybierz opcje"}
+              </div>
+            </div>
+          )}
+          {!selectedVariant?.manage_inventory && (
+            <div className="inline-flex items-center gap-2 text-base-bold text-green-600">
+              <span aria-hidden="true" className="relative h-2 w-2 shrink-0">
+                <span className="absolute inset-0 rounded-full bg-green-600 shadow-[0_0_8px_2px_rgba(22,163,74,0.65)] animate-pulse motion-reduce:animate-none" />
+                <span className="relative z-10 block h-2 w-2 rounded-full bg-green-600" />
+              </span>
+              Dostępne!
+            </div>
+          )}
+        </div>
+        {/* Product Options */}
         <div>
           {(product.variants?.length ?? 0) > 1 && (
             <div className="flex flex-col gap-y-4">
@@ -180,20 +225,9 @@ export default function ProductActions({
           )}
         </div>
 
-        <div>
-          {selectedVariant?.manage_inventory && (
-            <div className="text-base-regular text-gray-600">
-              Dostępnych sztuk:{" "}
-              {selectedVariant?.inventory_quantity != null &&
-              selectedVariant.inventory_quantity >= 0
-                ? selectedVariant.inventory_quantity
-                : "Wybierz opcje"}
-            </div>
-          )}
-        </div>
-
         <ProductPrice product={product} variant={selectedVariant} />
 
+        {/* Add to Cart Button */}
         <Button
           onClick={handleAddToCart}
           disabled={
@@ -208,16 +242,31 @@ export default function ProductActions({
           isLoading={isAdding}
           data-testid="add-product-button"
         >
-          {!selectedVariant && !options
+          {!selectedVariant && options
             ? "Wybierz opcje"
             : !inStock || !isValidVariant
             ? "Wyprzedane"
             : "Dodaj do koszyka"}
         </Button>
+
+        {/* Quantity Selection */}
+        <div>
+          {product.collection?.handle === "products" && (
+            <QuantitySelection
+              selectedVariant={selectedVariant}
+              selectedQuantity={quantity}
+              setQuantity={setQuantityValue}
+              disabled={!!disabled || isAdding}
+            />
+          )}
+        </div>
+
         <ErrorMessage
           error={errorMessage}
           data-testid="add-product-error-message"
         />
+
+        {/* Floating Mobile Actions (add to cart) */}
         <MobileActions
           product={product}
           variant={selectedVariant}
