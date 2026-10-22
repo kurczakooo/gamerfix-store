@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:20-bookworm-slim AS builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ WORKDIR /app/apps/backend
 RUN npx medusa build
 
 
-FROM node:20-alpine AS runner
+FROM node:20-bookworm-slim AS runner
 
 WORKDIR /app
 
