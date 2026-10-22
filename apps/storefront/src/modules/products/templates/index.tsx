@@ -10,6 +10,9 @@ import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
 import ProductActionsWrapper from "./product-actions-wrapper"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Heading } from "@modules/common/components/ui"
+import { ChevronLeft } from "@medusajs/icons"
 
 type ProductTemplateProps = {
   product: HttpTypes.StoreProduct
@@ -31,42 +34,67 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
   return (
     <>
       <div
-        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
+        className="content-container flex flex-col py-6 gap-4 small:gap-8"
         data-testid="product-container"
       >
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
-          <ProductInfo product={product} />
-          <div className="hidden lg:block">
-            <ProductTabs product={product} />
+        <div className="flex flex-col gap-y-2 small:gap-y-4">
+          {product.collection && (
+            <LocalizedClientLink
+              href={`/collections/${product.collection.handle}`}
+              className="text-sm small:text-medium text-ui-fg-muted hover:text-ui-fg-subtle"
+            >
+              <div className="flex flex-1 items-center justify-start">
+                <ChevronLeft className="inline-block mr-1" />
+                {product.collection.title}
+              </div>
+            </LocalizedClientLink>
+          )}
+          <Heading
+            level="h2"
+            className="text-2xl small:text-3xl leading-10 text-ui-fg-base"
+            data-testid="product-title"
+          >
+            {product.title}
+          </Heading>
+        </div>
+        <div className="flex flex-col gap-4 justify-between small:flex-1 small:flex-row">
+          <div className="min-w-0 small:flex-1">
+            <ImageGallery images={images} />
+          </div>
+
+          <div className="flex min-w-0 flex-col small:flex-1 small:justify-center small:items-center ">
+            <div className="flex min-w-0 flex-col small:flex-1 small:justify-center small:items-center">
+              <Suspense
+                fallback={
+                  <ProductActions
+                    disabled={true}
+                    product={product}
+                    region={region}
+                  />
+                }
+              >
+                <ProductActionsWrapper id={product.id} region={region} />
+              </Suspense>
+            </div>
+            <div className="flex min-w-0 flex-col small:flex-1 small:justify-start small:items-start hidden small:block">
+              <ProductTabs product={product} />
+            </div>
           </div>
         </div>
-        <div className="block w-full relative">
-          <ImageGallery images={images} />
-        </div>
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-          <Suspense
-            fallback={
-              <ProductActions
-                disabled={true}
-                product={product}
-                region={region}
-              />
-            }
-          >
-            <ProductActionsWrapper id={product.id} region={region} />
-          </Suspense>
+        <div className="flex flex-col pt-8 items-start">
+          <ProductInfo product={product} />
         </div>
         <div className="block sm:hidden">
           <ProductTabs product={product} />
         </div>
-      </div>
-      <div
-        className="content-container my-16 small:my-32"
-        data-testid="related-products-container"
-      >
-        <Suspense fallback={<SkeletonRelatedProducts />}>
-          <RelatedProducts product={product} countryCode={countryCode} />
-        </Suspense>
+        <div
+          className="content-container my-16"
+          data-testid="related-products-container"
+        >
+          <Suspense fallback={<SkeletonRelatedProducts />}>
+            <RelatedProducts product={product} countryCode={countryCode} />
+          </Suspense>
+        </div>
       </div>
     </>
   )
