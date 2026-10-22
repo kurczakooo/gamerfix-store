@@ -24,23 +24,32 @@ export default function ProductPrice({
 
   return (
     <div className="flex flex-col text-ui-fg-base">
-      <span
-        className={clx("text-xl-semi", {
-          "text-ui-fg-interactive": selectedPrice.price_type === "sale",
-        })}
+      <div
+        className={clx(
+          "flex w-full items-baseline justify-between gap-x-2 text-xl-semi",
+          {
+            "text-ui-fg-interactive": selectedPrice.price_type === "sale",
+          }
+        )}
       >
-        {!variant && "Od "}
+        <span className="whitespace-nowrap text-sm text-ui-fg-muted">
+          {product.collection?.handle === "products" && "Cena za szt."}
+          {product.collection?.handle === "services" &&
+            "Cena za wykonanie usługi "}
+        </span>
         <span
+          className="ml-auto whitespace-nowrap text-right"
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}
         >
+          {!variant && "Od "}
           {formatPrice(
             selectedPrice.calculated_price,
             selectedPrice.calculated_price_number,
             selectedPrice.currency_code
           )}
         </span>
-      </span>
+      </div>
       {selectedPrice.price_type === "sale" && (
         <>
           <p>
