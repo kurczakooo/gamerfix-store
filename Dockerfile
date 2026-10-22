@@ -8,6 +8,9 @@ COPY apps/backend/package.json ./apps/backend/
 
 RUN npm install
 
+# installing additional linux specific dependencies which get trashed when doing developement on a mac
+RUN npm install --no-save --package-lock=false --include=optional @swc/core-linux-x64-gnu@1.16.1
+
 COPY . .
 
 WORKDIR /app/apps/backend
