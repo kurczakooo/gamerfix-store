@@ -38,20 +38,30 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
   ]
 
   return (
-    <div className="w-full">
-      <Accordion type="multiple">
+    <>
+      <div className="block sm:hidden">
+        <Accordion type="multiple">
+          {tabs.map((tab, i) => (
+            <Accordion.Item
+              key={i}
+              title={tab.label}
+              headingSize="medium"
+              value={tab.label}
+            >
+              {tab.component}
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </div>
+      <div className="hidden sm:block small:w-96">
         {tabs.map((tab, i) => (
-          <Accordion.Item
-            key={i}
-            title={tab.label}
-            headingSize="medium"
-            value={tab.label}
-          >
-            {tab.component}
-          </Accordion.Item>
+          <div key={i}>
+            <h2 className="text-large-semi">{tab.label}</h2>
+            <div>{tab.component}</div>
+          </div>
         ))}
-      </Accordion>
-    </div>
+      </div>
+    </>
   )
 }
 
