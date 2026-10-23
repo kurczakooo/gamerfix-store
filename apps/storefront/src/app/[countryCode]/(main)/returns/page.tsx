@@ -1,6 +1,7 @@
 import { Heading } from "@modules/common/components/ui"
 import { Metadata } from "next"
 import returns from "../../../../../data/returns.json"
+import ReturnFormDownloadButton from "./download-button"
 
 export const metadata: Metadata = {
   title: "Zwroty i reklamacje | Gamer Fix",
@@ -15,6 +16,13 @@ export default async function Returns() {
         <Heading level="h1" className="text-3xl-regular">
           {returns.title}
         </Heading>
+
+        <div className="pt-8 w-full max-w-4xl flex flex-col small:flex-row small:flex-1 gap-8 items-center">
+          <span className="text-xl-semi">
+            Formularz zwrotu/reklamacji do pobrania:
+          </span>
+          <ReturnFormDownloadButton />
+        </div>
 
         <div className="pt-8 w-full max-w-4xl flex flex-col gap-8">
           {returns.sections.map((section) => (
