@@ -5,6 +5,7 @@ import { Heading, Text, clx } from "@modules/common/components/ui"
 import PaymentButton from "../payment-button"
 import { useSearchParams } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
+import InteractiveLink from "@modules/common/components/interactive-link"
 
 const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
   const searchParams = useSearchParams()
@@ -42,9 +43,16 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
         <>
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
-              <Text className="txt-medium-compact text-ui-fg-base mt-4">
-                Finalizując zamówienie potwierdzasz, że akceptujesz nasz
-                Regulamin oraz Politykę Prywatności.
+              <Text className="text-xsmall-regular small:text-base-regular text-ui-fg-base mt-4">
+                Finalizując zamówienie potwierdzasz, że akceptujesz nasz{" "}
+                <InteractiveLink inline href="/terms-of-use">
+                  Regulamin
+                </InteractiveLink>{" "}
+                oraz{" "}
+                <InteractiveLink inline href="/privacy-policy">
+                  Politykę Prywatności
+                </InteractiveLink>
+                .
               </Text>
             </div>
           </div>
