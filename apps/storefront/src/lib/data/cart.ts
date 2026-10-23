@@ -17,6 +17,11 @@ import { getRegion } from "./regions"
 import { getLocale } from "./locale-actions"
 import { retrieveVariant } from "./variants"
 
+const invalidPromoCodeMessage =
+  "Zamówienie nie spełnia warunków promocji bądź kod rabatowy jest nieważny"
+const applyPromoCodeErrorMessage =
+  "Nie udało się zastosować kodu rabatowego. Spróbuj ponownie."
+
 /**
  * Retrieves a cart by its ID. If no ID is provided, it will use the cart ID from the cookies.
  * @param cartId - optional - The ID of the cart to retrieve.
@@ -399,9 +404,6 @@ export async function applyPromotions(codes: string[]) {
     ...(await getAuthHeaders()),
   }
 
-  const invalidPromoCodeMessage =
-    "Zamówienie nie spełnia warunków promocji bądź kod rabatowy jest nieważny"
-
   // Backend always returns 400 here, whether the code is invalid, expired, or the cart doesn't qualify
   const { cart } = await sdk.store.cart
     .update(cartId, { promo_codes: codes }, {}, headers)
@@ -424,6 +426,21 @@ export async function applyPromotions(codes: string[]) {
 
   if (hasRejectedCode) {
     throw new Error(invalidPromoCodeMessage)
+  }
+}
+
+export async function applyPromotionsWithResult(codes: string[]) {
+  try {
+    await applyPromotions(codes)
+    return { success: true as const, error: null }
+  } catch (error) {
+    return {
+      success: false as const,
+      error:
+        error instanceof Error && error.message === invalidPromoCodeMessage
+          ? invalidPromoCodeMessage
+          : applyPromoCodeErrorMessage,
+    }
   }
 }
 
