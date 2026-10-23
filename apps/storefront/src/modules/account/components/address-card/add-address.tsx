@@ -18,6 +18,7 @@ const AddAddress = ({
   region: HttpTypes.StoreRegion
   addresses: HttpTypes.StoreCustomerAddress[]
 }) => {
+  const countryCode = region.countries?.[0]?.iso_2 || "pl"
   const [successState, setSuccessState] = useState(false)
   const { state, open, close: closeModal } = useToggleState(false)
 
@@ -60,6 +61,7 @@ const AddAddress = ({
           <Heading className="mb-2">Dodaj adres</Heading>
         </Modal.Title>
         <form action={formAction}>
+          <input type="hidden" name="country_code" value={countryCode} />
           <Modal.Body>
             <div className="flex flex-col gap-y-2">
               <div className="grid grid-cols-2 gap-x-2">
@@ -78,12 +80,12 @@ const AddAddress = ({
                   data-testid="last-name-input"
                 />
               </div>
-              <Input
+              {/* <Input
                 label="Nazwa firmy"
                 name="company"
                 autoComplete="organization"
                 data-testid="company-input"
-              />
+              /> */}
               <Input
                 label="Ulica"
                 name="address_1"
@@ -119,13 +121,13 @@ const AddAddress = ({
                 autoComplete="address-level1"
                 data-testid="state-input"
               />
-              <CountrySelect
+              {/* <CountrySelect
                 region={region}
                 name="country_code"
                 required
                 autoComplete="country"
                 data-testid="country-select"
-              />
+              /> */}
               <Input
                 label="Numer telefonu"
                 name="phone"

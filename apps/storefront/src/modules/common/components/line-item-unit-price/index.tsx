@@ -1,4 +1,4 @@
-import { convertToLocale } from "@lib/util/money"
+import { convertToLocale, formatPrice } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 import { clx } from "@modules/common/components/ui"
 
@@ -33,10 +33,14 @@ const LineItemUnitPrice = ({
               className="line-through"
               data-testid="product-unit-original-price"
             >
-              {convertToLocale({
-                amount: original_total / item.quantity,
-                currency_code: currencyCode,
-              })}
+              {formatPrice(
+                convertToLocale({
+                  amount: original_total / item.quantity,
+                  currency_code: currencyCode,
+                }),
+                original_total / item.quantity,
+                currencyCode
+              )}
             </span>
           </p>
           {style === "default" && (
@@ -50,10 +54,14 @@ const LineItemUnitPrice = ({
         })}
         data-testid="product-unit-price"
       >
-        {convertToLocale({
-          amount: total / item.quantity,
-          currency_code: currencyCode,
-        })}
+        {formatPrice(
+          convertToLocale({
+            amount: total / item.quantity,
+            currency_code: currencyCode,
+          }),
+          total / item.quantity,
+          currencyCode
+        )}
       </span>
     </div>
   )

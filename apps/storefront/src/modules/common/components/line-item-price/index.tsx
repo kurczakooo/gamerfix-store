@@ -1,5 +1,5 @@
 import { getPercentageDiff } from "@lib/util/get-percentage-diff"
-import { convertToLocale } from "@lib/util/money"
+import { convertToLocale, formatPrice } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 import { clx } from "@modules/common/components/ui"
 
@@ -32,10 +32,14 @@ const LineItemPrice = ({
                 className="line-through text-ui-fg-muted"
                 data-testid="product-original-price"
               >
-                {convertToLocale({
-                  amount: originalPrice,
-                  currency_code: currencyCode,
-                })}
+                {formatPrice(
+                  convertToLocale({
+                    amount: originalPrice,
+                    currency_code: currencyCode,
+                  }),
+                  originalPrice,
+                  currencyCode
+                )}
               </span>
             </p>
             {style === "default" && (
@@ -51,10 +55,14 @@ const LineItemPrice = ({
           })}
           data-testid="product-price"
         >
-          {convertToLocale({
-            amount: currentPrice,
-            currency_code: currencyCode,
-          })}
+          {formatPrice(
+            convertToLocale({
+              amount: currentPrice,
+              currency_code: currencyCode,
+            }),
+            currentPrice,
+            currencyCode
+          )}
         </span>
       </div>
     </div>

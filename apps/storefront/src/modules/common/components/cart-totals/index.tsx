@@ -1,6 +1,6 @@
 "use client"
 
-import { convertToLocale } from "@lib/util/money"
+import { convertToLocale, formatPrice } from "@lib/util/money"
 import React from "react"
 import { HttpTypes } from "@medusajs/types"
 
@@ -32,6 +32,12 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
   const codFeeAmount = pobranieFee?.unit_price ?? 0
 
   const subtotalWithoutCodFee = (item_subtotal ?? 0) - codFeeAmount
+  const formatCurrency = (amount: number) =>
+    formatPrice(
+      convertToLocale({ amount, currency_code }),
+      amount,
+      currency_code
+    )
 
   return (
     <div>
@@ -42,16 +48,13 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
             data-testid="cart-subtotal"
             data-value={subtotalWithoutCodFee || 0}
           >
-            {convertToLocale({
-              amount: subtotalWithoutCodFee ?? 0,
-              currency_code,
-            })}
+            {formatCurrency(subtotalWithoutCodFee)}
           </span>
         </div>
         <div className="flex items-center justify-between">
           <span>Dostawa</span>
           <span data-testid="cart-shipping" data-value={shipping_subtotal || 0}>
-            {convertToLocale({ amount: shipping_subtotal ?? 0, currency_code })}
+            {formatCurrency(shipping_subtotal ?? 0)}
           </span>
         </div>
         {pobranieFee && (
@@ -61,10 +64,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
               data-testid="cart-cod-fee"
               data-value={pobranieFee.unit_price}
             >
-              {convertToLocale({
-                amount: pobranieFee.unit_price,
-                currency_code,
-              })}
+              {formatCurrency(pobranieFee.unit_price)}
             </span>
           </div>
         )}
@@ -76,11 +76,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
               data-testid="cart-discount"
               data-value={discount_subtotal || 0}
             >
-              -{" "}
-              {convertToLocale({
-                amount: discount_subtotal ?? 0,
-                currency_code,
-              })}
+              - {formatCurrency(discount_subtotal ?? 0)}
             </span>
           </div>
         )}
@@ -93,7 +89,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ totals }) => {
           data-testid="cart-total"
           data-value={total || 0}
         >
-          {convertToLocale({ amount: total ?? 0, currency_code })}
+          {formatCurrency(total ?? 0)}
         </span>
       </div>
       <div className="h-px w-full border-b border-gray-200 mt-4" />

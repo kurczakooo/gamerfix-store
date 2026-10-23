@@ -10,7 +10,7 @@ import { getProductPrice } from "@lib/util/get-product-price"
 import OptionSelect from "./option-select"
 import { HttpTypes } from "@medusajs/types"
 import { isSimpleProduct } from "@lib/util/product"
-import { formatPrice } from "@lib/util/format-price"
+import { formatPrice } from "@lib/util/money"
 
 type MobileActionsProps = {
   product: HttpTypes.StoreProduct
@@ -74,11 +74,15 @@ const MobileActions: React.FC<MobileActionsProps> = ({
             className="bg-white flex flex-col gap-y-3 justify-center items-center text-large-regular p-4 h-full w-full border-t border-gray-200"
             data-testid="mobile-actions"
           >
-            <div className="flex items-center gap-x-2">
-              <span data-testid="mobile-title">{product.title}</span>
-              <span>—</span>
+            <div className="flex w-full min-w-0 items-center gap-x-2">
+              <span
+                className="min-w-0 flex-1 break-words"
+                data-testid="mobile-title"
+              >
+                {product.title}
+              </span>
               {selectedPrice ? (
-                <div className="flex items-end gap-x-2 text-ui-fg-base">
+                <div className="flex shrink-0 items-end gap-x-2 whitespace-nowrap text-ui-fg-base">
                   {selectedPrice.price_type === "sale" && (
                     <p>
                       <span className="line-through text-small-regular">
@@ -92,7 +96,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   )}
                   <span
                     className={clx({
-                      "text-ui-fg-interactive":
+                      "text-ui-fg-interactive text-large-semi":
                         selectedPrice.price_type === "sale",
                     })}
                   >

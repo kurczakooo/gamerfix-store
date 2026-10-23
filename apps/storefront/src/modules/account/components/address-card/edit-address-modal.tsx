@@ -77,14 +77,14 @@ const EditAddress: React.FC<EditAddressProps> = ({
           >
             {address.first_name} {address.last_name}
           </Heading>
-          {address.company && (
+          {/* {address.company && (
             <Text
               className="txt-compact-small text-ui-fg-base"
               data-testid="address-company"
             >
               {address.company}
             </Text>
-          )}
+          )} */}
           <Text className="flex flex-col text-left text-base-regular mt-2">
             <span data-testid="address-address">
               {address.address_1}
@@ -125,6 +125,11 @@ const EditAddress: React.FC<EditAddressProps> = ({
         </Modal.Title>
         <form action={formAction}>
           <input type="hidden" name="addressId" value={address.id} />
+          <input
+            type="hidden"
+            name="country_code"
+            value={address.country_code || region.countries?.[0]?.iso_2 || "pl"}
+          />
           <Modal.Body>
             <div className="grid grid-cols-1 gap-y-2">
               <div className="grid grid-cols-2 gap-x-2">
@@ -145,13 +150,13 @@ const EditAddress: React.FC<EditAddressProps> = ({
                   data-testid="last-name-input"
                 />
               </div>
-              <Input
+              {/* <Input
                 label="Nazwa firmy"
                 name="company"
                 autoComplete="organization"
                 defaultValue={address.company || undefined}
                 data-testid="company-input"
-              />
+              /> */}
               <Input
                 label="Ulica"
                 name="address_1"
@@ -192,14 +197,14 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 defaultValue={address.province || undefined}
                 data-testid="state-input"
               />
-              <CountrySelect
+              {/* <CountrySelect
                 name="country_code"
                 region={region}
                 required
                 autoComplete="country"
                 defaultValue={address.country_code || undefined}
                 data-testid="country-select"
-              />
+              /> */}
               <Input
                 label="Numer telefonu"
                 name="phone"

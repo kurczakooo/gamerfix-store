@@ -13,6 +13,7 @@ import BillingAddress from "../billing_address"
 import ErrorMessage from "../error-message"
 import ShippingAddress from "../shipping-address"
 import { SubmitButton } from "../submit-button"
+import InteractiveLink from "@modules/common/components/interactive-link"
 
 const Addresses = ({
   cart,
@@ -60,6 +61,13 @@ const Addresses = ({
             </button>
           </Text>
         )}
+      </div>
+      <div className="my-4 flex flex-1 bg-gray-100 p-2 gap-2 justify-between rounded-rounded">
+        <span className="text-ui-fg-base text-small-regular small:text-base-regular">
+          Chcesz złożyć zamówienie hurtowe lub na firmę? Skontaktuj się z nami i
+          przygotujemy dedykowaną ofertę.
+        </span>
+        <InteractiveLink href="/contact">Kontakt</InteractiveLink>
       </div>
       {isOpen ? (
         <form action={formAction}>

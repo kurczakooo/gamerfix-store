@@ -9,7 +9,7 @@ import {
 } from "@modules/common/components/ui"
 import React from "react"
 
-import { applyPromotions } from "@lib/data/cart"
+import { applyPromotions, applyPromotionsWithResult } from "@lib/data/cart"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 import Trash from "@modules/common/icons/trash"
@@ -23,16 +23,22 @@ type DiscountCodeProps = {
 const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [errorMessage, setErrorMessage] = React.useState("")
+  const [isRemovingPromotion, setIsRemovingPromotion] = React.useState(false)
 
   const { promotions = [] } = cart
   const removePromotionCode = async (code: string) => {
+    setIsRemovingPromotion(true)
     const validPromotions = promotions.filter(
       (promotion) => promotion.code !== code
     )
 
-    await applyPromotions(
-      validPromotions.filter((p) => p.code !== undefined).map((p) => p.code!)
-    )
+    try {
+      await applyPromotions(
+        validPromotions.filter((p) => p.code !== undefined).map((p) => p.code!)
+      )
+    } finally {
+      setIsRemovingPromotion(false)
+    }
   }
 
   const addPromotionCode = async (formData: FormData) => {
@@ -49,13 +55,20 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
     codes.push(code.toString())
 
     try {
-      await applyPromotions(codes)
+      const result = await applyPromotionsWithResult(codes)
+      if (!result.success) {
+        setErrorMessage(result.error)
+        return
+      }
+
       if (input) {
         input.value = ""
       }
       setErrorMessage("")
-    } catch (e) {
-      setErrorMessage((e as Error).message)
+    } catch {
+      setErrorMessage(
+        "Nie udało się zastosować kodu rabatowego. Spróbuj ponownie."
+      )
     }
   }
 
@@ -150,7 +163,8 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                     </Text>
                     {!promotion.is_automatic && (
                       <button
-                        className="flex items-center"
+                        className="flex items-center disabled:cursor-not-allowed disabled:opacity-50"
+                        disabled={isRemovingPromotion}
                         onClick={() => {
                           if (!promotion.code) {
                             return
@@ -160,7 +174,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                         }}
                         data-testid="remove-discount-button"
                       >
-                        <Trash size={14} />
+                        <Trash size={14} color={"red"} />
                         <span className="sr-only">
                           Usuń kod rabatowy z zamówienia
                         </span>

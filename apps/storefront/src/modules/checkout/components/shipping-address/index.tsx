@@ -18,6 +18,7 @@ const ShippingAddress = ({
   checked: boolean
   onChange: () => void
 }) => {
+  const defaultCountryCode = cart?.region?.countries?.[0]?.iso_2 || "pl"
   const [formData, setFormData] = useState<Record<string, string>>({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
     "shipping_address.last_name": cart?.shipping_address?.last_name || "",
@@ -25,7 +26,7 @@ const ShippingAddress = ({
     "shipping_address.company": cart?.shipping_address?.company || "",
     "shipping_address.postal_code": cart?.shipping_address?.postal_code || "",
     "shipping_address.city": cart?.shipping_address?.city || "",
-    "shipping_address.country_code": cart?.shipping_address?.country_code || "",
+    "shipping_address.country_code": defaultCountryCode,
     "shipping_address.province": cart?.shipping_address?.province || "",
     "shipping_address.phone": cart?.shipping_address?.phone || "",
     email: cart?.email || "",
@@ -58,7 +59,7 @@ const ShippingAddress = ({
         "shipping_address.company": address?.company || "",
         "shipping_address.postal_code": address?.postal_code || "",
         "shipping_address.city": address?.city || "",
-        "shipping_address.country_code": address?.country_code || "",
+        "shipping_address.country_code": defaultCountryCode,
         "shipping_address.province": address?.province || "",
         "shipping_address.phone": address?.phone || "",
       }))
@@ -83,6 +84,13 @@ const ShippingAddress = ({
     }
   }, [cart]) // Add cart as a dependency
 
+  useEffect(() => {
+    setFormData((prevState) => ({
+      ...prevState,
+      "shipping_address.country_code": defaultCountryCode,
+    }))
+  }, [defaultCountryCode])
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLInputElement | HTMLSelectElement
@@ -96,9 +104,14 @@ const ShippingAddress = ({
 
   return (
     <>
+      <input
+        type="hidden"
+        name="shipping_address.country_code"
+        value={formData["shipping_address.country_code"]}
+      />
       {customer && (addressesInRegion?.length || 0) > 0 && (
-        <Container className="mb-6 flex flex-col gap-y-4 p-5">
-          <p className="text-small-regular">
+        <Container className="mb-4 flex flex-col gap-y-4">
+          <p className="text-medium-regular">
             {`Cześć ${customer.first_name}, czy chcesz wykorzystać jeden ze swoich zapisanych adresów?`}
           </p>
           <AddressSelect
@@ -140,14 +153,14 @@ const ShippingAddress = ({
           required
           data-testid="shipping-address-input"
         />
-        <Input
+        {/* <Input
           label="Nazwa firmy"
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
           onChange={handleChange}
           autoComplete="organization"
           data-testid="shipping-company-input"
-        />
+        /> */}
         <Input
           label="Kod pocztowy"
           name="shipping_address.postal_code"
@@ -166,7 +179,7 @@ const ShippingAddress = ({
           required
           data-testid="shipping-city-input"
         />
-        <CountrySelect
+        {/* <CountrySelect
           name="shipping_address.country_code"
           autoComplete="country"
           region={cart?.region}
@@ -174,7 +187,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
           data-testid="shipping-country-select"
-        />
+        /> */}
         <Input
           label="Województwo"
           name="shipping_address.province"
@@ -211,6 +224,7 @@ const ShippingAddress = ({
           autoComplete="tel"
           value={formData["shipping_address.phone"]}
           onChange={handleChange}
+          required
           data-testid="shipping-phone-input"
         />
       </div>

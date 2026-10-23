@@ -5,6 +5,7 @@ type InteractiveLinkProps = {
   href: string
   children?: React.ReactNode
   external?: boolean
+  inline?: boolean
   onClick?: () => void
 }
 
@@ -12,23 +13,29 @@ const InteractiveLink = ({
   href,
   children,
   external,
+  inline = false,
   onClick,
   ...props
 }: InteractiveLinkProps) => {
   const content = (
     <>
-      <Text className="text-ui-fg-interactive">{children}</Text>
+      <Text as="span" className="text-ui-fg-interactive">
+        {children}
+      </Text>
       <ArrowUpRightMini
         className="group-hover:rotate-45 ease-in-out duration-150"
         color="var(--fg-interactive)"
       />
     </>
   )
+  const className = `${
+    inline ? "inline-flex" : "flex"
+  } items-center gap-x-1 group`
 
   if (external) {
     return (
       <a
-        className="flex gap-x-1 items-center group"
+        className={className}
         href={href}
         target="_blank"
         rel="noreferrer"
@@ -42,7 +49,7 @@ const InteractiveLink = ({
 
   return (
     <LocalizedClientLink
-      className="flex gap-x-1 items-center group"
+      className={className}
       href={href}
       onClick={onClick}
       {...props}
