@@ -1,6 +1,6 @@
 import { clx } from "@modules/common/components/ui"
 
-import { formatPrice } from "@lib/util/format-price"
+import { formatPrice } from "@lib/util/money"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 
