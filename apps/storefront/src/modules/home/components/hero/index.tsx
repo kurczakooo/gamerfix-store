@@ -1,19 +1,24 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { Button, Heading } from "@modules/common/components/ui"
+import Image from "next/image"
 
 const Hero = () => {
   return (
     <div className="h-[55vh] sm:h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle overflow-hidden">
-      <div
+      <Image
+        src="/images/content/hero.webp"
+        alt=""
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: "url('/images/content/hero.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          objectFit: "cover",
+          objectPosition: "center",
           filter: "blur(1px)",
           transform: "scale(1.13)",
         }}
-        aria-hidden="true"
       />
       <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
         <span>
