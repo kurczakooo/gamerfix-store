@@ -34,6 +34,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
               <div className="relative flex h-full">
                 <Popover.Button
                   data-testid="nav-menu-button"
+                  aria-label="Otwórz menu"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
                   <Menu />
@@ -64,7 +65,11 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                     className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded p-6"
                   >
                     <div className="flex justify-end" id="xmark">
-                      <button data-testid="close-menu-button" onClick={close}>
+                      <button
+                        data-testid="close-menu-button"
+                        onClick={close}
+                        aria-label="Zamknij menu"
+                      >
                         <XMark />
                       </button>
                     </div>

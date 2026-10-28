@@ -36,9 +36,9 @@ export default async function Home(props: {
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
         </ul>
-        <ul className="flex flex-col gap-x-6">
+        <div className="flex flex-col gap-x-6">
           <VideoRail region={region} />
-        </ul>
+        </div>
       </div>
     </>
   )
