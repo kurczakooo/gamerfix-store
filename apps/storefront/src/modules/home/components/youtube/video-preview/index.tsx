@@ -24,7 +24,7 @@ export default function VideoPreview({
           data-testid="video-container"
         >
           <Image
-            src={video?.standardThumbnailUrl ?? ""}
+            src={video?.mediumThumbnailUrl || video?.standardThumbnailUrl || ""}
             alt="video-thumbnail"
             className="absolute inset-0 object-cover object-center"
             draggable={false}

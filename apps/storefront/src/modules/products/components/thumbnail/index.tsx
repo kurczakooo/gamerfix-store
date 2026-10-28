@@ -1,6 +1,7 @@
 import { Container, clx } from "@modules/common/components/ui"
 import Image from "next/image"
 import React from "react"
+import { getThumbnailImageUrl } from "@lib/data/images"
 
 import PlaceholderImage from "@modules/common/icons/placeholder-image"
 
@@ -63,9 +64,11 @@ const ImageOrPlaceholder = ({
   image,
   size,
 }: Pick<ThumbnailProps, "size"> & { image?: string }) => {
-  return image ? (
+  const optimizedImage = image ? getThumbnailImageUrl(image) : undefined
+
+  return optimizedImage ? (
     <Image
-      src={image}
+      src={optimizedImage}
       alt="Thumbnail"
       className="absolute inset-0 object-cover object-center"
       draggable={false}
