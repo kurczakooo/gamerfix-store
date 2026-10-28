@@ -32,6 +32,22 @@ const patternIcons = Array.from(
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="pl" data-mode="light">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/rubik-latin.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/rubik-latin-ext.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <main className="relative isolate pattern-bg">
           <div className="pattern-icons" aria-hidden="true">
