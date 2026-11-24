@@ -10,6 +10,7 @@ import {
   PatchHandledInquiry,
 } from "../api/admin/inquiries/validators";
 import { PatchTodo, PostCreateTodo } from "../api/admin/todo/validators";
+import { PatchNotes, PostCreateNotes } from "../api/admin/notes/validators";
 import { PostAddFeeToCartBody } from "./store/cart-fee/validators";
 
 export const GetInquiriesSchema = createFindParams();
@@ -89,6 +90,16 @@ export default defineMiddlewares({
       matcher: "/admin/todo/:id",
       method: "PATCH",
       middlewares: [validateAndTransformBody(PatchTodo)],
+    },
+    {
+      matcher: "/admin/notes",
+      method: "POST",
+      middlewares: [validateAndTransformBody(PostCreateNotes)],
+    },
+    {
+      matcher: "/admin/notes/:id",
+      method: "PATCH",
+      middlewares: [validateAndTransformBody(PatchNotes)],
     },
   ],
 });

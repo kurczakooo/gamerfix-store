@@ -74,6 +74,9 @@ module.exports = defineConfig({
       resolve: "./src/modules/todo",
     },
     {
+      resolve: "./src/modules/notes",
+    },
+    {
       resolve: "@medusajs/medusa/payment",
       options: {
         providers: [
