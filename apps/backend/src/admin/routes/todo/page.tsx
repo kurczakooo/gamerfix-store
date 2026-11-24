@@ -247,7 +247,7 @@ const ToDoPage = () => {
           paginatedTasks.map((task) => (
             <div
               key={task.id}
-              className="flex items-center gap-3 rounded-lg border border-ui-border-base bg-ui-bg-subtle p-4"
+              className="flex items-center gap-3 rounded-lg border border-ui-border-base bg-ui-bg-subtle px-4 py-2"
             >
               <div className="flex min-w-0 flex-1 items-center gap-3">
                 <Checkbox
@@ -284,7 +284,9 @@ const ToDoPage = () => {
                 <div className="min-w-0">
                   <p
                     className={
-                      task.done ? "text-ui-fg-subtle line-through" : ""
+                      task.done
+                        ? "text-ui-fg-subtle line-through text-sm"
+                        : "text-sm"
                     }
                   >
                     {task.content}
