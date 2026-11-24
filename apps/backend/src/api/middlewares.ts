@@ -9,9 +9,11 @@ import {
   PostCreateInquiry,
   PatchHandledInquiry,
 } from "../api/admin/inquiries/validators";
+import { PatchTodo, PostCreateTodo } from "../api/admin/todo/validators";
 import { PostAddFeeToCartBody } from "./store/cart-fee/validators";
 
 export const GetInquiriesSchema = createFindParams();
+export const GetTodosSchema = createFindParams();
 
 export default defineMiddlewares({
   routes: [
@@ -53,6 +55,40 @@ export default defineMiddlewares({
       matcher: "/admin/inquiries/:id",
       method: "PATCH",
       middlewares: [validateAndTransformBody(PatchHandledInquiry)],
+    },
+    {
+      matcher: "/admin/todo",
+      method: "GET",
+      middlewares: [
+        validateAndTransformQuery(GetTodosSchema, {
+          defaults: [
+            "id",
+            "content",
+            "important",
+            "done",
+            "deleted",
+            "created_at",
+            "updated_at",
+            "deleted_at",
+          ],
+          isList: true,
+        }),
+      ],
+    },
+    {
+      matcher: "/admin/todo",
+      method: "POST",
+      middlewares: [validateAndTransformBody(PostCreateTodo)],
+    },
+    {
+      matcher: "/admin/todo/:id",
+      method: "DELETE",
+      middlewares: [],
+    },
+    {
+      matcher: "/admin/todo/:id",
+      method: "PATCH",
+      middlewares: [validateAndTransformBody(PatchTodo)],
     },
   ],
 });
