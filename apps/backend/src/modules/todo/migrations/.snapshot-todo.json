@@ -1,0 +1,173 @@
+{
+  "namespaces": [
+    "public"
+  ],
+  "name": "public",
+  "tables": [
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": true,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": null,
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "text"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": null,
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "text"
+        },
+        "important": {
+          "name": "important",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": "false",
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "boolean"
+        },
+        "done": {
+          "name": "done",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": "false",
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "boolean"
+        },
+        "deleted": {
+          "name": "deleted",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "default": "false",
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "boolean"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": 6,
+          "precision": null,
+          "scale": null,
+          "default": "now()",
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "unique": false,
+          "length": 6,
+          "precision": null,
+          "scale": null,
+          "default": "now()",
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "datetime"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "unique": false,
+          "length": 6,
+          "precision": null,
+          "scale": null,
+          "default": null,
+          "comment": null,
+          "enumItems": [],
+          "mappedType": "datetime"
+        }
+      },
+      "name": "todo",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "IDX_todo_deleted_at",
+          "columnNames": [],
+          "composite": false,
+          "constraint": false,
+          "primary": false,
+          "unique": false,
+          "expression": "CREATE INDEX IF NOT EXISTS \"IDX_todo_deleted_at\" ON \"todo\" (\"deleted_at\") WHERE deleted_at IS NULL"
+        },
+        {
+          "keyName": "todo_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "limit_content_length",
+          "expression": "LENGTH(content) <= 2048",
+          "definition": "check ((LENGTH(content) <= 2048))"
+        }
+      ],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    }
+  ],
+  "nativeEnums": {}
+}
