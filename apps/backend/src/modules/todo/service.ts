@@ -3,6 +3,8 @@ import { Todo } from "./models/todo";
 
 class TodoModuleService extends MedusaService({
   Todo,
-}) {}
+}) {
+  [x: string]: any;
+}
 
 export default TodoModuleService;
