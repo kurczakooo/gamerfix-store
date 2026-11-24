@@ -12,7 +12,9 @@ import {
   useDataTable,
 } from "@medusajs/ui";
 import { ListCheckbox, Star, StarSolid } from "@medusajs/icons";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FormEvent, useState } from "react";
+import { sdk } from "../../lib/sdk";
 
 type ToDoTask = {
   id: string;
@@ -25,43 +27,19 @@ type ToDoTask = {
   updated_at: string;
 };
 
-const randomDate = () => {
-  const daysAgo = Math.floor(Math.random() * 90);
-  const date = new Date();
-  date.setDate(date.getDate() - daysAgo);
-  date.setHours(Math.floor(Math.random() * 24));
-  date.setMinutes(Math.floor(Math.random() * 60));
-  return date.toISOString();
-};
-
-const initialTasks: ToDoTask[] = Array.from({ length: 25 }, (_, index) => {
-  const createdAt = randomDate();
-  const done = index % 3 === 0;
-
-  return {
-    id: `task-${index + 1}`,
-    content: [
-      "Review the latest customer inquiries.",
-      "Prepare the weekly repair status update.",
-      "Check stock levels for repair parts.",
-      "Confirm the next courier collection.",
-      "Update the product descriptions.",
-    ][index % 5],
-    important: !done && index % 4 === 0,
-    done,
-    deleted: false,
-    created_at: createdAt,
-    deleted_at: null,
-    updated_at: createdAt,
-  };
-});
-
 const emptyForm = {
   content: "",
   important: false,
 };
 
 const TASKS_PER_PAGE = 10;
+
+type TodosResponse = {
+  todos: ToDoTask[];
+  count: number;
+  limit: number;
+  offset: number;
+};
 
 const formatDate = (value: string) =>
   new Intl.DateTimeFormat("en-US", {
@@ -70,7 +48,7 @@ const formatDate = (value: string) =>
   }).format(new Date(value));
 
 const ToDoPage = () => {
-  const [tasks, setTasks] = useState<ToDoTask[]>(initialTasks);
+  const queryClient = useQueryClient();
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [pagination, setPagination] = useState<DataTablePaginationState>({
@@ -78,7 +56,19 @@ const ToDoPage = () => {
     pageIndex: 0,
   });
 
-  const visibleTasks = tasks
+  const { data, isLoading } = useQuery<TodosResponse>({
+    queryFn: () =>
+      sdk.client.fetch("/admin/todo", {
+        query: {
+          limit: 1000,
+          offset: 0,
+        },
+      }),
+    queryKey: ["todos"],
+    refetchOnMount: "always",
+  });
+
+  const visibleTasks = (data?.todos || [])
     .filter((task) => !task.deleted)
     .sort((firstTask, secondTask) => {
       const getPriority = (task: ToDoTask) =>
@@ -113,7 +103,7 @@ const ToDoPage = () => {
     setEditingId(null);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const content = form.content.trim().slice(0, 2048);
 
@@ -122,63 +112,66 @@ const ToDoPage = () => {
       return;
     }
 
-    const updatedAt = new Date().toISOString();
+    try {
+      if (editingId) {
+        await sdk.client.fetch(`/admin/todo/${editingId}`, {
+          method: "PATCH",
+          body: {
+            content,
+            important: form.important,
+          },
+        });
+        toast.success("Task updated");
+      } else {
+        await sdk.client.fetch("/admin/todo", {
+          method: "POST",
+          body: {
+            content,
+            important: form.important,
+          },
+        });
+        setPagination((currentPagination) => ({
+          ...currentPagination,
+          pageIndex: 0,
+        }));
+        toast.success("Task added");
+      }
 
-    if (editingId) {
-      setTasks((currentTasks) =>
-        currentTasks.map((task) =>
-          task.id === editingId
-            ? {
-                ...task,
-                content,
-                important: form.important,
-                updated_at: updatedAt,
-              }
-            : task,
-        ),
-      );
-      toast.success("Task updated");
-    } else {
-      setTasks((currentTasks) => [
-        {
-          id: `task-${Date.now()}`,
-          content,
-          important: form.important,
-          done: false,
-          deleted: false,
-          created_at: updatedAt,
-          deleted_at: null,
-          updated_at: updatedAt,
-        },
-        ...currentTasks,
-      ]);
-      setPagination((currentPagination) => ({
-        ...currentPagination,
-        pageIndex: 0,
-      }));
-      toast.success("Task added");
-    }
-
-    resetForm();
-  };
-
-  const updateTask = (id: string, changes: Partial<ToDoTask>) => {
-    setTasks((currentTasks) =>
-      currentTasks.map((task) =>
-        task.id === id
-          ? { ...task, ...changes, updated_at: new Date().toISOString() }
-          : task,
-      ),
-    );
-  };
-
-  const handleDelete = (task: ToDoTask) => {
-    const deletedAt = new Date().toISOString();
-    updateTask(task.id, { deleted: true, deleted_at: deletedAt });
-    if (editingId === task.id) {
+      await queryClient.invalidateQueries({ queryKey: ["todos"] });
       resetForm();
+    } catch (error) {
+      toast.error(editingId ? "Failed to update task" : "Failed to add task");
     }
-    toast.success("Task deleted");
+  };
+
+  const updateTask = async (
+    id: string,
+    changes: Partial<Pick<ToDoTask, "important" | "done">>,
+  ) => {
+    try {
+      await sdk.client.fetch(`/admin/todo/${id}`, {
+        method: "PATCH",
+        body: changes,
+      });
+      await queryClient.invalidateQueries({ queryKey: ["todos"] });
+    } catch {
+      toast.error("Failed to update task");
+    }
+  };
+
+  const handleDelete = async (task: ToDoTask) => {
+    try {
+      await sdk.client.fetch(`/admin/todo/${task.id}`, {
+        method: "DELETE",
+      });
+      await queryClient.invalidateQueries({ queryKey: ["todos"] });
+      if (editingId === task.id) {
+        resetForm();
+      }
+      toast.success("Task deleted");
+    } catch {
+      toast.error("Failed to delete task");
+    }
   };
 
   const handleEdit = (task: ToDoTask) => {
@@ -246,7 +239,9 @@ const ToDoPage = () => {
       <div className="border-t border-ui-border-base" />
 
       <div className="flex flex-col gap-3 px-6 pb-0 pt-6">
-        {visibleTasks.length === 0 ? (
+        {isLoading ? (
+          <p className="text-ui-fg-subtle py-8 text-center">Loading tasks...</p>
+        ) : visibleTasks.length === 0 ? (
           <p className="text-ui-fg-subtle py-8 text-center">No tasks yet.</p>
         ) : (
           paginatedTasks.map((task) => (
