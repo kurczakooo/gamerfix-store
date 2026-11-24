@@ -16,11 +16,12 @@ export const deleteTodoStep = createStep(
   async ({ id }: DeleteTodoInput, { container }) => {
     const todoModuleService: TodoModuleService = container.resolve(TODO_MODULE);
 
-    await todoModuleService.updateTodoes({
+    await todoModuleService.updateTodos({
       id,
       deleted: true,
+      deleted_at: new Date(),
     });
-    await todoModuleService.deleteTodoes(id);
+    // await todoModuleService.deleteTodos(id);
 
     return new StepResponse(id);
   },

@@ -18,7 +18,7 @@ export const updateTodoStep = createStep(
   "update-todo-step",
   async (input: UpdateTodoInput, { container }) => {
     const todoModuleService: TodoModuleService = container.resolve(TODO_MODULE);
-    const todo = await todoModuleService.updateTodoes(input);
+    const todo = await todoModuleService.updateTodos(input);
 
     return new StepResponse(todo);
   },
