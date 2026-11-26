@@ -51,7 +51,7 @@ export default async function Nav() {
                   ></LocalizedClientLink>
                 }
               >
-                <ShopButton />
+                <ShopButton categories={productCategories} />
               </Suspense>
             </div>
             <div className="hidden small:flex items-center gap-x-6 h-full">
@@ -64,7 +64,7 @@ export default async function Nav() {
                   ></LocalizedClientLink>
                 }
               >
-                <RepairShopButton />
+                <RepairShopButton categories={productCategories} />
               </Suspense>
             </div>
             <div className="hidden small:flex items-center gap-x-6 h-full">

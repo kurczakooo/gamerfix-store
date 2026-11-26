@@ -153,7 +153,7 @@ const SideMenu = ({
                       <li>
                         <LocalizedClientLink
                           href="/repair-shop"
-                          className="text-3xl text-ui-fg-subtle hover:text-ui-fg-base"
+                          className="text-2xl text-ui-fg-subtle hover:text-ui-fg-base"
                           onClick={close}
                           data-testid="repair-shop-link"
                         >
@@ -164,7 +164,7 @@ const SideMenu = ({
                         <li key={category.id}>
                           <LocalizedClientLink
                             href={`/categories/${category.handle}`}
-                            className="text-2xl leading-5 ml-5 font-normal text-ui-fg-subtle hover:text-ui-fg-base"
+                            className="text-xl leading-5 ml-5 font-normal text-ui-fg-subtle hover:text-ui-fg-base"
                             onClick={close}
                             data-testid={`category-link-${category.id}`}
                           >
@@ -175,7 +175,7 @@ const SideMenu = ({
                       <li>
                         <LocalizedClientLink
                           href="/store"
-                          className="text-3xl leading-10 text-ui-fg-subtle hover:text-ui-fg-base"
+                          className="text-2xl leading-10 text-ui-fg-subtle hover:text-ui-fg-base"
                           onClick={close}
                           data-testid="store-link"
                         >
@@ -186,7 +186,7 @@ const SideMenu = ({
                         <li key={category.id}>
                           <LocalizedClientLink
                             href={`/categories/${category.handle}`}
-                            className="text-2xl leading-5 ml-5 font-normal text-ui-fg-subtle hover:text-ui-fg-base"
+                            className="text-xl leading-5 ml-5 font-normal text-ui-fg-subtle hover:text-ui-fg-base"
                             onClick={close}
                             data-testid={`category-link-${category.id}`}
                           >
@@ -197,7 +197,7 @@ const SideMenu = ({
                       <li>
                         <LocalizedClientLink
                           href="/contact"
-                          className="text-3xl leading-10 text-ui-fg-subtle hover:text-ui-fg-base"
+                          className="text-2xl leading-10 text-ui-fg-subtle hover:text-ui-fg-base"
                           onClick={close}
                           data-testid="contact-link"
                         >
@@ -208,7 +208,7 @@ const SideMenu = ({
                         <Divider className="mb-4" />
                         <LocalizedClientLink
                           href="/account"
-                          className="text-3xl text-ui-fg-subtle hover:text-ui-fg-base"
+                          className="text-2xl text-ui-fg-subtle hover:text-ui-fg-base"
                           onClick={close}
                           data-testid="account-link"
                         >

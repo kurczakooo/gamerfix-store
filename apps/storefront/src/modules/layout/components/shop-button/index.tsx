@@ -1,13 +1,16 @@
 import ShopDropdown from "../nav-shop-dropdown"
 import { listCategories } from "@lib/data/categories"
 import { filterCategoriesByHandle } from "@lib/util/product"
+import { HttpTypes } from "@medusajs/types"
 
-export default async function ShopButton() {
-  const productCategories = await listCategories().catch(() => null)
-
+export default async function ShopButton({
+  categories,
+}: {
+  categories: HttpTypes.StoreProductCategory[] | null
+}) {
   return (
     <ShopDropdown
-      categories={filterCategoriesByHandle(productCategories, "service", false)}
+      categories={filterCategoriesByHandle(categories, "service", false)}
       services={false}
     />
   )
