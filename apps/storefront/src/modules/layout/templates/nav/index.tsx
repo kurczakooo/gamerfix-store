@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 
 import { listLocales } from "@lib/data/locales"
+import { listCategories } from "@lib/data/categories"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
@@ -20,6 +21,8 @@ export default async function Nav() {
     getLocale(),
   ])
 
+  const productCategories = await listCategories().catch(() => null)
+
   return (
     <div className="sticky top-0 inset-x-0 z-40 group">
       <header className="relative h-13 mx-auto border-b duration-200 bg-white border-ui-border-base">
@@ -30,6 +33,7 @@ export default async function Nav() {
                 regions={regions}
                 locales={locales}
                 currentLocale={currentLocale}
+                categories={productCategories}
               />
             </div>
           </div>
