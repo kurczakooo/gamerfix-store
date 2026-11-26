@@ -8,7 +8,7 @@ import { sdk } from "../lib/sdk";
 const TAGS = [
   { id: "bestseller", label: "Bestseller" },
   { id: "new", label: "Nowość" },
-  { id: "last-items", label: "Ostatnie Sztuki" },
+  { id: "lastItems", label: "Ostatnie Sztuki" },
 ] as const;
 
 type TagId = (typeof TAGS)[number]["id"];
@@ -22,7 +22,7 @@ const ProductThumbnailTagsWidget = ({
   const [checkedTags, setCheckedTags] = useState<Record<TagId, boolean>>({
     bestseller: isTagSet(data.metadata?.bestseller),
     new: isTagSet(data.metadata?.new),
-    "last-items": isTagSet(data.metadata?.["last-items"]),
+    lastItems: isTagSet(data.metadata?.lastItems),
   });
 
   const handleTagToggle = async (
