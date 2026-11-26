@@ -10,8 +10,9 @@ type ThumbnailProps = {
   images?: { url?: string }[] | null
   size?: "small" | "medium" | "large" | "full" | "square"
   isFeatured?: boolean
-  isNew?: boolean
+  isNew: boolean
   bestSeller: boolean
+  lastItems: boolean
   className?: string
   "data-testid"?: string
 }
@@ -23,6 +24,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   isFeatured,
   isNew,
   bestSeller,
+  lastItems,
   className,
   "data-testid": dataTestid,
 }) => {
@@ -54,6 +56,11 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
       {isNew && (
         <span className="absolute right-2 top-2 z-10 rounded-md bg-[--fg-interactive] px-2 py-1 text-xsmall-semi sm:text-small-semi uppercase text-white">
           Nowość
+        </span>
+      )}
+      {lastItems && (
+        <span className="absolute justify-end right-2 bottom-2 z-10 rounded-md bg-[--fg-error] px-2 py-1 text-xsmall-semi sm:text-small-semi uppercase text-white">
+          Ostatnie Sztuki
         </span>
       )}
     </Container>

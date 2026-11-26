@@ -4,8 +4,8 @@ import { Container, Heading, Text } from "@medusajs/ui";
 
 const RepairShopShippingMethod = ({ data }: DetailWidgetProps<AdminOrder>) => {
   const shippingMethodsMap = {
-    "own-shipping": "Customer handles the shipping on his own",
-    "inpost-locker": "Customer recieved a parcel letter from us",
+    "own-shipping": "Klient sam ogarnia wysyłkę do nas",
+    "inpost-locker": "Klient powinien dostać etykietę wysyłkową od nas",
   };
 
   const shippingMethod = data.metadata?.sent_to_service_method;

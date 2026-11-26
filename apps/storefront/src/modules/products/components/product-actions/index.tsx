@@ -133,6 +133,10 @@ export default function ProductActions({
     return false
   }, [selectedVariant])
 
+  const inventoryQuantity = selectedVariant?.inventory_quantity
+  const isLowStock =
+    inventoryQuantity != null && inventoryQuantity > 0 && inventoryQuantity < 10
+
   // add the selected variant to the cart
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
@@ -171,7 +175,10 @@ export default function ProductActions({
               className={clx(
                 "text-base-bold text-gray-600",
                 selectedVariant?.inventory_quantity === 0 && "text-red-600",
-                selectedVariant?.inventory_quantity && "text-green-600"
+                isLowStock && "text-red-600",
+                selectedVariant?.inventory_quantity &&
+                  !isLowStock &&
+                  "text-green-600"
               )}
             >
               <div className="inline-flex items-center gap-2 text-base-bold">
@@ -180,8 +187,20 @@ export default function ProductActions({
                     aria-hidden="true"
                     className="relative h-2 w-2 shrink-0"
                   >
-                    <span className="absolute inset-0 rounded-full bg-green-600 shadow-[0_0_8px_2px_rgba(22,163,74,0.65)] animate-pulse motion-reduce:animate-none" />
-                    <span className="relative z-10 block h-2 w-2 rounded-full bg-green-600" />
+                    <span
+                      className={clx(
+                        "absolute inset-0 rounded-full motion-reduce:animate-none",
+                        isLowStock
+                          ? "bg-red-600 shadow-[0_0_14px_5px_rgba(220,38,38,0.9)] animate-[pulse_1s_cubic-bezier(0.4,0,0.6,1)_infinite]"
+                          : "bg-green-600 shadow-[0_0_8px_2px_rgba(22,163,74,0.65)] animate-pulse"
+                      )}
+                    />
+                    <span
+                      className={clx(
+                        "relative z-10 block h-2 w-2 rounded-full",
+                        isLowStock ? "bg-red-600" : "bg-green-600"
+                      )}
+                    />
                   </span>
                 )}
                 Dostępnych sztuk:{"  "}
@@ -265,6 +284,30 @@ export default function ProductActions({
           error={errorMessage}
           data-testid="add-product-error-message"
         />
+
+        {product.metadata &&
+          product.metadata.otherProductLinkCTA &&
+          product.metadata.otherProductLinkButtonText &&
+          product.metadata.otherProductLinkUrl && (
+            <div className="mt-20">
+              <span className="text-ui-fg-base ">
+                {product.metadata.otherProductLinkCTA}
+              </span>
+              <div className="flex justify-end mt-2">
+                <Button
+                  onClick={() => {
+                    window.location.href = String(
+                      product.metadata?.otherProductLinkUrl
+                    )
+                  }}
+                  variant="primary"
+                  className="w-1/2 bg-ui-fg-interactive"
+                >
+                  {product.metadata.otherProductLinkButtonText}
+                </Button>
+              </div>
+            </div>
+          )}
 
         {/* Floating Mobile Actions (add to cart) */}
         <MobileActions

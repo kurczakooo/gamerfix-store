@@ -16,11 +16,11 @@ const ParcelBoxShippingWidget = ({ data }: DetailWidgetProps<AdminOrder>) => {
         <Heading level="h2">Parcel Box Shipping 📦</Heading>
       </div>
       <div className="flex items-center justify-between px-6 py-4">
-        <Text>Parcel Box Code</Text>
+        <Text>Kod Paczkomatu</Text>
         <Text>{parcelLockerCode}</Text>
       </div>
       <div className="flex items-center justify-between px-6 py-4">
-        <Text>Parcel Box Name & Address</Text>
+        <Text>Nazwa i adres paczkomatu</Text>
         <Text>{parcelLockerAddress}</Text>
       </div>
     </Container>

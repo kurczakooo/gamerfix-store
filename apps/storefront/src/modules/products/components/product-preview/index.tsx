@@ -18,14 +18,6 @@ export default async function ProductPreview({
     product,
   })
 
-  // Product is flagged with new if it was created or updated in the last 7 days
-  const days = 7
-  const isNew =
-    new Date(product.updated_at) >
-      new Date(Date.now() - 1000 * 60 * 60 * 24 * days) ||
-    new Date(product.created_at) >
-      new Date(Date.now() - 1000 * 60 * 60 * 24 * days)
-
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group">
       <div data-testid="product-wrapper">
@@ -34,8 +26,21 @@ export default async function ProductPreview({
           images={product.images}
           size="full"
           isFeatured={isFeatured}
-          isNew={isNew}
-          bestSeller={product.metadata ? product.metadata?.bestseller : false}
+          isNew={
+            product.metadata && product.metadata.new
+              ? product.metadata.new
+              : false
+          }
+          bestSeller={
+            product.metadata && product.metadata.bestseller
+              ? product.metadata.bestseller
+              : false
+          }
+          lastItems={
+            product.metadata && product.metadata.lastItems
+              ? product.metadata.lastItems
+              : false
+          }
         />
         <div className="mt-4">
           <Text
