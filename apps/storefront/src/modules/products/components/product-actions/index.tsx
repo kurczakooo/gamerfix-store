@@ -285,6 +285,30 @@ export default function ProductActions({
           data-testid="add-product-error-message"
         />
 
+        {product.metadata &&
+          product.metadata.otherProductLinkCTA &&
+          product.metadata.otherProductLinkButtonText &&
+          product.metadata.otherProductLinkUrl && (
+            <div className="mt-20">
+              <span className="text-ui-fg-base ">
+                {product.metadata.otherProductLinkCTA}
+              </span>
+              <div className="flex justify-end mt-2">
+                <Button
+                  onClick={() => {
+                    window.location.href = String(
+                      product.metadata?.otherProductLinkUrl
+                    )
+                  }}
+                  variant="primary"
+                  className="w-1/2 bg-ui-fg-interactive"
+                >
+                  {product.metadata.otherProductLinkButtonText}
+                </Button>
+              </div>
+            </div>
+          )}
+
         {/* Floating Mobile Actions (add to cart) */}
         <MobileActions
           product={product}
